@@ -10,7 +10,7 @@
         android:id="@+id/tv_1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="HELLO"
+        android:text="profile"
         android:textSize="100dp"
         android:textColor="#000000"
         android:background="#005599"/>

@@ -1,16 +1,16 @@
-package com.skypan.myapplication.ui.slideshow;
+package com.skypan.myapplication.ui.gallery;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class SlideshowViewModel extends ViewModel {
+public class SwitchViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public SlideshowViewModel() {
+    public SwitchViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is slideshow fragment");
+        mText.setValue("This is gallery fragment");
     }
 
     public LiveData<String> getText() {

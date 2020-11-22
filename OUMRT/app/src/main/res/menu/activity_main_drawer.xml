@@ -6,19 +6,20 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
-            android:icon="@drawable/icon_profile"
+            android:icon="@drawable/icon_home"
             android:title="@string/menu_home" />
         <item
+            android:id="@+id/nav_House"
+            android:icon="@drawable/icon_profile"
+            android:title="@string/menu_profile" />
+        <item
             android:id="@+id/nav_gallery"
-            android:icon="@drawable/icon_history"
-            android:title="@string/menu_gallery" />
+            android:icon="@drawable/icon_switch"
+            android:title="@string/menu_switch" />
         <item
             android:id="@+id/nav_slideshow"
-            android:icon="@drawable/icon_switch"
-            android:title="@string/menu_slideshow" />
-        <item
-            android:title=""
-            android:enabled="false" />
+            android:icon="@drawable/icon_history"
+            android:title="@string/menu_history" />
         <item
             android:title=""
             android:enabled="false" />
@@ -36,7 +37,7 @@
             android:enabled="false"/>
         <item
             android:id="@+id/nav_test"
-            android:icon="@drawable/icon_history"
-            android:title="@string/menu_test" />
+            android:icon="@drawable/icon_logout"
+            android:title="@string/menu_logout" />
     </group>
 </menu>

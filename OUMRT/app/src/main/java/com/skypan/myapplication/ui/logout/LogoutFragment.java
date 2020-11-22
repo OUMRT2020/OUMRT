@@ -1,4 +1,4 @@
-package com.skypan.myapplication.ui.test;
+package com.skypan.myapplication.ui.logout;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,14 +14,14 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.skypan.myapplication.R;
 
-public class TestFragment extends Fragment {
+public class LogoutFragment extends Fragment {
 
-    private TestViewModel TestViewModel;
+    private LogoutViewModel TestViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         TestViewModel =
-                ViewModelProviders.of(this).get(TestViewModel.class);
+                ViewModelProviders.of(this).get(LogoutViewModel.class);
         View root = inflater.inflate(R.layout.fragment_slideshow, container, false);
         final TextView textView = root.findViewById(R.id.text_slideshow);
         TestViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {

@@ -1,14 +1,14 @@
-package com.skypan.myapplication.ui.test;
+package com.skypan.myapplication.ui.logout;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class TestViewModel extends ViewModel {
+public class LogoutViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public TestViewModel() {
+    public LogoutViewModel() {
         mText = new MutableLiveData<>();
         mText.setValue("This is test fragment");
     }
