@@ -7,19 +7,19 @@
 
 
     <fragment
-        android:id="@+id/nav_House"
-        android:name="com.skypan.myapplication.ui.profile.ProfileFragment"
-        android:label="@string/menu_home"
-        tools:layout="@layout/fragment_house" />
-    <fragment
         android:id="@+id/nav_home"
         android:name="com.skypan.myapplication.ui.home.HomeFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
+        android:id="@+id/nav_House"
+        android:name="com.skypan.myapplication.ui.profile.ProfileFragment"
+        android:label="@string/menu_profile"
+        tools:layout="@layout/fragment_house" />
+    <fragment
         android:id="@+id/nav_gallery"
-        android:name="com.skypan.myapplication.ui.gallery.SwitchFragment"
+        android:name="com.skypan.myapplication.ui.Switch.SwitchFragment"
         android:label="@string/menu_switch"
         tools:layout="@layout/fragment_switch" />
 
@@ -27,10 +27,10 @@
         android:id="@+id/nav_slideshow"
         android:name="com.skypan.myapplication.ui.history.HistoryFragment"
         android:label="@string/menu_history"
-        tools:layout="@layout/fragment_slideshow" />
+        tools:layout="@layout/fragment_history" />
     <fragment
         android:id="@+id/nav_test"
         android:name="com.skypan.myapplication.ui.logout.LogoutFragment"
         android:label="@string/menu_logout"
-        tools:layout="@layout/fragment_logouut" />
+        tools:layout="@layout/fragment_logout" />
 </navigation>

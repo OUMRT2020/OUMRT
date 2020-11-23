@@ -1,19 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.skypan.myapplication.ui.logout.">
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_1"
+            android:layout_width="match_parent"
+            android:layout_height="430dp"
+            android:background="#005599"
+            android:text="HELLO"
+            android:textColor="#000000"
+            android:textSize="100dp" />
+        <Button
+            android:id="@+id/btn_1"
+            android:layout_width="155dp"
+            android:layout_height="93dp"
+            android:text="testBTN"
+            android:layout_below="@id/tv_1"/>
 
-    <TextView
-        android:id="@+id/tv_1"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="HELLO"
-        android:textSize="100dp"
-        android:textColor="#000000"
-        android:background="#005599"/>
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+            android:id="@+id/show"
+            android:layout_width="233dp"
+            android:layout_height="147dp"
+            android:layout_below="@id/btn_1"
+            android:background="#FF5722"/>
+    </RelativeLayout>
+</ScrollView>

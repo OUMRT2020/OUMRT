@@ -1,4 +1,4 @@
-package com.skypan.myapplication.ui.gallery;
+package com.skypan.myapplication.ui.Switch;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -23,7 +23,7 @@ public class SwitchFragment extends Fragment {
         galleryViewModel =
                 ViewModelProviders.of(this).get(SwitchViewModel.class);
         View root = inflater.inflate(R.layout.fragment_switch, container, false);
-        final TextView textView = root.findViewById(R.id.text_gallery);
+        final TextView textView = root.findViewById(R.id.text_switch);
         galleryViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {

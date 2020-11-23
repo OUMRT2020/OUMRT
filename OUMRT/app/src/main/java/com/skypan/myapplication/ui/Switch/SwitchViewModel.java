@@ -1,4 +1,4 @@
-package com.skypan.myapplication.ui.gallery;
+package com.skypan.myapplication.ui.Switch;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

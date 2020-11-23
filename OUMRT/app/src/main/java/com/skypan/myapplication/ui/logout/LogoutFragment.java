@@ -22,8 +22,8 @@ public class LogoutFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         TestViewModel =
                 ViewModelProviders.of(this).get(LogoutViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_slideshow, container, false);
-        final TextView textView = root.findViewById(R.id.text_slideshow);
+        View root = inflater.inflate(R.layout.fragment_logout, container, false);
+        final TextView textView = root.findViewById(R.id.text_logout);
         TestViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
