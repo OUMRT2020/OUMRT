@@ -1,10 +1,12 @@
-package com.skypan.myapplication;
+package com.skypan.myapplication.login_model;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+
+import com.skypan.myapplication.R;
 
 public class loginActivity extends AppCompatActivity {
     private TextView login_button;            // 宣告login_button

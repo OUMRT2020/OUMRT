@@ -1,6 +1,5 @@
-package com.skypan.myapplication.ui.home;
+package com.skypan.myapplication.driver_model.ui.home;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,10 +12,10 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.skypan.myapplication.R;
-import com.skypan.myapplication.addSetting;
+import com.skypan.myapplication.driver_model.addSetting;
 
 import static android.app.ProgressDialog.show;
-import static com.skypan.myapplication.addSetting.Set;
+import static com.skypan.myapplication.driver_model.addSetting.Set;
 
 public class HomeFragment extends Fragment {
 

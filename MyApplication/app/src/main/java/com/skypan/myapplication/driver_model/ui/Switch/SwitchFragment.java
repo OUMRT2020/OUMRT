@@ -1,4 +1,4 @@
-package com.skypan.myapplication.ui.Switch;
+package com.skypan.myapplication.driver_model.ui.Switch;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

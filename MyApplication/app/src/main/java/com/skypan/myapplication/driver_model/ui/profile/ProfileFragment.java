@@ -1,4 +1,4 @@
-package com.skypan.myapplication.ui.profile;
+package com.skypan.myapplication.driver_model.ui.profile;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

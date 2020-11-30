@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".select_identityActivity">
+    tools:context=".login_model.select_identityActivity">
 
     <Button
         android:id="@+id/driver_button"

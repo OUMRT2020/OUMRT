@@ -1,4 +1,4 @@
-package com.skypan.myapplication.ui.profile;
+package com.skypan.myapplication.driver_model.ui.profile;
 
 import androidx.lifecycle.ViewModel;
 

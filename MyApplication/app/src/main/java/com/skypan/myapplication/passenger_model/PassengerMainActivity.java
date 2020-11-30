@@ -1,4 +1,4 @@
-package com.skypan.myapplication;
+package com.skypan.myapplication.passenger_model;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.skypan.myapplication.R;
 
 public class PassengerMainActivity extends AppCompatActivity {
 

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".verification_register">
+    tools:context=".login_model.verification_register">
 
     <!--    這是 verification_register 介面    -->
     <LinearLayout

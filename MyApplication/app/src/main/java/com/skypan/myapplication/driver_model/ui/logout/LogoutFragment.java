@@ -1,4 +1,4 @@
-package com.skypan.myapplication.ui.logout;
+package com.skypan.myapplication.driver_model.ui.logout;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

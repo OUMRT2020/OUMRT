@@ -9,26 +9,26 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".verification_forgetActivity" />
-        <activity android:name=".set_new_passwordActivity" />
-        <activity android:name=".select_identityActivity" />
-        <activity android:name=".registerActivity" />
-        <activity android:name=".loginActivity" >
+        <activity android:name=".login_model.verification_forgetActivity" />
+        <activity android:name=".login_model.set_new_passwordActivity" />
+        <activity android:name=".login_model.select_identityActivity" />
+        <activity android:name=".login_model.registerActivity" />
+        <activity android:name=".login_model.loginActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".forget_password" />
-        <activity android:name=".SearchEventsActivity" />
-        <activity android:name=".PassengerMainActivity" />
+        <activity android:name=".login_model.forget_password" />
+        <activity android:name=".passenger_model.SearchEventsActivity" />
+        <activity android:name=".passenger_model.PassengerMainActivity" />
         <activity
-            android:name=".DriverMainActivity"
+            android:name=".driver_model.DriverMainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
-        <activity android:name=".verification_register"></activity>
+        <activity android:name=".login_model.verification_register" />
     </application>
 
 </manifest>
