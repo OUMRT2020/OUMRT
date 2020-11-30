@@ -32,9 +32,12 @@ public class HomeFragment extends Fragment {
         //這邊可直接插入一般教學中的activity，不用使用fragment
         View root = inflater.inflate(R.layout.activity_text, container, false);
         Ed_1 = root.findViewById(R.id.et_content1);
-        if (Set.size() > 0) {
-            Ed_1.setText(addSetting.getSetting(0));
+        String s = "";
+        if (Set.size() != 0) {
+            for(int i =0;i<Set.size();i++)
+                s=s + addSetting.getSetting(i) + "\n";
         }
+        Ed_1.setText(s);
         return root;
     }
 

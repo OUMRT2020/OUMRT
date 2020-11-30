@@ -197,7 +197,7 @@ public class DriverMainActivity extends AppCompatActivity  {
 
                 twoDialog.show();
                 addSetting.addSetting(temp);
-
+                refresh();
             }
 
         }));
@@ -236,7 +236,11 @@ public class DriverMainActivity extends AppCompatActivity  {
 
         initTimePicker();
     }
+    private void refresh() {
+        Intent intent = new Intent(DriverMainActivity.this, DriverMainActivity.class);
+        startActivity(intent);
 
+    }
 
 
     private void initTimePicker() {
