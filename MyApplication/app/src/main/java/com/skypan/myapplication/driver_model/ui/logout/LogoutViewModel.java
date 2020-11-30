@@ -1,4 +1,4 @@
-package com.skypan.myapplication.ui.logout;
+package com.skypan.myapplication.driver_model.ui.logout;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

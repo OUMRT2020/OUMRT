@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#000000"
-    tools:context=".loginActivity">
+    tools:context=".login_model.loginActivity">
 
     <!--    這是login_up介面    -->
     <LinearLayout

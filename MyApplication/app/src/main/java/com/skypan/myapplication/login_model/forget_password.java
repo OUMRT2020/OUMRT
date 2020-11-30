@@ -1,10 +1,12 @@
-package com.skypan.myapplication;
+package com.skypan.myapplication.login_model;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+
+import com.skypan.myapplication.R;
 
 public class forget_password extends AppCompatActivity {
     private TextView cancel_forget_password;  // 宣告cancel_forget_password

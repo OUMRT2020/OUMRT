@@ -1,4 +1,4 @@
-package com.skypan.myapplication;
+package com.skypan.myapplication.passenger_model;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -23,6 +23,7 @@ import com.bigkoo.pickerview.builder.TimePickerBuilder;
 import com.bigkoo.pickerview.listener.OnTimeSelectChangeListener;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
+import com.skypan.myapplication.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

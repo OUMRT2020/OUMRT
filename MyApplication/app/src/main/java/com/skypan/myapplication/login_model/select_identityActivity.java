@@ -1,4 +1,4 @@
-package com.skypan.myapplication;
+package com.skypan.myapplication.login_model;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 
 import com.skypan.myapplication.R;
+import com.skypan.myapplication.driver_model.DriverMainActivity;
+import com.skypan.myapplication.passenger_model.PassengerMainActivity;
 
 public class select_identityActivity extends AppCompatActivity {
     private Button driver_button;
@@ -21,7 +23,7 @@ public class select_identityActivity extends AppCompatActivity {
         driver_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(select_identityActivity.this,DriverMainActivity.class);
+                Intent intent=new Intent(select_identityActivity.this, DriverMainActivity.class);
                 startActivity(intent);
             }
         });
@@ -30,7 +32,7 @@ public class select_identityActivity extends AppCompatActivity {
         passenger_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(select_identityActivity.this,PassengerMainActivity.class);
+                Intent intent=new Intent(select_identityActivity.this, PassengerMainActivity.class);
                 startActivity(intent);
             }
         });

@@ -1,4 +1,4 @@
-package com.skypan.myapplication;
+package com.skypan.myapplication.driver_model;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -24,7 +24,9 @@ import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
-import com.skypan.myapplication.ui.Setting;
+import com.skypan.myapplication.passenger_model.PassengerMainActivity;
+import com.skypan.myapplication.R;
+import com.skypan.myapplication.driver_model.ui.Setting;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.navigation.NavController;
@@ -50,7 +52,6 @@ public class DriverMainActivity extends AppCompatActivity  {
     private TimePickerView pvTime;
     private String[] day = new String[10];
     private Setting temp =new Setting();
-    private Button btn_switch;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,14 +59,6 @@ public class DriverMainActivity extends AppCompatActivity  {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         FloatingActionButton fab = findViewById(R.id.fab);
-        btn_switch = findViewById(R.id.switch_to_passenger);
-        btn_switch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(DriverMainActivity.this,PassengerMainActivity.class);
-                startActivity(intent);
-            }
-        });
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

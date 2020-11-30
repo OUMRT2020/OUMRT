@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".verification_forgetActivity">
+    tools:context=".login_model.verification_forgetActivity">
 
     <!--    這是 verification_forget 介面    -->
     <LinearLayout

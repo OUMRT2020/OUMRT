@@ -1,4 +1,4 @@
-package com.skypan.myapplication.ui.Switch;
+package com.skypan.myapplication.driver_model.ui.Switch;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
