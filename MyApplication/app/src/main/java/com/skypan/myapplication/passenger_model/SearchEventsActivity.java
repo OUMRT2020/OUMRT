@@ -1,6 +1,9 @@
 package com.skypan.myapplication.passenger_model;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -24,9 +27,12 @@ import com.bigkoo.pickerview.listener.OnTimeSelectChangeListener;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
 import com.skypan.myapplication.R;
+import com.skypan.myapplication.passenger_model.Adapters.SearchedEventAdapter;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class SearchEventsActivity extends AppCompatActivity {
 
@@ -41,7 +47,8 @@ public class SearchEventsActivity extends AppCompatActivity {
     private TimePickerView pvTime;
     int rgSelected;
     boolean isHelmet, isFree;
-
+    private RecyclerView recyclerView;
+    List<event> events;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +60,19 @@ public class SearchEventsActivity extends AppCompatActivity {
         btn_filter = findViewById(R.id.filter);
         btn_search = findViewById(R.id.btn_search);
 
-
+        events = new ArrayList<>();
+        for (int i = 0; i < 87; ++i) {
+            event e = new event();
+            e.setEvent_name("金瓜石特快車");
+            List<Date>temp = new ArrayList<>();
+            temp.add(new Date());
+            temp.add(new Date());
+            e.setAcceptable_time_interval(temp);
+            events.add(e);
+        }
+        recyclerView = findViewById(R.id.rv_searched_events);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(new SearchedEventAdapter(SearchEventsActivity.this,events));
 
         choose_date_and_time.setOnClickListener(new View.OnClickListener() {
             @Override
