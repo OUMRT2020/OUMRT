@@ -7,20 +7,19 @@
         <item
             android:id="@+id/passengerHomeFragment"
             android:icon="@drawable/icon_home"
-            android:title="@string/menu_home" />
+            android:title="Home" />
         <item
             android:id="@+id/passengerProfileFragment"
             android:icon="@drawable/icon_profile"
-            android:title="@string/menu_profile" />
+            android:title="Profile" />
         <item
             android:id="@+id/switchToDriverFragment"
             android:icon="@drawable/icon_switch"
-            android:title="@string/menu_switch"
+            android:title="Switch"
             />
         <item
             android:id="@+id/passengerPassEventsFragment"
             android:icon="@drawable/icon_history"
-            android:title="@string/menu_history"
-            />
+            android:title="Pass Event" />
     </group>
 </menu>

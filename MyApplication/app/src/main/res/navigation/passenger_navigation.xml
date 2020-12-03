@@ -22,7 +22,6 @@
     <fragment
         android:id="@+id/switchToDriverFragment"
         android:name="com.skypan.myapplication.passenger_model.Fragments.SwitchToDriverFragment"
-
         android:label="fragment_switch_to_driver"
         tools:layout="@layout/fragment_switch_to_driver" />
 </navigation>
