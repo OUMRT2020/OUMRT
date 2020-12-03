@@ -7,6 +7,7 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
@@ -28,7 +29,6 @@ public class PassengerMainActivity extends AppCompatActivity {
     private NavigationView navigationView;
     private AppBarConfiguration appBarConfiguration;
     private NavController navController;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +38,7 @@ public class PassengerMainActivity extends AppCompatActivity {
         btn_search = findViewById(R.id.search);
         drawerLayout = findViewById(R.id.passenger_drawer_layout);
         navigationView = findViewById(R.id.navigationView);
+
 
         btn_search.setOnClickListener(new View.OnClickListener() {
             @Override

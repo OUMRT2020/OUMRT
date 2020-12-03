@@ -41,7 +41,9 @@ public class SearchEventsActivity extends AppCompatActivity {
     private TimePickerView pvTime;
     int rgSelected;
     boolean isHelmet, isFree;
-
+    private FloatingActionButton btn_done_all;
+    private RecyclerView recyclerView;
+    List<event> events;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +55,23 @@ public class SearchEventsActivity extends AppCompatActivity {
         btn_filter = findViewById(R.id.filter);
         btn_search = findViewById(R.id.btn_search);
 
+
+
+        events = new ArrayList<>();
+        for (int i = 0; i < 87; ++i) {
+            event e = new event();
+            e.setEvent_name("金瓜石特快車");
+
+            List<Date> temp = new ArrayList<>();
+
+            temp.add(new Date());
+            temp.add(new Date());
+            e.setAcceptable_time_interval(temp);
+            events.add(e);
+        }
+        recyclerView = findViewById(R.id.rv_searched_events);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(new SearchedEventAdapter(SearchEventsActivity.this, events));
 
 
         choose_date_and_time.setOnClickListener(new View.OnClickListener() {

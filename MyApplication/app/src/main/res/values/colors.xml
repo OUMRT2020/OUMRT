@@ -6,4 +6,5 @@
     <color name="searchBackground">#e0e0e0</color>
     <color name="searchHint">#616161</color>
     <color name="searchText">#212121</color>
+    <color name="test">#D8BFD8</color>
 </resources>
