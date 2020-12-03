@@ -13,9 +13,12 @@ import androidx.fragment.app.Fragment;
 
 import com.skypan.myapplication.R;
 import com.skypan.myapplication.driver_model.DriverMainActivity;
+import com.skypan.myapplication.passenger_model.PassengerMainActivity;
 
-public class SwitchToDriverFragment extends Fragment {
+
+public class switchToDriverFragment extends Fragment {
     private Button btn_switch_to_driver;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -44,6 +47,7 @@ public class SwitchToDriverFragment extends Fragment {
                         .show();
             }
         });
+
         return view;
     }
 }
