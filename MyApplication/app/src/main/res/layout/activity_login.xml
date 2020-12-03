@@ -14,7 +14,7 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:orientation="vertical"
-        android:background="#F1E189">
+        android:background="#97CBFF">
 
         <!--    這是title    -->
         <TextView
@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="30dp"
-            android:background="#B8DE6F"
+            android:background="#0080FF"
             android:text="海大機車共乘OUMTR"
             android:textColor="#000000"
             android:textSize="35sp">
@@ -52,7 +52,7 @@
         android:layout_weight="2"
         android:orientation="vertical"
         android:layout_marginTop="2dp"
-        android:background="#F1E189">
+        android:background="#97CBFF">
 
         <!--    LOGIN字體    -->
         <TextView
@@ -85,7 +85,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
                 android:hint="123456@gmail.com"
-                android:background="#FFFFFF"
+                android:background="#ECECFF"
                 android:textSize="24sp">
             </EditText>
         </LinearLayout>
@@ -111,7 +111,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
-                android:background="#FFFFFF"
+                android:background="#ECECFF"
                 android:textSize="24sp">
             </EditText>
         </LinearLayout>
@@ -121,17 +121,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-            <TextView
+            <Button
                 android:id="@+id/forget_password_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:layout_marginLeft="300dp"
+                android:layout_marginLeft="290dp"
                 android:text="忘記密碼"
                 android:textColor="#000000"
                 android:textSize="20sp"
-                android:background="#FFFFFF">
-            </TextView>
+                android:background="#ECECFF">
+            </Button>
         </LinearLayout>
 
         <!--    register_login    -->
@@ -144,28 +144,28 @@
             android:paddingLeft="30dp">
 
             <!--    register    -->
-            <TextView
+            <Button
                 android:id="@+id/register_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="70dp"
                 android:text="register"
-                android:textSize="24sp"
+                android:textSize="20sp"
                 android:textColor="#000000"
-                android:background="#FFFFFF">
-            </TextView>
+                android:background="#ECECFF">
+            </Button>
 
             <!--    login    -->
-            <TextView
+            <Button
                 android:id="@+id/login_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="70dp"
                 android:text="login"
-                android:textSize="24sp"
+                android:textSize="20sp"
                 android:textColor="#000000"
-                android:background="#FFFFFF">
-            </TextView>
+                android:background="#ECECFF">
+            </Button>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

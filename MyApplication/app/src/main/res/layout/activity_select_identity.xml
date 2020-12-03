@@ -7,18 +7,35 @@
     android:orientation="vertical"
     tools:context=".login_model.select_identityActivity">
 
-    <Button
-        android:id="@+id/driver_button"
+    <!--    選擇身分介面    -->
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="我是車手">
-    </Button>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="#97CBFF">
 
-    <Button
-        android:id="@+id/passenger_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="我是乘客">
-    </Button>
+        <!--    driver_button    -->
+        <Button
+            android:id="@+id/driver_button"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="50dp"
+            android:background="#ECECFF"
+            android:text="車手"
+            android:textSize="50sp">
+        </Button>
 
+        <!--    passenger_button    -->
+        <Button
+            android:id="@+id/passenger_button"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:background="#ECECFF"
+            android:text="乘客"
+            android:textSize="50sp">
+        </Button>
+    </LinearLayout>
 </LinearLayout>

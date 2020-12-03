@@ -4,13 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.Button;
 
 import com.skypan.myapplication.R;
 
 public class forget_password extends AppCompatActivity {
-    private TextView cancel_forget_password;  // 宣告cancel_forget_password
-    private TextView send_forget_password;    // 宣告send_forget_password
+    private Button cancel_forget_password;  // 宣告cancel_forget_password
+    private Button send_forget_password;    // 宣告send_forget_password
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

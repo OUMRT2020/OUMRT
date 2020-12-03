@@ -4,13 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.Button;
 
 import com.skypan.myapplication.R;
 
 public class verification_forgetActivity extends AppCompatActivity {
-    private TextView cancel_verification_forget;
-    private TextView verify_verification_forget;
+    private Button cancel_verification_forget;
+    private Button verify_verification_forget;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

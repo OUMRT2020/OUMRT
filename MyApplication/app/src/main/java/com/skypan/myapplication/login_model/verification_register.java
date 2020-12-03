@@ -4,13 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
-
+import android.widget.Button;
 import com.skypan.myapplication.R;
 
 public class verification_register extends AppCompatActivity {
-    private TextView cancel_verification_register;
-    private TextView verify_verification_register;
+    private Button cancel_verification_register;
+    private Button verify_verification_register;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

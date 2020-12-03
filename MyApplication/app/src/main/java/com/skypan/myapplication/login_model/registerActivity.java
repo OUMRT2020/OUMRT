@@ -4,13 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.Button;
 
 import com.skypan.myapplication.R;
 
 public class registerActivity extends AppCompatActivity {
-    private TextView cancel_register;
-    private TextView verify_register;
+    private Button cancel_register;
+    private Button verify_register;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

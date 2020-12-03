@@ -4,14 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
-
+import android.widget.Button;
 import com.skypan.myapplication.R;
 
 public class loginActivity extends AppCompatActivity {
-    private TextView login_button;            // 宣告login_button
-    private TextView forget_password_button;  // 宣告forget_password_button
-    private TextView register_button;         // 宣告register_button
+    private Button login_button;            // 宣告login_button
+    private Button forget_password_button;  // 宣告forget_password_button
+    private Button register_button;         // 宣告register_button
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
