@@ -23,6 +23,7 @@ public class PassengerMainActivity extends AppCompatActivity {
 
     private String userID;
     private FloatingActionButton btn_search;
+
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private AppBarConfiguration appBarConfiguration;
