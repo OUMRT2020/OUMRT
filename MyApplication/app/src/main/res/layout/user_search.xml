@@ -46,5 +46,24 @@
         android:textColor="@color/searchText"
         android:textColorHint="@color/searchHint"
         android:textSize="18sp" />
+    <EditText
+        android:id="@+id/et_driver_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/edit_text_radius"
+        android:drawableStart="@drawable/ic_baseline_search_24"
+        android:drawableLeft="@drawable/ic_baseline_search_24"
+        android:fontFamily="sans-serif-light"
+        android:hint="輸入司機姓名"
+        android:paddingStart="8dp"
+        android:paddingLeft="8dp"
+        android:singleLine="true"
+        android:textColor="@color/searchText"
+        android:textColorHint="@color/searchHint"
+        android:textSize="18sp" />
 
 </LinearLayout>
