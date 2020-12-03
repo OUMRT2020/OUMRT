@@ -1,5 +1,6 @@
 package com.skypan.myapplication.passenger_model;
 
+
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -50,7 +51,6 @@ public class SearchEventsActivity extends AppCompatActivity {
     private FloatingActionButton btn_done_all;
     private RecyclerView recyclerView;
     List<event> events;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,7 +77,9 @@ public class SearchEventsActivity extends AppCompatActivity {
         for (int i = 0; i < 87; ++i) {
             event e = new event();
             e.setEvent_name("金瓜石特快車");
+
             List<Date> temp = new ArrayList<>();
+
             temp.add(new Date());
             temp.add(new Date());
             e.setAcceptable_time_interval(temp);
@@ -86,6 +88,7 @@ public class SearchEventsActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.rv_searched_events);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new SearchedEventAdapter(SearchEventsActivity.this, events));
+
 
         choose_date_and_time.setOnClickListener(new View.OnClickListener() {
             @Override

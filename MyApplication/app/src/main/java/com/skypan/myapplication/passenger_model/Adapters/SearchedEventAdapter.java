@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,7 +17,9 @@ import com.skypan.myapplication.passenger_model.user;
 
 import java.util.List;
 
+
 public class SearchedEventAdapter  extends RecyclerView.Adapter<SearchedEventAdapter.ViewHolder>{
+
     private Context mContext;
     private List<user> users;
     private List<event> events;
@@ -29,11 +32,14 @@ public class SearchedEventAdapter  extends RecyclerView.Adapter<SearchedEventAda
     @Override
     public SearchedEventAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.event_items,parent,false));
+
     }
 
     @Override
     public void onBindViewHolder(@NonNull SearchedEventAdapter.ViewHolder holder, int position) {
+
         holder.textView.setText(events.get(position).getEvent_name());
+
     }
 
     @Override
@@ -53,6 +59,7 @@ public class SearchedEventAdapter  extends RecyclerView.Adapter<SearchedEventAda
                     Toast.makeText(itemView.getContext(), "被你點到第" + getAdapterPosition() + "個了", Toast.LENGTH_SHORT).show();
                 }
             });
+
         }
     }
 }

@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <include layout="@layout/search_header" />
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
