@@ -39,7 +39,7 @@ public class check_logoutActivity extends AppCompatActivity {
             Intent intent=null;
             switch(v.getId()){
                 //case R.id.cancel_check_logout:
-                    // 跳轉回到
+                    // 跳轉回到profile介面
                     //intent=new Intent(check_logoutActivity.this, );
                     //break;
                 case R.id.verify_check_logout:
