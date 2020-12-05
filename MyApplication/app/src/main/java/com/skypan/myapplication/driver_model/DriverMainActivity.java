@@ -210,16 +210,17 @@ public class DriverMainActivity extends AppCompatActivity  {
                 twoDialog.setMessage(temp.getName() + "\n" //start
                         + "\n" + temp.getEnd() + "\n"
                         + temp.getStarttime() + "\n"+ temp.getEndtime() + "\n" + temp.getGneder() + "\n" + temp.getHelmet() + "\n"  + temp.getFee()
-                        + "\n" +day[0]+day[1]+day[2]+day[3]+day[4]+day[5]+day[6] );
+                        + "\n" +day[0]+day[1]+day[2]+day[3]+day[4]+day[5]+day[6]);
                 twoDialog.setPositiveButton("瞭解", (new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog1, int which) {
+
+                        addSetting.addSetting(temp);
                         dialog.dismiss();
+                        refresh();
                     }
                 }));
                 twoDialog.show();
-                addSetting.addSetting(temp);
-                refresh();
             }
 
         }));
@@ -364,20 +365,20 @@ public class DriverMainActivity extends AppCompatActivity  {
 
     private final CompoundButton.OnCheckedChangeListener checkBoxOnCheckedChange =
             new CompoundButton.OnCheckedChangeListener() {
-                int i = 0;
+                int i = 0, j=0;
 
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) { //buttonView 為目前觸發此事件的 CheckBox, isChecked 為此 CheckBox 目前的選取狀態
                     if (isChecked)//等於 buttonView.isChecked()
                     {
                         Toast.makeText(getApplicationContext(), buttonView.getText() + " 被選取", Toast.LENGTH_LONG).show();
-                        //if((String) buttonView.getId()=="cb_1")i=1;
-                        i =(buttonView.getId())- 2131230817;
-                        day[i] = String.valueOf(buttonView.getText());
+                        System.out.println(buttonView.getId());
+                        i =(buttonView.getId())- 2131230822;
+                        day[i]= String.valueOf(buttonView.getText());
                     } else {
                         Toast.makeText(getApplicationContext(), buttonView.getText() + " 被取消", Toast.LENGTH_LONG).show();
-                        i =(buttonView.getId())- 2131230817;
-                        day[i] = null;
+                        j =(buttonView.getId())- 2131230822;
+                        day[j] = null;
                     }
                 }
             };
