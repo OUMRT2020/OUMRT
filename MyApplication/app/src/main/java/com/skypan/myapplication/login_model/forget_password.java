@@ -1,10 +1,11 @@
 package com.skypan.myapplication.login_model;
 
-import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.skypan.myapplication.R;
 
@@ -18,33 +19,33 @@ public class forget_password extends AppCompatActivity {
         setContentView(R.layout.activity_forget_password);
 
         // find id
-        cancel_forget_password=findViewById(R.id.cancel_forget_password);
-        send_forget_password=findViewById(R.id.send_forget_password);
+        cancel_forget_password = findViewById(R.id.cancel_forget_password);
+        send_forget_password = findViewById(R.id.send_forget_password);
 
         // 監聽器
         setListeners();
     }
 
     // 監聽器
-    private void setListeners(){
-        OnClick onClick=new OnClick();
+    private void setListeners() {
+        OnClick onClick = new OnClick();
         cancel_forget_password.setOnClickListener(onClick);
         send_forget_password.setOnClickListener(onClick);
     }
 
     // when click ...
-    private class OnClick implements View.OnClickListener{
+    private class OnClick implements View.OnClickListener {
         @Override
         public void onClick(View v) {
-            Intent intent=null;
-            switch(v.getId()){
+            Intent intent = null;
+            switch (v.getId()) {
                 case R.id.cancel_forget_password:
                     // 跳轉到login介面
-                    intent=new Intent(forget_password.this, loginActivity.class);
+                    intent = new Intent(forget_password.this, loginActivity.class);
                     break;
                 case R.id.send_forget_password:
                     // 跳轉到輸入驗證碼畫面
-                    intent=new Intent(forget_password.this, verification_forgetActivity.class);
+                    intent = new Intent(forget_password.this, verification_forgetActivity.class);
                     break;
             }
             startActivity(intent);
