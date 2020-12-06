@@ -45,6 +45,7 @@ public class loginActivity extends AppCompatActivity {
                 case R.id.login_button:
                     // 跳轉到登入後的頁面
                     intent = new Intent(loginActivity.this, select_identityActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     break;
                 case R.id.forget_password_button:
                     // 跳轉到忘記密碼的頁面
