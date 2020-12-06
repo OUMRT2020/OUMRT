@@ -28,7 +28,7 @@
             android:layout_below="@+id/event_title"
             android:padding="10dp"
             android:text="2020/10/16-2020/16/10"
-            android:textSize="20sp" />
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/event_driver_rate"
