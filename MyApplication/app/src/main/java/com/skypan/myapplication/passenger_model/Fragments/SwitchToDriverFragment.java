@@ -14,7 +14,7 @@ import androidx.fragment.app.Fragment;
 import com.skypan.myapplication.R;
 import com.skypan.myapplication.driver_model.DriverMainActivity;
 
-class SwitchToDriverFragment extends Fragment {
+public class SwitchToDriverFragment extends Fragment {
     private Button btn_switch_to_driver;
 
     @Override
