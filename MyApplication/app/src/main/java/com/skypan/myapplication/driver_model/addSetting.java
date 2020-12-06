@@ -10,7 +10,7 @@ public class addSetting {
 
     public static void addSetting(Setting s) {
         Set.add(s);
-        System.out.println(Set.get(0).toString());
+        System.out.println(Set.size());
     }
 
     public static String getSetting(int i) {
