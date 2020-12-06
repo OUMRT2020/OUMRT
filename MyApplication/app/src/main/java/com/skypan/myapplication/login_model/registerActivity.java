@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-
 import com.skypan.myapplication.R;
 
 public class registerActivity extends AppCompatActivity {
