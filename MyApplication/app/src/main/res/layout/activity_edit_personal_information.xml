@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".personal_information_model.edit_personal_informationActivity">
+
+    <!--    編輯個人資訊界面    -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="#97CBFF">
+
+        <!--    title    -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="#0080FF">
+
+            <!--    return_button    -->
+            <Button
+                android:id="@+id/return_button"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:background="#ECECFF"
+                android:text="return">
+            </Button>
+
+            <!--    title字樣    -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:text="EditMyProfile"
+                android:textColor="#000000"
+                android:textSize="20sp">
+            </TextView>
+        </LinearLayout>
+
+        <!--    information    -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!--    nickname    -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="暱稱"
+                    android:textColor="#000000"
+                    android:textSize="24sp">
+                </TextView>
+                <EditText
+                    android:id="@+id/nickname"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:gravity="center"
+                    android:background="#ECECFF"
+                    android:hint="黑糖"
+                    android:textColorHint="#000000"
+                    android:textSize="24sp">
+                </EditText>
+            </LinearLayout>
+
+            <!--    phone    -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="phone"
+                    android:textColor="#000000"
+                    android:textSize="24sp">
+                </TextView>
+                <EditText
+                    android:id="@+id/phone"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:gravity="center"
+                    android:background="#ECECFF"
+                    android:hint="0987212121"
+                    android:textColorHint="#000000"
+                    android:textSize="24sp">
+                </EditText>
+            </LinearLayout>
+
+            <!--    weight    -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="體重"
+                    android:textColor="#000000"
+                    android:textSize="24sp">
+                </TextView>
+                <EditText
+                    android:id="@+id/weight"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:gravity="center"
+                    android:background="#ECECFF"
+                    android:hint="10"
+                    android:textColorHint="#000000"
+                    android:textSize="24sp">
+                </EditText>
+            </LinearLayout>
+
+            <!--    gender    -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="30dp">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="性別"
+                    android:textSize="24sp"
+                    android:textColor="#000000">
+                </TextView>
+                <RadioGroup
+                    android:id="@+id/gender"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:orientation="horizontal">
+                    <RadioButton
+                        android:id="@+id/gender_man"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:checked="true"
+                        android:text="男"
+                        android:textSize="24sp"
+                        android:textColor="#000000">
+                    </RadioButton>
+                    <RadioButton
+                        android:id="@+id/gender_woman"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="50dp"
+                        android:text="女"
+                        android:textSize="24sp"
+                        android:textColor="#000000">
+                    </RadioButton>
+                </RadioGroup>
+            </LinearLayout>
+
+            <!--    preferred_gender    -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="30dp">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="偏好性別"
+                    android:textSize="24sp"
+                    android:textColor="#000000">
+                </TextView>
+                <RadioGroup
+                    android:id="@+id/preferred_gender"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:orientation="horizontal">
+                    <RadioButton
+                        android:id="@+id/preferred_gender_man"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:checked="true"
+                        android:text="男"
+                        android:textSize="24sp"
+                        android:textColor="#000000">
+                    </RadioButton>
+                    <RadioButton
+                        android:id="@+id/preferred_gender_woman"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="50dp"
+                        android:text="女"
+                        android:textSize="24sp"
+                        android:textColor="#000000">
+                    </RadioButton>
+                </RadioGroup>
+            </LinearLayout>
+
+            <!--    edit_password_information_button    -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp">
+                <Button
+                    android:id="@+id/edit_password_information_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="310dp"
+                    android:background="#ECECFF"
+                    android:text="更正密碼"
+                    android:textSize="24sp"
+                    android:textColor="#000000">
+                </Button>
+            </LinearLayout>
+
+            <!--    save_edit_information_button    -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="30dp">
+                <Button
+                    android:id="@+id/save_edit_information_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="310dp"
+                    android:background="#ECECFF"
+                    android:text="save"
+                    android:textSize="24sp"
+                    android:textColor="#000000">
+                </Button>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

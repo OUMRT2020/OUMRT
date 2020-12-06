@@ -3,15 +3,14 @@ package com.skypan.myapplication.login_model;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.skypan.myapplication.R;
 
 public class registerActivity extends AppCompatActivity {
-    private TextView cancel_register;
-    private TextView verify_register;
+    private Button cancel_register;
+    private Button verify_register;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

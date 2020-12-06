@@ -9,8 +9,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#F1E189"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="#97CBFF">
 
         <!--    verification_forget    -->
         <LinearLayout
@@ -25,8 +25,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:background="#FFFFFF"
-                android:gravity="center"
+                android:background="#ECECFF"
                 android:hint="verification code"
                 android:textSize="30sp"></EditText>
         </LinearLayout>
@@ -39,26 +38,29 @@
             android:orientation="horizontal">
 
             <!--    cancel    -->
-            <TextView
+            <Button
                 android:id="@+id/cancel_verification_forget"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="80dp"
-                android:background="#FFFFFF"
+                android:background="#ECECFF"
                 android:text="cancel"
-                android:textColor="#000000"
-                android:textSize="30sp"></TextView>
+                android:textSize="20sp"
+                android:textColor="#000000">
+            </Button>
+
 
             <!--    verify    -->
-            <TextView
+            <Button
                 android:id="@+id/verify_verification_forget"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="100dp"
-                android:background="#FFFFFF"
+                android:background="#ECECFF"
                 android:text="verify"
-                android:textColor="#000000"
-                android:textSize="30sp"></TextView>
+                android:textSize="20sp"
+                android:textColor="#000000">
+            </Button>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

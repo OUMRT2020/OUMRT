@@ -1,63 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".login_model.set_new_passwordActivity">
+    tools:context=".personal_information_model.check_logoutActivity">
 
-    <!--    這是設定新密碼的介面    -->
+    <!--    check_logout介面    -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:background="#97CBFF">
 
-        <!--    new_password    -->
+        <!--    文字    -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="200dp"
-            android:orientation="horizontal">
-
-            <EditText
-                android:id="@+id/new_password"
+            android:orientation="horizontal"
+            android:layout_marginTop="200dp">
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:background="#ECECFF"
-                android:hint="new password"
-                android:textSize="30sp"></EditText>
-        </LinearLayout>
-
-        <!--    new_password_again    -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:orientation="horizontal">
-
-            <EditText
-                android:id="@+id/new_password_again"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:background="#ECECFF"
-                android:hint="new password again"
-                android:textSize="30sp"></EditText>
+                android:gravity="center"
+                android:text="Sure?"
+                android:textSize="40sp"
+                android:textColor="#000000">
+            </TextView>
         </LinearLayout>
 
         <!--    cancel_verify    -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginTop="40dp">
 
             <!--    cancel    -->
             <Button
-                android:id="@+id/cancel_new_password"
+                android:id="@+id/cancel_check_logout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="80dp"
@@ -69,7 +50,7 @@
 
             <!--    verify    -->
             <Button
-                android:id="@+id/verify_new_password"
+                android:id="@+id/verify_check_logout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="100dp"
@@ -78,7 +59,6 @@
                 android:textSize="20sp"
                 android:textColor="#000000">
             </Button>
-
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

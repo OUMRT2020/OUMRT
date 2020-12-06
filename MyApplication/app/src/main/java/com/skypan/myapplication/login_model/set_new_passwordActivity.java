@@ -3,15 +3,15 @@ package com.skypan.myapplication.login_model;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.skypan.myapplication.R;
 
 public class set_new_passwordActivity extends AppCompatActivity {
-    private TextView cancel_new_password;
-    private TextView verify_new_password;
+    private Button cancel_new_password;
+    private Button verify_new_password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
