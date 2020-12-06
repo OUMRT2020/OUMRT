@@ -30,7 +30,6 @@ import com.skypan.myapplication.R;
 import com.skypan.myapplication.passenger_model.Adapters.SearchedEventAdapter;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -67,22 +66,11 @@ public class SearchEventsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 AlertDialog.Builder testDialog = new AlertDialog.Builder(SearchEventsActivity.this);
                 testDialog.setTitle("測試點擊");
-                testDialog.setMessage("你可以關掉我了");
+                testDialog.setMessage("你可以關掉我了123");
                 testDialog.show();
-
             }
         });
 
-        events = new ArrayList<>();
-        for (int i = 0; i < 87; ++i) {
-            event e = new event();
-            e.setEvent_name("金瓜石特快車");
-            List<Date> temp = new ArrayList<>();
-            temp.add(new Date());
-            temp.add(new Date());
-            e.setAcceptable_time_interval(temp);
-            events.add(e);
-        }
         recyclerView = findViewById(R.id.rv_searched_events);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new SearchedEventAdapter(SearchEventsActivity.this, events));
@@ -238,4 +226,5 @@ public class SearchEventsActivity extends AppCompatActivity {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         return format.format(date);
     }
+
 }
