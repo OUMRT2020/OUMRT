@@ -5,9 +5,9 @@ import java.util.List;
 
 public class event {
     //driver
-    String event_id,event_name,status,driver_id,passenger_id;
-    List<Date> acceptable_time_interval,acceptable_pt_start,acceptable_pt_end;
-    int acceptable_sex,max_weight;
+    String event_id, event_name, status, driver_id, passenger_id;
+    List<Date> acceptable_time_interval, acceptable_pt_start, acceptable_pt_end;
+    int acceptable_sex, max_weight;
     boolean is_self_helmet;
 
     //passenger
@@ -15,7 +15,9 @@ public class event {
     Date actual_time;
     String actual_pt_start, actual_pt_end, extra_need;
 
-    public event() {}
+    user user;
+    public event() {
+    }
 
     public String getEvent_id() {
         return event_id;

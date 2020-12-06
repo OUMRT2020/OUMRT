@@ -2,10 +2,8 @@ package com.skypan.myapplication.passenger_model;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -17,7 +15,6 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.skypan.myapplication.R;
-import com.skypan.myapplication.driver_model.DriverMainActivity;
 
 public class PassengerMainActivity extends AppCompatActivity {
 
