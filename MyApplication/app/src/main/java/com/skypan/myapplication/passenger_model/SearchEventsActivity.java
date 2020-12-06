@@ -1,7 +1,5 @@
 package com.skypan.myapplication.passenger_model;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -19,29 +17,107 @@ import android.widget.RadioGroup;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
 import com.bigkoo.pickerview.listener.OnTimeSelectChangeListener;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.skypan.myapplication.R;
+import com.skypan.myapplication.passenger_model.Adapters.SearchedEventAdapter;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class SearchEventsActivity extends AppCompatActivity {
 
 
+    int rgSelected;
+    boolean isHelmet, isFree;
+    List<JSONObject> events;
     private String userID;
     private TextView date_and_time;
-    private Button choose_date_and_time, btn_search;
+    private Button choose_date_and_time;
     private ImageButton btn_filter;
     private Switch sw_helmet, sw_isFree;
     private RadioGroup sex_radioGroup;
     private RadioButton sex_male, sex_female, sex_none;
     private TimePickerView pvTime;
-    int rgSelected;
-    boolean isHelmet, isFree;
+    private FloatingActionButton btn_done_all;
+    private RecyclerView recyclerView;
 
+    private String test_json = "[\n" +
+            "  {\n" +
+            "    \"event_id\": \"OOO\",\n" +
+            "    \"event_name\": \"金瓜石特快車1\",\n" +
+            "    \"status\": \"white\",\n" +
+            "    \"driver_id\": \"ABC\",\n" +
+            "    \"passenger_id\": null,\n" +
+            "    \"acceptble_time_interval\": \"2020/10/16 13:00 - 2020/10/16 15:00\",\n" +
+            "    \"acceptble_start_point\": [\"海大校門口\", \"新豐街\", \"祥豐街\"],\n" +
+            "    \"acceptble_end_point\": [\"九份金瓜石\", \"九份老街\", \"金瓜石博物館\"],\n" +
+            "    \"acceptable_sex\": 0,\n" +
+            "    \"max_weight\": 100,\n" +
+            "    \"price\": 50,\n" +
+            "    \"is_self_helmet\": true,\n" +
+            "    \"repeat\": [true, true, true, true, true, true, true],\n" +
+            "\n" +
+            "    \"actual_time\": null,\n" +
+            "    \"actual_start_point\": null,\n" +
+            "    \"actual_end_point\": null,\n" +
+            "    \"extra_needed\": null,\n" +
+            "\n" +
+            "    \"user_id\": \"ABC\",\n" +
+            "    \"name\": \"小明\",\n" +
+            "    \"phone_num\": \"0987416888\",\n" +
+            "    \"sex\": true,\n" +
+            "    \"weight\": 87,\n" +
+            "    \"picture_url\": \"https://123.jpg\",\n" +
+            "    \"rate\": {\n" +
+            "      \"score\": 4.8,\n" +
+            "      \"times\": 6\n" +
+            "    }\n" +
+            "  },\n" +
+            "  {\n" +
+            "    \"event_id\": \"OOO\",\n" +
+            "    \"event_name\": \"金瓜石特快車2\",\n" +
+            "    \"status\": \"green\",\n" +
+            "    \"driver_id\": \"ABC\",\n" +
+            "    \"passenger_id\": \"XYZ\",\n" +
+            "    \"acceptble_time_interval\": \"2020/10/16 14:00 - 2020/10/16 16:00\",\n" +
+            "    \"acceptble_start_point\": [\"海大校門口\", \"新豐街\", \"祥豐街\"],\n" +
+            "    \"acceptble_end_point\": [\"九份金瓜石\", \"九份老街\", \"金瓜石博物館\"],\n" +
+            "    \"acceptable_sex\": 0,\n" +
+            "    \"max_weight\": 100,\n" +
+            "    \"price\": 40,\n" +
+            "    \"is_self_helmet\": true,\n" +
+            "    \"repeat\": [true, true, true, true, true, true, true],\n" +
+            "\n" +
+            "    \"actual_time\": \"2020/10/16 13:30\",\n" +
+            "    \"actual_start_point\": \"海大校門口\",\n" +
+            "    \"actual_end_point\": \"九份老街\",\n" +
+            "    \"extra_needed\": \"山路請慢慢騎，我不想晚七天回家QQ\",\n" +
+            "\n" +
+            "    \"user_id\": \"ABC\",\n" +
+            "    \"name\": \"小明\",\n" +
+            "    \"phone_num\": \"0987416888\",\n" +
+            "    \"sex\": true,\n" +
+            "    \"weight\": 87,\n" +
+            "    \"picture_url\": \"https://123.jpg\",\n" +
+            "    \"rate\": {\n" +
+            "      \"score\": 4.6,\n" +
+            "      \"times\": 6\n" +
+            "    }\n" +
+            "  }\n" +
+            "]\n";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,9 +127,30 @@ public class SearchEventsActivity extends AppCompatActivity {
         date_and_time = findViewById(R.id.date_and_time);
         choose_date_and_time = findViewById(R.id.choose_date_and_time);
         btn_filter = findViewById(R.id.filter);
-        btn_search = findViewById(R.id.btn_search);
+        btn_done_all = findViewById(R.id.btn_done_all);
 
+        btn_done_all.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder testDialog = new AlertDialog.Builder(SearchEventsActivity.this);
+                testDialog.setTitle("測試點擊");
+                testDialog.setMessage("你可以關掉我了");
+                testDialog.show();
 
+            }
+        });
+        try {
+            JSONArray array = new JSONArray(test_json);
+            events = new ArrayList<>();
+            for (int i = 0; i < array.length(); i++) {
+                JSONObject jsonObject = array.getJSONObject(i);
+                events.add(jsonObject);
+            }
+        } catch (Exception e) {
+        }
+        recyclerView = findViewById(R.id.rv_searched_events);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(new SearchedEventAdapter(SearchEventsActivity.this, events));
 
         choose_date_and_time.setOnClickListener(new View.OnClickListener() {
             @Override

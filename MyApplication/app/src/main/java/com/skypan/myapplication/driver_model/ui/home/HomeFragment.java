@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.skypan.myapplication.R;
 import com.skypan.myapplication.driver_model.addSetting;
 
-import static android.app.ProgressDialog.show;
 import static com.skypan.myapplication.driver_model.addSetting.Set;
 
 public class HomeFragment extends Fragment {

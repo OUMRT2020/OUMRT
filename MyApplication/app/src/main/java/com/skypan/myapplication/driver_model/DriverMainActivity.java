@@ -2,7 +2,6 @@ package com.skypan.myapplication.driver_model;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.util.Log;
@@ -18,31 +17,30 @@ import android.widget.FrameLayout;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
+
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
 import com.bigkoo.pickerview.listener.OnTimeSelectChangeListener;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
-import com.skypan.myapplication.passenger_model.PassengerMainActivity;
 import com.skypan.myapplication.R;
 import com.skypan.myapplication.driver_model.ui.Setting;
-
-import androidx.appcompat.app.AlertDialog;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
 
-public class DriverMainActivity extends AppCompatActivity  {
+public class DriverMainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private EditText et_startTime;
@@ -52,6 +50,7 @@ public class DriverMainActivity extends AppCompatActivity  {
     private TimePickerView pvTime;
     private String[] day = new String[10];
     private Setting temp =new Setting();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +70,7 @@ public class DriverMainActivity extends AppCompatActivity  {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_House,R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow,R.id.nav_test)
+                R.id.nav_House, R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow, R.id.nav_test)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -80,8 +79,6 @@ public class DriverMainActivity extends AppCompatActivity  {
 
     }
 
-
-
     @Override
     public boolean onSupportNavigateUp() {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -89,10 +86,10 @@ public class DriverMainActivity extends AppCompatActivity  {
                 || super.onSupportNavigateUp();
     }
 
-    private void setButtonCustomDialog(){
+    private void setButtonCustomDialog() {
 
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(DriverMainActivity.this);
-        View v = getLayoutInflater().inflate(R.layout.set_custom_dialog_layout_with_button,null);
+        View v = getLayoutInflater().inflate(R.layout.set_custom_dialog_layout_with_button, null);
         alertDialog.setView(v);
         Button btOK = v.findViewById(R.id.button_ok);
         Button btC  = v.findViewById(R.id.buttonCancel);
@@ -175,6 +172,7 @@ public class DriverMainActivity extends AppCompatActivity  {
             });}
         //checkbox
         {final CheckBox mCb1 = v.findViewById(R.id.cb_1);
+
             final CheckBox mCb2 = v.findViewById(R.id.cb_2);
             final CheckBox mCb3 = v.findViewById(R.id.cb_3);
             final CheckBox mCb4 = v.findViewById(R.id.cb_4);
@@ -190,6 +188,7 @@ public class DriverMainActivity extends AppCompatActivity  {
             mCb6.setOnCheckedChangeListener(checkBoxOnCheckedChange);
             mCb7.setOnCheckedChangeListener(checkBoxOnCheckedChange);}
 
+
         btOK.setOnClickListener((new View.OnClickListener() {
             @Override
             public void onClick(View v1) {
@@ -202,7 +201,6 @@ public class DriverMainActivity extends AppCompatActivity  {
                 temp.setGender(gender[0]);
                 temp.setHalmet(helmet[0]);
                 temp.setFee(fee[0]);
-
 
 
                 AlertDialog.Builder twoDialog = new AlertDialog.Builder(DriverMainActivity.this);
@@ -309,20 +307,18 @@ public class DriverMainActivity extends AppCompatActivity  {
         startActivity(intent);
 
     }
-
-
     private void initTimePicker() {
 
         pvTime = new TimePickerBuilder(this, new OnTimeSelectListener() {
             @Override
             public void onTimeSelect(Date date, View v) {
                 //如果是開始時間的EditText
-                if(v.getId() == R.id.et_startTime){
+                if (v.getId() == R.id.et_startTime) {
                     startTime = date;
-                }else {
+                } else {
                     endTime = date;
                 }
-                EditText editText = (EditText)v;
+                EditText editText = (EditText) v;
                 editText.setText(getTime(date));
             }
         })
@@ -362,7 +358,6 @@ public class DriverMainActivity extends AppCompatActivity  {
         SimpleDateFormat format = new SimpleDateFormat("MM-dd HH:mm");
         return format.format(date);
     }
-
     private final CompoundButton.OnCheckedChangeListener checkBoxOnCheckedChange =
             new CompoundButton.OnCheckedChangeListener() {
                 int i = 0, j=0;
