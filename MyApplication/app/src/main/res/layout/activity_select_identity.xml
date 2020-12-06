@@ -10,8 +10,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="#97CBFF">
+        android:background="#97CBFF"
+        android:orientation="vertical">
 
         <!--    driver_button    -->
         <Button
@@ -22,8 +22,7 @@
             android:layout_marginTop="50dp"
             android:background="#ECECFF"
             android:text="車手"
-            android:textSize="50sp">
-        </Button>
+            android:textSize="50sp"></Button>
 
         <!--    passenger_button    -->
         <Button
@@ -34,7 +33,6 @@
             android:layout_marginTop="20dp"
             android:background="#ECECFF"
             android:text="乘客"
-            android:textSize="50sp">
-        </Button>
+            android:textSize="50sp"></Button>
     </LinearLayout>
 </LinearLayout>

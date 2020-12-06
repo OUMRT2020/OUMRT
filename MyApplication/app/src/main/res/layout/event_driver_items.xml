@@ -10,63 +10,67 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content">
+
         <TextView
             android:id="@+id/event_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dp"
+            android:text="title"
             android:textSize="25sp"
-            android:textStyle="bold"
-            android:text="title" />
+            android:textStyle="bold" />
 
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/event_title">
+
             <TextView
                 android:id="@+id/event_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
-                android:textSize="20sp"
-                android:text="time"/>
+                android:text="time"
+                android:textSize="20sp" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
-                android:textSize="20sp"
-                android:text="到"/>
+                android:text="到"
+                android:textSize="20sp" />
+
             <TextView
                 android:id="@+id/event_endtime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
-                android:textSize="20sp"
-                android:text="time"/>
+                android:text="time"
+                android:textSize="20sp" />
         </LinearLayout>
 
         <TextView
             android:id="@+id/event_driver_rate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:textSize="25sp"
             android:layout_alignParentEnd="true"
+            android:padding="10dp"
             android:text="4.7"
+            android:textSize="25sp"
             app:drawableLeftCompat="@drawable/ic_baseline_star_rate_24" />
 
         <TextView
             android:id="@+id/event_cost"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:textSize="20sp"
-            android:layout_alignParentEnd="true"
             android:layout_below="@+id/event_driver_rate"
+            android:layout_alignParentEnd="true"
+            android:drawableLeft="@drawable/ic_baseline_attach_money_24"
+            android:padding="10dp"
             android:text="50"
-            android:drawableLeft="@drawable/ic_baseline_attach_money_24" />
+            android:textSize="20sp" />
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>

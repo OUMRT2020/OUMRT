@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".personal_information_model.edit_personal_informationActivity"></activity>
+        <activity android:name=".personal_information_model.edit_personal_informationActivity" />
         <activity android:name=".personal_information_model.personal_informationActivity" />
         <activity android:name=".personal_information_model.check_logoutActivity" />
         <activity android:name=".login_model.verification_forgetActivity" />
@@ -30,7 +30,6 @@
             android:name=".driver_model.DriverMainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity android:name=".login_model.verification_register" />
     </application>
 

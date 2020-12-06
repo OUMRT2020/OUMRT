@@ -5,11 +5,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".login_model.registerActivity">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="#97CBFF">
+        android:background="#97CBFF"
+        android:orientation="vertical">
 
         <!--    email_register    -->
         <LinearLayout
@@ -33,10 +34,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
-                android:hint="123456@gmail.com"
                 android:background="#ECECFF"
-                android:textSize="24sp">
-            </EditText>
+                android:hint="123456@gmail.com"
+                android:textSize="24sp"></EditText>
         </LinearLayout>
 
         <!--    password_register    -->
@@ -62,8 +62,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
                 android:background="#ECECFF"
-                android:textSize="24sp">
-            </EditText>
+                android:textSize="24sp"></EditText>
         </LinearLayout>
 
         <!--    weight_register    -->
@@ -80,9 +79,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="體重"
-                android:textSize="24sp"
-                android:textColor="#000000">
-            </TextView>
+                android:textColor="#000000"
+                android:textSize="24sp"></TextView>
 
             <EditText
                 android:id="@+id/weight_register"
@@ -109,9 +107,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="手機"
-                android:textSize="24sp"
-                android:textColor="#000000">
-            </TextView>
+                android:textColor="#000000"
+                android:textSize="24sp"></TextView>
 
             <EditText
                 android:id="@+id/phone_register"
@@ -147,8 +144,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
                 android:background="#ECECFF"
-                android:hint="峻峻"
                 android:gravity="center"
+                android:hint="峻峻"
                 android:textSize="24sp"></EditText>
         </LinearLayout>
 
@@ -212,9 +209,8 @@
                 android:layout_marginLeft="80dp"
                 android:background="#ECECFF"
                 android:text="cancel"
-                android:textSize="20sp"
-                android:textColor="#000000">
-            </Button>
+                android:textColor="#000000"
+                android:textSize="20sp"></Button>
 
             <!--    verify    -->
             <Button
@@ -224,9 +220,8 @@
                 android:layout_marginLeft="100dp"
                 android:background="#ECECFF"
                 android:text="verify"
-                android:textSize="20sp"
-                android:textColor="#000000">
-            </Button>
+                android:textColor="#000000"
+                android:textSize="20sp"></Button>
 
         </LinearLayout>
     </LinearLayout>

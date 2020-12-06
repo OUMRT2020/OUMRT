@@ -118,6 +118,7 @@ public class SearchEventsActivity extends AppCompatActivity {
             "    }\n" +
             "  }\n" +
             "]\n";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

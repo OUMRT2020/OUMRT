@@ -5,7 +5,7 @@ import android.text.Editable;
 
 
 public class Setting {
-    private int count=0;
+    private int count = 0;
     private Editable name;
     private String[] start = new String[3];
     private Editable end;
@@ -19,22 +19,28 @@ public class Setting {
         return this.name;
     }
 
-    public void setStart(String string,int i) {
-        this.start[i] = string;
-    }
-    public String getStart1() {
-        return this.start[0];
-    }public String getStart2() {
-        return this.start[1];
-    }public String getStart3() {
-        return this.start[2];
-    }
-    public String getStart() {
-        return this.start[0]+this.start[1]+this.start[2];
+    public void setName(Editable string) {
+        this.name = string;
     }
 
-    public void setEnd(Editable string) {
-        this.end = string;
+    public void setStart(String string, int i) {
+        this.start[i] = string;
+    }
+
+    public String getStart1() {
+        return this.start[0];
+    }
+
+    public String getStart2() {
+        return this.start[1];
+    }
+
+    public String getStart3() {
+        return this.start[2];
+    }
+
+    public String getStart() {
+        return this.start[0] + this.start[1] + this.start[2];
     }
 
     public Editable getEnd() {

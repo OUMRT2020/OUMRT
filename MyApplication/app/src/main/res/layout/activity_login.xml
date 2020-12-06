@@ -12,8 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:orientation="vertical"
-        android:background="#97CBFF">
+        android:background="#97CBFF"
+        android:orientation="vertical">
 
         <!--    這是title    -->
         <TextView
@@ -47,7 +47,9 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="2dp"
-        android:background="#97CBFF">
+        android:layout_weight="2"
+        android:background="#97CBFF"
+        android:orientation="vertical">
 
         <!--    LOGIN字體    -->
         <TextView
@@ -79,10 +81,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
-                android:hint="123456@gmail.com"
                 android:background="#ECECFF"
-                android:textSize="24sp">
-            </EditText>
+                android:hint="123456@gmail.com"
+                android:textSize="24sp"></EditText>
         </LinearLayout>
 
         <!--    password    -->
@@ -108,8 +109,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
                 android:background="#ECECFF"
-                android:textSize="24sp">
-            </EditText>
+                android:textSize="24sp"></EditText>
         </LinearLayout>
 
         <!--    forget_password    -->
@@ -117,17 +117,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
             <Button
                 android:id="@+id/forget_password_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
                 android:layout_marginLeft="290dp"
+                android:layout_marginTop="20dp"
+                android:background="#ECECFF"
                 android:text="忘記密碼"
                 android:textColor="#000000"
-                android:textSize="20sp"
-                android:background="#ECECFF">
-            </Button>
+                android:textSize="20sp"></Button>
         </LinearLayout>
 
         <!--    register_login    -->
@@ -145,12 +145,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="70dp"
-                android:background="#FFFFFF"
+                android:background="#ECECFF"
                 android:text="register"
-                android:textSize="20sp"
                 android:textColor="#000000"
-                android:background="#ECECFF">
-            </Button>
+                android:textSize="20sp"></Button>
 
             <!--    login    -->
             <Button
@@ -158,12 +156,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="70dp"
-                android:background="#FFFFFF"
+                android:background="#ECECFF"
                 android:text="login"
-                android:textSize="20sp"
                 android:textColor="#000000"
-                android:background="#ECECFF">
-            </Button>
+                android:textSize="20sp"></Button>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>
