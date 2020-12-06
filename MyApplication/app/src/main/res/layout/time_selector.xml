@@ -10,10 +10,10 @@
             android:id="@+id/choose_date_and_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="15dp"
-            android:layout_marginRight="15dp"
             android:layout_marginLeft="32dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="15dp"
             android:text="選擇日期和時間" />
 
 
@@ -21,10 +21,10 @@
             android:id="@+id/date_and_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="15dp"
-            android:layout_marginRight="15dp"
             android:layout_marginLeft="32dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="15dp"
             android:text="請選擇一個時間" />
 
 

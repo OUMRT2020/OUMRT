@@ -36,6 +36,9 @@ import java.util.List;
 public class SearchEventsActivity extends AppCompatActivity {
 
 
+    int rgSelected;
+    boolean isHelmet, isFree;
+    List<event> events;
     private String userID;
     private TextView date_and_time;
     private Button choose_date_and_time;
@@ -44,11 +47,8 @@ public class SearchEventsActivity extends AppCompatActivity {
     private RadioGroup sex_radioGroup;
     private RadioButton sex_male, sex_female, sex_none;
     private TimePickerView pvTime;
-    int rgSelected;
-    boolean isHelmet, isFree;
     private FloatingActionButton btn_done_all;
     private RecyclerView recyclerView;
-    List<event> events;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

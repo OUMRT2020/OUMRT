@@ -16,11 +16,12 @@ import com.skypan.myapplication.passenger_model.user;
 
 import java.util.List;
 
-public class SearchedEventAdapter  extends RecyclerView.Adapter<SearchedEventAdapter.ViewHolder>{
+public class SearchedEventAdapter extends RecyclerView.Adapter<SearchedEventAdapter.ViewHolder> {
     private Context mContext;
     private List<user> users;
     private List<event> events;
-    public SearchedEventAdapter(Context mContext,List<event>events) {
+
+    public SearchedEventAdapter(Context mContext, List<event> events) {
         this.mContext = mContext;
         this.events = events;
     }
@@ -28,7 +29,7 @@ public class SearchedEventAdapter  extends RecyclerView.Adapter<SearchedEventAda
     @NonNull
     @Override
     public SearchedEventAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.event_items,parent,false));
+        return new ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.event_items, parent, false));
     }
 
     @Override
@@ -44,6 +45,7 @@ public class SearchedEventAdapter  extends RecyclerView.Adapter<SearchedEventAda
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView textView;
+
         public ViewHolder(@NonNull final View itemView) {
             super(itemView);
             textView = itemView.findViewById(R.id.event_title);
