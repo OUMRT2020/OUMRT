@@ -21,23 +21,23 @@
             android:icon="@drawable/icon_history"
             android:title="@string/menu_history" />
         <item
-            android:title=""
-            android:enabled="false" />
+            android:enabled="false"
+            android:title="" />
         <item
-            android:title=""
-            android:enabled="false" />
+            android:enabled="false"
+            android:title="" />
         <item
-            android:title=""
-            android:enabled="false" />
+            android:enabled="false"
+            android:title="" />
         <item
-            android:title=""
-            android:enabled="false" />
+            android:enabled="false"
+            android:title="" />
         <item
-            android:title=""
-            android:enabled="false"/>
+            android:enabled="false"
+            android:title="" />
         <item
             android:id="@+id/nav_test"
             android:icon="@drawable/icon_logout"
-            android:title="@string/menu_logout"/>
+            android:title="@string/menu_logout" />
     </group>
 </menu>
