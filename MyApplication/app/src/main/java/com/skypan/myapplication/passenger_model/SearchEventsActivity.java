@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
@@ -27,23 +28,24 @@ import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.skypan.myapplication.R;
+import com.skypan.myapplication.Retrofit.Event;
+import com.skypan.myapplication.Retrofit.Rate;
+import com.skypan.myapplication.Retrofit.User;
 import com.skypan.myapplication.passenger_model.Adapters.SearchedEventAdapter;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
 
 public class SearchEventsActivity extends AppCompatActivity {
 
 
     int rgSelected;
     boolean isHelmet, isFree;
-    List<JSONObject> events;
-    private String userID;
+    private String userID, TAG = "DEBUG";
     private TextView date_and_time;
     private Button choose_date_and_time;
     private ImageButton btn_filter;
@@ -53,71 +55,7 @@ public class SearchEventsActivity extends AppCompatActivity {
     private TimePickerView pvTime;
     private FloatingActionButton btn_done_all;
     private RecyclerView recyclerView;
-
-    private String test_json = "[\n" +
-            "  {\n" +
-            "    \"event_id\": \"OOO\",\n" +
-            "    \"event_name\": \"金瓜石特快車1\",\n" +
-            "    \"status\": \"white\",\n" +
-            "    \"driver_id\": \"ABC\",\n" +
-            "    \"passenger_id\": null,\n" +
-            "    \"acceptble_time_interval\": \"2020/10/16 13:00 - 2020/10/16 15:00\",\n" +
-            "    \"acceptble_start_point\": [\"海大校門口\", \"新豐街\", \"祥豐街\"],\n" +
-            "    \"acceptble_end_point\": [\"九份金瓜石\", \"九份老街\", \"金瓜石博物館\"],\n" +
-            "    \"acceptable_sex\": 0,\n" +
-            "    \"max_weight\": 100,\n" +
-            "    \"price\": 50,\n" +
-            "    \"is_self_helmet\": true,\n" +
-            "    \"repeat\": [true, true, true, true, true, true, true],\n" +
-            "\n" +
-            "    \"actual_time\": null,\n" +
-            "    \"actual_start_point\": null,\n" +
-            "    \"actual_end_point\": null,\n" +
-            "    \"extra_needed\": null,\n" +
-            "\n" +
-            "    \"user_id\": \"ABC\",\n" +
-            "    \"name\": \"小明\",\n" +
-            "    \"phone_num\": \"0987416888\",\n" +
-            "    \"sex\": true,\n" +
-            "    \"weight\": 87,\n" +
-            "    \"picture_url\": \"https://123.jpg\",\n" +
-            "    \"rate\": {\n" +
-            "      \"score\": 4.8,\n" +
-            "      \"times\": 6\n" +
-            "    }\n" +
-            "  },\n" +
-            "  {\n" +
-            "    \"event_id\": \"OOO\",\n" +
-            "    \"event_name\": \"金瓜石特快車2\",\n" +
-            "    \"status\": \"green\",\n" +
-            "    \"driver_id\": \"ABC\",\n" +
-            "    \"passenger_id\": \"XYZ\",\n" +
-            "    \"acceptble_time_interval\": \"2020/10/16 14:00 - 2020/10/16 16:00\",\n" +
-            "    \"acceptble_start_point\": [\"海大校門口\", \"新豐街\", \"祥豐街\"],\n" +
-            "    \"acceptble_end_point\": [\"九份金瓜石\", \"九份老街\", \"金瓜石博物館\"],\n" +
-            "    \"acceptable_sex\": 0,\n" +
-            "    \"max_weight\": 100,\n" +
-            "    \"price\": 40,\n" +
-            "    \"is_self_helmet\": true,\n" +
-            "    \"repeat\": [true, true, true, true, true, true, true],\n" +
-            "\n" +
-            "    \"actual_time\": \"2020/10/16 13:30\",\n" +
-            "    \"actual_start_point\": \"海大校門口\",\n" +
-            "    \"actual_end_point\": \"九份老街\",\n" +
-            "    \"extra_needed\": \"山路請慢慢騎，我不想晚七天回家QQ\",\n" +
-            "\n" +
-            "    \"user_id\": \"ABC\",\n" +
-            "    \"name\": \"小明\",\n" +
-            "    \"phone_num\": \"0987416888\",\n" +
-            "    \"sex\": true,\n" +
-            "    \"weight\": 87,\n" +
-            "    \"picture_url\": \"https://123.jpg\",\n" +
-            "    \"rate\": {\n" +
-            "      \"score\": 4.6,\n" +
-            "      \"times\": 6\n" +
-            "    }\n" +
-            "  }\n" +
-            "]\n";
+    private EditText pt_start, pt_end, driver_name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,29 +67,60 @@ public class SearchEventsActivity extends AppCompatActivity {
         choose_date_and_time = findViewById(R.id.choose_date_and_time);
         btn_filter = findViewById(R.id.filter);
         btn_done_all = findViewById(R.id.btn_done_all);
+        pt_start = findViewById(R.id.pt_start);
+        pt_end = findViewById(R.id.pt_end);
+        driver_name = findViewById(R.id.driver_name);
 
         btn_done_all.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder testDialog = new AlertDialog.Builder(SearchEventsActivity.this);
-                testDialog.setTitle("測試點擊");
-                testDialog.setMessage("你可以關掉我了");
-                testDialog.show();
+//                Retrofit retrofit = new Retrofit.Builder()
+//                        .baseUrl("")//todo :峻峻的API
+//                        .addConverterFactory(GsonConverterFactory.create())
+//                        .build();
+//                RetrofitManagerAPI retrofitManagerAPI = retrofit.create(RetrofitManagerAPI.class);
+//                Call<List<Event>> call = retrofitManagerAPI.getSearchEvents(pt_start.toString(), pt_end.toString(), driver_name.toString(), isHelmet, isFree, rgSelected);
+//                call.enqueue(new Callback<List<Event>>() {
+//                    @Override
+//                    public void onResponse(Call<List<Event>> call, Response<List<Event>> response) {
+//                        if (!response.isSuccessful()) {
+//                            Log.d(TAG, String.valueOf(response.code()));
+//                        }
+//                        List<Event> events = response.body();
+//                        recyclerView = findViewById(R.id.rv_searched_events);
+//                        recyclerView.setLayoutManager(new LinearLayoutManager(SearchEventsActivity.this));
+//                        recyclerView.setAdapter(new SearchedEventAdapter(SearchEventsActivity.this, events));
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<List<Event>> call, Throwable t) {
+//                        Log.d(TAG, t.getMessage());
+//                    }
+//                });
 
+                //這是測試資料
+                //new出一堆物件假裝拿回json了
+                Date start = new Date();
+                Date end = new Date();
+                ArrayList<Event> es = new ArrayList<>();
+                for (int i = 0; i < 10; i++) {
+                    Rate rate = new Rate(i, 5);
+                    URL url = null;
+                    try {
+                        url = new URL("http://example.com/");
+                    } catch (MalformedURLException malformedURLException) {
+                        malformedURLException.printStackTrace();
+                    }
+                    User user = new User("AAA", "token", "峻峻", "48763", true, 87, url, rate);
+                    Event e = new Event("AAA", "金瓜石特快車" + i, "white", "BBB", "CCC", new ArrayList<Date>(Arrays.asList(start, end)), new ArrayList<String>(Arrays.asList("地點一", "地點二")),
+                            new ArrayList<String>(Arrays.asList("地點三", "地點四")), 0, 87, 48763 + i, true, new ArrayList<Boolean>(Arrays.asList(true, true, true, true, true, true, true)), user);
+                    es.add(e);
+                }
+                recyclerView = findViewById(R.id.rv_searched_events);
+                recyclerView.setLayoutManager(new LinearLayoutManager(SearchEventsActivity.this));
+                recyclerView.setAdapter(new SearchedEventAdapter(SearchEventsActivity.this, es));
             }
         });
-        try {
-            JSONArray array = new JSONArray(test_json);
-            events = new ArrayList<>();
-            for (int i = 0; i < array.length(); i++) {
-                JSONObject jsonObject = array.getJSONObject(i);
-                events.add(jsonObject);
-            }
-        } catch (Exception e) {
-        }
-        recyclerView = findViewById(R.id.rv_searched_events);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new SearchedEventAdapter(SearchEventsActivity.this, events));
 
         choose_date_and_time.setOnClickListener(new View.OnClickListener() {
             @Override

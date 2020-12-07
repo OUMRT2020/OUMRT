@@ -11,21 +11,17 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.skypan.myapplication.R;
-import com.skypan.myapplication.passenger_model.user;
-
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.skypan.myapplication.Retrofit.Event;
 
 import java.util.List;
 
 public class SearchedEventAdapter extends RecyclerView.Adapter<SearchedEventAdapter.ViewHolder> {
     private Context mContext;
-    private List<user> users;
-    private List<JSONObject> events;
+    private List<Event> Events;
 
-    public SearchedEventAdapter(Context mContext, List<JSONObject> events) {
+    public SearchedEventAdapter(Context mContext, List<Event> Events) {
         this.mContext = mContext;
-        this.events = events;
+        this.Events = Events;
     }
 
     @NonNull
@@ -36,20 +32,15 @@ public class SearchedEventAdapter extends RecyclerView.Adapter<SearchedEventAdap
 
     @Override
     public void onBindViewHolder(@NonNull SearchedEventAdapter.ViewHolder holder, int position) {
-        try {
-            holder.event_name.setText(events.get(position).getString("event_name"));
-            holder.driver_rate.setText(events.get(position).getJSONObject("rate").getString("score"));
-            holder.event_time.setText((CharSequence) events.get(position).getString("acceptble_time_interval"));
-            holder.event_cost.setText(events.get(position).getString("price"));
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        holder.event_name.setText("" + Events.get(position).getEvent_name());
+        holder.driver_rate.setText("" + Events.get(position).getUser().getRate().getScore());
+        holder.event_time.setText("" + Events.get(position).getAcceptable_time_interval().get(0).toString());
+        holder.event_cost.setText("" + Events.get(position).getPrice());
     }
 
     @Override
     public int getItemCount() {
-        return events.size();
+        return Events.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -67,13 +58,8 @@ public class SearchedEventAdapter extends RecyclerView.Adapter<SearchedEventAdap
                 public void onClick(View v) {
                     int position = getAdapterPosition();
                     AlertDialog.Builder testDialog = new AlertDialog.Builder(mContext);
-                    try {
-                        testDialog.setTitle(events.get(position).getString("event_name"));
-                        testDialog.setMessage("司機姓名:" + events.get(position).getString("name") + "\n司機電話:" + events.get(position).getString("phone_num"));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-
+                    testDialog.setTitle(Events.get(position).getEvent_name());
+                    testDialog.setMessage("司機姓名:" + Events.get(position).getUser().getName() + "\n司機電話:" + Events.get(position).getUser().getPhone_num());
                     testDialog.show();
                 }
             });
