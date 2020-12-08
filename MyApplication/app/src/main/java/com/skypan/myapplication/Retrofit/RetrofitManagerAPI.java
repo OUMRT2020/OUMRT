@@ -1,5 +1,6 @@
 package com.skypan.myapplication.Retrofit;
 
+import java.util.Date;
 import java.util.List;
 
 import retrofit2.Call;
@@ -20,6 +21,7 @@ public interface RetrofitManagerAPI {
             @Query("pt_start") String pt_start,
             @Query("pt_end") String pt_end,
             @Query("driver_name") String driver_name,
+            @Query("time") Date date,
             @Query("is_helmet") boolean is_helmet,
             @Query("is_free") boolean is_free,
             @Query("sex") int sex

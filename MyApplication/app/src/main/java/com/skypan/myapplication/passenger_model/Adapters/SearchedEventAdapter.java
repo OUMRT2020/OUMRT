@@ -2,11 +2,13 @@ package com.skypan.myapplication.passenger_model.Adapters;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -53,6 +55,7 @@ public class SearchedEventAdapter extends RecyclerView.Adapter<SearchedEventAdap
             driver_rate = itemView.findViewById(R.id.event_driver_rate);
             event_time = itemView.findViewById(R.id.event_date);
             event_cost = itemView.findViewById(R.id.event_cost);
+            itemView.setBackgroundColor(Color.parseColor("#555555"));
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

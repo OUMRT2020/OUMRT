@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,7 +56,7 @@ public class SearchEventsActivity extends AppCompatActivity {
     private TimePickerView pvTime;
     private FloatingActionButton btn_done_all;
     private RecyclerView recyclerView;
-    private EditText pt_start, pt_end, driver_name;
+    private EditText et_pt_start, et_pt_end, et_driver_name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,9 +68,9 @@ public class SearchEventsActivity extends AppCompatActivity {
         choose_date_and_time = findViewById(R.id.choose_date_and_time);
         btn_filter = findViewById(R.id.filter);
         btn_done_all = findViewById(R.id.btn_done_all);
-        pt_start = findViewById(R.id.pt_start);
-        pt_end = findViewById(R.id.pt_end);
-        driver_name = findViewById(R.id.driver_name);
+        et_pt_start = findViewById(R.id.et_pt_start);
+        et_pt_end = findViewById(R.id.et_pt_end);
+        et_driver_name = findViewById(R.id.et_driver_name);
 
         btn_done_all.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,6 +103,7 @@ public class SearchEventsActivity extends AppCompatActivity {
                 //new出一堆物件假裝拿回json了
                 Date start = new Date();
                 Date end = new Date();
+                Log.d(TAG, start.toString());
                 ArrayList<Event> es = new ArrayList<>();
                 for (int i = 0; i < 10; i++) {
                     Rate rate = new Rate(i, 5);
