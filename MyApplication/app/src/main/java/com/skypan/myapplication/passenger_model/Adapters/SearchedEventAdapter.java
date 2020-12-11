@@ -2,13 +2,13 @@ package com.skypan.myapplication.passenger_model.Adapters;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -47,7 +47,7 @@ public class SearchedEventAdapter extends RecyclerView.Adapter<SearchedEventAdap
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView event_name, driver_rate, event_time, event_cost;
+        private final TextView event_name, driver_rate, event_time, event_cost;
 
         public ViewHolder(@NonNull final View itemView) {
             super(itemView);
@@ -60,9 +60,31 @@ public class SearchedEventAdapter extends RecyclerView.Adapter<SearchedEventAdap
                 @Override
                 public void onClick(View v) {
                     int position = getAdapterPosition();
+                    final View content_layout = LayoutInflater.from(mContext).inflate(R.layout.searched_event_detail, null);
                     AlertDialog.Builder testDialog = new AlertDialog.Builder(mContext);
+
+                    TextView foo;
+                    foo = content_layout.findViewById(R.id.driver_name);
+                    foo.setText(Events.get(position).getUser().getName());
+                    foo = content_layout.findViewById(R.id.driver_sex);
+                    foo.setText(Events.get(position).getUser().isSex() ? "男" : "女");
+                    foo = content_layout.findViewById(R.id.acceptable_pt_start);
+                    foo = content_layout.findViewById(R.id.acceptable_pt_end);
+
+                    testDialog.setView(content_layout);
                     testDialog.setTitle(Events.get(position).getEvent_name());
-                    testDialog.setMessage("司機姓名:" + Events.get(position).getUser().getName() + "\n司機電話:" + Events.get(position).getUser().getPhone_num());
+                    testDialog.setPositiveButton("送出請求", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            //送出請求
+                        }
+                    });
+                    testDialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    });
                     testDialog.show();
                 }
             });

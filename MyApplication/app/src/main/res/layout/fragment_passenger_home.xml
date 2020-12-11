@@ -5,10 +5,10 @@
     android:layout_height="match_parent"
     tools:context=".passenger_model.Fragments.passengerHomeFragment">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="這是home" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/main_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 
 </FrameLayout>

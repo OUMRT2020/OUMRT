@@ -31,6 +31,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.skypan.myapplication.R;
 import com.skypan.myapplication.Retrofit.Event;
 import com.skypan.myapplication.Retrofit.Rate;
+import com.skypan.myapplication.Retrofit.RetrofitManagerAPI;
 import com.skypan.myapplication.Retrofit.User;
 import com.skypan.myapplication.passenger_model.Adapters.SearchedEventAdapter;
 
@@ -40,6 +41,13 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class SearchEventsActivity extends AppCompatActivity {
 
@@ -80,7 +88,7 @@ public class SearchEventsActivity extends AppCompatActivity {
 //                        .addConverterFactory(GsonConverterFactory.create())
 //                        .build();
 //                RetrofitManagerAPI retrofitManagerAPI = retrofit.create(RetrofitManagerAPI.class);
-//                Call<List<Event>> call = retrofitManagerAPI.getSearchEvents(pt_start.toString(), pt_end.toString(), driver_name.toString(), isHelmet, isFree, rgSelected);
+//                Call<List<Event>> call = retrofitManagerAPI.getSearchEvents(et_pt_start.toString(), et_pt_end.toString(), et_driver_name.toString(), new Date(), isHelmet, isFree, rgSelected);
 //                call.enqueue(new Callback<List<Event>>() {
 //                    @Override
 //                    public void onResponse(Call<List<Event>> call, Response<List<Event>> response) {
@@ -239,6 +247,7 @@ public class SearchEventsActivity extends AppCompatActivity {
         pvTime = new TimePickerBuilder(this, new OnTimeSelectListener() {
             @Override
             public void onTimeSelect(Date date, View v) {
+                Log.d(TAG, date.toString());
                 date_and_time.setText(getTime(date));
             }
         }).setTimeSelectChangeListener(new OnTimeSelectChangeListener() {

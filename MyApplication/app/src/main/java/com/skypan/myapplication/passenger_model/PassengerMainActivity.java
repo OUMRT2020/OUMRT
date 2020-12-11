@@ -83,4 +83,7 @@ public class PassengerMainActivity extends AppCompatActivity {
         }
     }
 
+    public String getUserID() {
+        return this.userID;
+    }
 }
