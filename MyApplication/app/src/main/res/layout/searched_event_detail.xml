@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/tv_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:text="司機姓名:" />
+
+    <TextView
+        android:id="@+id/driver_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:layout_toRightOf="@+id/tv_1" />
+
+
+    <TextView
+        android:id="@+id/tv_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_1"
+        android:layout_margin="5dp"
+        android:text="司機性別:" />
+
+    <TextView
+        android:id="@+id/driver_sex"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/driver_name"
+        android:layout_margin="5dp"
+        android:layout_toRightOf="@+id/tv_2" />
+
+
+    <TextView
+        android:id="@+id/tv_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_2"
+        android:layout_margin="5dp"
+        android:text="可接受的起點:" />
+
+    <TextView
+        android:id="@+id/acceptable_pt_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/driver_sex"
+        android:layout_margin="5dp"
+        android:layout_toRightOf="@+id/tv_3" />
+
+
+    <TextView
+        android:id="@+id/tv_4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_3"
+        android:layout_margin="5dp"
+        android:text="可接受的終點:" />
+
+    <TextView
+        android:id="@+id/acceptable_pt_end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/acceptable_pt_start"
+        android:layout_margin="5dp"
+        android:layout_toRightOf="@+id/tv_4" />
+
+
+    <TextView
+        android:id="@+id/tv_5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_4"
+        android:layout_margin="5dp"
+        android:text="可出發的時間:" />
+
+    <TextView
+        android:id="@+id/time_interval"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/acceptable_pt_end"
+        android:layout_margin="5dp"
+        android:layout_toRightOf="@id/tv_5" />
+
+    <TextView
+        android:id="@+id/tv_6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_5"
+        android:layout_margin="5dp"
+        android:text="車主車照:" />
+
+    <ImageView
+        android:id="@+id/picture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_6"
+        android:layout_margin="5dp"
+        android:src="@drawable/giwawa" />
+
+    <TextView
+        android:id="@+id/tv_7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/picture"
+        android:text="額外需求:" />
+
+    <EditText
+        android:id="@+id/et_extra_need"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_7"
+        android:layout_margin="5dp"
+        android:background="@color/searchBackground"
+        android:gravity="top"
+        android:hint="(限制30字)"
+        android:maxLength="30"/>
+
+</RelativeLayout>
