@@ -14,7 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.skypan.myapplication.R;
-import com.skypan.myapplication.driver_model.ui.Setting;
+import com.skypan.myapplication.driver_model.Setting;
 
 import java.util.ArrayList;
 
@@ -58,11 +58,10 @@ public class SearchedDriveEventAdapter extends RecyclerView.Adapter<SearchedDriv
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(itemView.getContext(), "被你點到第" + getAdapterPosition() + "個了", Toast.LENGTH_SHORT).show();
-                    System.out.println(events.size());
 
                     AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
                     alertDialog.setTitle("Your title");
-                    alertDialog.setMessage("起始地點" + events.get(getAdapterPosition()).getStart());
+                    alertDialog.setMessage("起始地點" + "\n" + events.get(getAdapterPosition()).getPlace());
 
 
                     alertDialog.setPositiveButton("CANCEL", new DialogInterface.OnClickListener() {
@@ -79,8 +78,7 @@ public class SearchedDriveEventAdapter extends RecyclerView.Adapter<SearchedDriv
                             events.remove(getAdapterPosition());
                             notifyItemRemoved(which);
                             notifyDataSetChanged();
-
-
+                            System.out.println(events.size());
                         }
                     });
 

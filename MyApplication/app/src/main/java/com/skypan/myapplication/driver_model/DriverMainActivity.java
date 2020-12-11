@@ -34,7 +34,6 @@ import com.bigkoo.pickerview.view.TimePickerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.skypan.myapplication.R;
-import com.skypan.myapplication.driver_model.ui.Setting;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -49,7 +48,7 @@ public class DriverMainActivity extends AppCompatActivity {
     private Date startTime = new Date();
     private Date endTime = new Date();
     private TimePickerView pvTime;
-    private String[] day = new String[10];
+    private String[] day = new String[7];
     private final CompoundButton.OnCheckedChangeListener checkBoxOnCheckedChange =
             new CompoundButton.OnCheckedChangeListener() {
                 int i = 0, j = 0;
@@ -61,11 +60,13 @@ public class DriverMainActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), buttonView.getText() + " 被選取", Toast.LENGTH_LONG).show();
                         System.out.println(buttonView.getId());
                         i = (buttonView.getId()) - 2131230822;
-                        day[i] = String.valueOf(buttonView.getText());
+                        day[i-3] = String.valueOf(buttonView.getText());
+                        temp.setDay(String.valueOf(buttonView.getText()),i-3);
                     } else {
                         Toast.makeText(getApplicationContext(), buttonView.getText() + " 被取消", Toast.LENGTH_LONG).show();
                         j = (buttonView.getId()) - 2131230822;
-                        day[j] = null;
+                        day[j-3] = null;
+                        temp.deleteDay(j-3);
                     }
                 }
             };
@@ -116,21 +117,21 @@ public class DriverMainActivity extends AppCompatActivity {
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                placeChoose(start);
+                placeChoose(start,0);
             }
         });
         final Button start2 = v.findViewById(R.id.start2);
         start2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                placeChoose(start2);
+                placeChoose(start2,1);
             }
         });
         final Button start3 = v.findViewById(R.id.start3);
         start3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                placeChoose(start3);
+                placeChoose(start3,2);
             }
         });
 
@@ -147,10 +148,7 @@ public class DriverMainActivity extends AppCompatActivity {
         final RadioButton mRg3 = v.findViewById(R.id.rb_helmet_1);
         final RadioButton mRg4 = v.findViewById(R.id.rb_helmet_2);
         final String[] helmet = new String[1];
-        final RadioButton mRg5 = v.findViewById(R.id.rb_fee_1);
-        final RadioButton mRg6 = v.findViewById(R.id.rb_fee_2);
-        final String[] fee = new String[1];
-        int Gender, Halmet, Fee;
+        final EditText editText_Money = v.findViewById(R.id.et_money);
         //radiobutton
         {
             mRg1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -177,20 +175,8 @@ public class DriverMainActivity extends AppCompatActivity {
                     helmet[0] = String.valueOf(mRg4.getText());
                 }
             });
-
-            mRg5.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                    fee[0] = String.valueOf(mRg5.getText());
-                }
-            });
-            mRg6.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                    fee[0] = String.valueOf(mRg6.getText());
-                }
-            });
         }
+
         //checkbox
         {
             final CheckBox mCb1 = v.findViewById(R.id.cb_1);
@@ -219,19 +205,15 @@ public class DriverMainActivity extends AppCompatActivity {
                 temp.setName(editText_name.getText());
                 //start
                 temp.setEnd(editText_end.getText());
+                temp.setMoney(editText_Money.getText());
                 temp.setStartTime(editText_startTime.getText());
                 temp.setEndTime(editText_endTime.getText());
                 temp.setGender(gender[0]);
                 temp.setHalmet(helmet[0]);
-                temp.setFee(fee[0]);
 
 
                 AlertDialog.Builder twoDialog = new AlertDialog.Builder(DriverMainActivity.this);
-                twoDialog.setTitle("這是疊上去的AlertDialog");
-                twoDialog.setMessage(temp.getName() + "\n" //start
-                        + "\n" + temp.getEnd() + "\n"
-                        + temp.getStarttime() + "\n" + temp.getEndtime() + "\n" + temp.getGneder() + "\n" + temp.getHelmet() + "\n" + temp.getFee()
-                        + "\n" + day[0] + day[1] + day[2] + day[3] + day[4] + day[5] + day[6]);
+                twoDialog.setTitle("新增成功");
                 twoDialog.setPositiveButton("瞭解", (new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog1, int which) {
@@ -241,6 +223,12 @@ public class DriverMainActivity extends AppCompatActivity {
                         refresh();
                     }
                 }));
+                twoDialog.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
                 twoDialog.show();
             }
 
@@ -281,7 +269,7 @@ public class DriverMainActivity extends AppCompatActivity {
         initTimePicker();
     }
 
-    private String placeChoose(final Button start) {
+    private String placeChoose(final Button start, final int i) {
 
         AlertDialog.Builder placealertDialog = new AlertDialog.Builder(DriverMainActivity.this);
         View v = getLayoutInflater().inflate(R.layout.choose_place, null);
@@ -294,13 +282,21 @@ public class DriverMainActivity extends AppCompatActivity {
         final RadioButton mp1 = v.findViewById(R.id.rb_place_1);
         final RadioButton mp2 = v.findViewById(R.id.rb_place_2);
         final RadioButton mp3 = v.findViewById(R.id.rb_place_3);
+        final RadioButton mp4 = v.findViewById(R.id.rb_place_4);
+        final RadioButton mp5 = v.findViewById(R.id.rb_place_5);
+        final RadioButton mp6 = v.findViewById(R.id.rb_place_6);
+        final RadioButton mp7 = v.findViewById(R.id.rb_place_7);
+        final RadioButton mp8 = v.findViewById(R.id.rb_place_8);
+        final RadioButton mp9 = v.findViewById(R.id.rb_place_9);
+        final RadioButton mp10 = v.findViewById(R.id.rb_place_10);
         final String[] place = new String[1];
         mp1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 place[0] = String.valueOf(mp1.getText());
                 temp.setStart(place[0], 0);
-                start.setText(temp.getStart1());
+                start.setText(temp.getStart1(0));
+                temp.setPlace(place[0],i);
                 dialog.dismiss();
             }
         });
@@ -309,7 +305,8 @@ public class DriverMainActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 place[0] = String.valueOf(mp2.getText());
                 temp.setStart(place[0], 1);
-                start.setText(temp.getStart2());
+                start.setText(temp.getStart1(1));
+                temp.setPlace(place[0],i);
                 dialog.dismiss();
             }
         });
@@ -318,7 +315,78 @@ public class DriverMainActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 place[0] = String.valueOf(mp3.getText());
                 temp.setStart(place[0], 2);
-                start.setText(temp.getStart3());
+                start.setText(temp.getStart1(2));
+                temp.setPlace(place[0],i);
+                dialog.dismiss();
+            }
+        });
+        mp4.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                place[0] = String.valueOf(mp4.getText());
+                temp.setStart(place[0], 3);
+                start.setText(temp.getStart1(3));
+                temp.setPlace(place[0],i);
+                dialog.dismiss();
+            }
+        });
+        mp5.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                place[0] = String.valueOf(mp5.getText());
+                temp.setStart(place[0], 4);
+                start.setText(temp.getStart1(4));
+                temp.setPlace(place[0],i);
+                dialog.dismiss();
+            }
+        });
+        mp6.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                place[0] = String.valueOf(mp6.getText());
+                temp.setStart(place[0], 5);
+                start.setText(temp.getStart1(5));
+                temp.setPlace(place[0],i);
+                dialog.dismiss();
+            }
+        });
+        mp7.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                place[0] = String.valueOf(mp7.getText());
+                temp.setStart(place[0], 6);
+                start.setText(temp.getStart1(6));
+                temp.setPlace(place[0],i);
+                dialog.dismiss();
+            }
+        });
+        mp8.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                place[0] = String.valueOf(mp8.getText());
+                temp.setStart(place[0], 7);
+                start.setText(temp.getStart1(7));
+                temp.setPlace(place[0],i);
+                dialog.dismiss();
+            }
+        });
+        mp9.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                place[0] = String.valueOf(mp9.getText());
+                temp.setStart(place[0], 9);
+                start.setText(temp.getStart1(9));
+                temp.setPlace(place[0],i);
+                dialog.dismiss();
+            }
+        });
+        mp10.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                place[0] = String.valueOf(mp10.getText());
+                temp.setStart(place[0], 9);
+                start.setText(temp.getStart1(9));
+                temp.setPlace(place[0],i);
                 dialog.dismiss();
             }
         });

@@ -1,7 +1,5 @@
 package com.skypan.myapplication.driver_model;
 
-import com.skypan.myapplication.driver_model.ui.Setting;
-
 import java.util.ArrayList;
 
 public class addSetting {

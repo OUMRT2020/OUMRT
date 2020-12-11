@@ -15,7 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
-            android:text="這是抬頭"
+            android:text="建立新事件"
             android:textColor="#FFF"
             android:textSize="24dp" />
     </LinearLayout>
@@ -23,7 +23,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_margin="5dp"
         android:orientation="horizontal">
 
         <TextView
@@ -39,6 +39,23 @@
             android:textSize="16sp" />
     </LinearLayout>
 
+    //錢
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="費用" />
+
+        <EditText
+            android:id="@+id/et_money"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"/>
+    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -186,7 +203,7 @@
         <RadioButton
             android:id="@+id/rb_helmet_1"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="43dp"
             android:text="Yes"
             android:textColor="#FF6600"
             android:textSize="18sp" />
@@ -200,36 +217,7 @@
             android:textColor="#FF6600"
             android:textSize="18sp" />
     </RadioGroup>
-    //錢
 
-    <RadioGroup
-        android:id="@+id/rg_fee_1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="收費" />
-
-        <RadioButton
-            android:id="@+id/rb_fee_1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Yes"
-            android:textColor="#FF6600"
-            android:textSize="18sp" />
-
-        <RadioButton
-            android:id="@+id/rb_fee_2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/rb_fee_1"
-            android:text="No"
-            android:textColor="#FF6600"
-            android:textSize="18sp" />
-    </RadioGroup>
     //週期性
 
     <TextView
