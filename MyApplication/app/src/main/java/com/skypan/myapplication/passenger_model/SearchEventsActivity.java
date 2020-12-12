@@ -106,7 +106,7 @@ public class SearchEventsActivity extends AppCompatActivity {
                 Date end = new Date();
                 Log.d(TAG, start.toString());
                 ArrayList<Event> es = new ArrayList<>();
-                for (int i = 0; i < 10; i++) {
+                for (int i = 0; i < 5; i++) {
                     Rate rate = new Rate(i, 5);
                     URL url = null;
                     try {
@@ -117,9 +117,12 @@ public class SearchEventsActivity extends AppCompatActivity {
                     User user = new User("AAA", "token", "峻峻", "48763", true, 87, url, rate);
                     Event e = new Event("AAA", "金瓜石特快車" + i, "white", "BBB", "CCC", new ArrayList<Date>(Arrays.asList(start, end)), new ArrayList<String>(Arrays.asList("地點一", "地點二")),
                             new ArrayList<String>(Arrays.asList("地點三", "地點四")), 0, 87, 48763 + i, true, new ArrayList<Boolean>(Arrays.asList(true, true, true, true, true, true, true)), user);
+                    Event e2 = new Event("AAA", "金瓜石特快車" + i, "red", "BBB", "CCC", new ArrayList<Date>(Arrays.asList(start, end)), new ArrayList<String>(Arrays.asList("地點一", "地點二")),
+                            new ArrayList<String>(Arrays.asList("地點三", "地點四")), 0, 87, 48763 + i, true, new ArrayList<Boolean>(Arrays.asList(true, true, true, true, true, true, true)), user);
                     es.add(e);
+                    es.add(e2);
                 }
-
+                //測試資料結束
 
                 Request request = new Request(userID, new Date(),
                         et_pt_start.toString(), et_pt_start.toString());
