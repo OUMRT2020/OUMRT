@@ -31,7 +31,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.skypan.myapplication.R;
 import com.skypan.myapplication.Retrofit.Event;
 import com.skypan.myapplication.Retrofit.Rate;
-import com.skypan.myapplication.Retrofit.RetrofitManagerAPI;
+import com.skypan.myapplication.Retrofit.Request;
 import com.skypan.myapplication.Retrofit.User;
 import com.skypan.myapplication.passenger_model.Adapters.SearchedEventAdapter;
 
@@ -41,18 +41,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class SearchEventsActivity extends AppCompatActivity {
 
 
-    int rgSelected;
+    static int rgSelected;
     boolean isHelmet, isFree;
     private String userID, TAG = "DEBUG";
     private TextView date_and_time;
@@ -126,9 +119,15 @@ public class SearchEventsActivity extends AppCompatActivity {
                             new ArrayList<String>(Arrays.asList("地點三", "地點四")), 0, 87, 48763 + i, true, new ArrayList<Boolean>(Arrays.asList(true, true, true, true, true, true, true)), user);
                     es.add(e);
                 }
+
+
+                Request request = new Request(userID, new Date(),
+                        et_pt_start.toString(), et_pt_start.toString());
                 recyclerView = findViewById(R.id.rv_searched_events);
                 recyclerView.setLayoutManager(new LinearLayoutManager(SearchEventsActivity.this));
-                recyclerView.setAdapter(new SearchedEventAdapter(SearchEventsActivity.this, es));
+                recyclerView.setAdapter(new SearchedEventAdapter(SearchEventsActivity.this, es, request));
+
+
             }
         });
 

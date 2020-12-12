@@ -37,7 +37,7 @@ public interface RetrofitManagerAPI {
     );
 
     @POST("request")
-    Call<Ack> request(@Body Request request);
+    Call<Ack> sendRequest(@Body Request request);
 
     @POST("register")
     Call<String> register(@Body User user);
@@ -47,6 +47,8 @@ public interface RetrofitManagerAPI {
                        @Field("email") String email);
 
 
+    @GET("posts")
+    Call<List<Post>> getPosts();
 //    @POST("alter-user")
 //    Call<Ack> alterUser(@Body Request request);
 
