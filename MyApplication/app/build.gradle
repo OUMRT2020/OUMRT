@@ -47,4 +47,7 @@ dependencies {
     implementation files('libs/activation.jar')
     implementation files('libs/additionnal.jar')
     implementation files('libs/mail.jar')
+
+    // to use okhttp3
+    implementation 'com.squareup.okhttp3:okhttp:4.5.0'
 }
