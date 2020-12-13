@@ -31,11 +31,11 @@ public interface RetrofitManagerAPI {
 
     @GET("query_driver/{id}")
     Call<List<Event>> getDriverMain(
-            @Path("id") int user_id);
+            @Path("id") String user_id);
 
     @GET("query_passenger/{id}")
     Call<List<Event>> getPassengerMain(
-            @Path("id") int user_id);
+            @Path("id") String user_id);
 
     @GET("query-event")
     Call<List<Event>> getSearchEvents(

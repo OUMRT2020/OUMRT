@@ -5,12 +5,12 @@ import java.util.Date;
 public class Request {
     private String event_id;
     private String user_id;
-    private Date actual_time;
+    private String actual_time;
     private String actual_start_point;
     private String actual_end_point;
     private String extra_needed;
 
-    public Request(String user_id, Date actual_time, String actual_start_point, String actual_end_point) {
+    public Request(String user_id, String actual_time, String actual_start_point, String actual_end_point) {
         this.user_id = user_id;
         this.actual_time = actual_time;
         this.actual_start_point = actual_start_point;
@@ -25,7 +25,7 @@ public class Request {
         return user_id;
     }
 
-    public Date getActual_time() {
+    public String getActual_time() {
         return actual_time;
     }
 

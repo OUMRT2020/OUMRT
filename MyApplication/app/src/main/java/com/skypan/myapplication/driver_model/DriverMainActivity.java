@@ -323,17 +323,17 @@ public class DriverMainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog1, int which) {
 
-                        System.out.println(money+weight+gender);
-                        //addSetting.addSetting(temp);
-                        User user = new User("AAA", "token", "峻峻", "48763", true, 87, null, null);
-                        Event e = new Event("AAA", event_name , "white", "BBB", "CCC"
-                                , new ArrayList<Date>(Arrays.asList(acceptable_time_interval[0],acceptable_time_interval[1]))
-                                , new ArrayList<String>(Arrays.asList(acceptable_start_point[0],acceptable_start_point[1],acceptable_start_point[2]))
-                                , new ArrayList<String>(Arrays.asList(acceptable_end_point[0],acceptable_end_point[1],acceptable_end_point[2]))
-                                , gender, weight, money, ishamlet, new ArrayList<Boolean>(Arrays.asList(day[0],day[1],day[2],day[3],day[4],day[5],day[6])), user);
-                        addSetting.addSetting(e);
-                        dialog.dismiss();
-                        refresh();
+//                        System.out.println(money+weight+gender);
+//                        //addSetting.addSetting(temp);
+//                        User user = new User("AAA", "token", "峻峻", "48763", true, 87, null, null);
+//                        Event e = new Event("AAA", event_name , "white", "BBB", "CCC"
+//                                , new ArrayList<Date>(Arrays.asList(acceptable_time_interval[0],acceptable_time_interval[1]))
+//                                , new ArrayList<String>(Arrays.asList(acceptable_start_point[0],acceptable_start_point[1],acceptable_start_point[2]))
+//                                , new ArrayList<String>(Arrays.asList(acceptable_end_point[0],acceptable_end_point[1],acceptable_end_point[2]))
+//                                , gender, weight, money, ishamlet, new ArrayList<Boolean>(Arrays.asList(day[0],day[1],day[2],day[3],day[4],day[5],day[6])), user);
+//                        addSetting.addSetting(e);
+//                        dialog.dismiss();
+//                        refresh();
                     }
                 }));
                 twoDialog.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {

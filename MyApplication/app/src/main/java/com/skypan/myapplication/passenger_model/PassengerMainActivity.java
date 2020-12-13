@@ -19,7 +19,7 @@ import com.skypan.myapplication.R;
 
 public class PassengerMainActivity extends AppCompatActivity {
 
-    private String userID;
+    public String userID;
     private FloatingActionButton btn_search;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;

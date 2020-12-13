@@ -38,7 +38,7 @@ public class MainEventAdapter extends RecyclerView.Adapter<MainEventAdapter.View
     public void onBindViewHolder(@NonNull MainEventAdapter.ViewHolder holder, int position) {
         holder.event_name.setText("" + Events.get(position).getEvent_name());
         holder.driver_rate.setText("" + Events.get(position).getUser().getRate().getScore());
-        holder.event_time.setText("" + Events.get(position).getAcceptable_time_interval().get(0).toString());
+        holder.event_time.setText("" + Events.get(position).getAcceptable_time_interval().get(0));
         holder.event_cost.setText("" + Events.get(position).getPrice());
 
         if (Events.get(position).getStatus().equals("white")) {

@@ -9,7 +9,7 @@ public class Event {
     private String status;
     private String driver_id;
     private String passenger_id;
-    private ArrayList<Date> acceptable_time_interval;
+    private ArrayList<String> acceptable_time_interval;
     private ArrayList<String> acceptable_start_point;
     private ArrayList<String> acceptable_end_point;
     private int acceptable_sex;
@@ -24,7 +24,7 @@ public class Event {
     private Request final_request;
     private User user;
 
-    public Event(String event_id, String event_name, String status, String driver_id, String passenger_id, ArrayList<Date> acceptable_time_interval, ArrayList<String> acceptable_start_point, ArrayList<String> acceptable_end_point, int acceptable_sex, int max_weight, int price, boolean is_self_helmet, ArrayList<Boolean> repeat, User user) {
+    public Event(String event_id, String event_name, String status, String driver_id, String passenger_id, ArrayList<String> acceptable_time_interval, ArrayList<String> acceptable_start_point, ArrayList<String> acceptable_end_point, int acceptable_sex, int max_weight, int price, boolean is_self_helmet, ArrayList<Boolean> repeat, User user) {
         this.event_id = event_id;
         this.event_name = event_name;
         this.status = status;
@@ -61,7 +61,7 @@ public class Event {
         return passenger_id;
     }
 
-    public ArrayList<Date> getAcceptable_time_interval() {
+    public ArrayList<String> getAcceptable_time_interval() {
         return acceptable_time_interval;
     }
 
