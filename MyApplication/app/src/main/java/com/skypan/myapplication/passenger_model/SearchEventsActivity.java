@@ -5,11 +5,13 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
@@ -27,23 +29,25 @@ import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.skypan.myapplication.R;
+import com.skypan.myapplication.Retrofit.Event;
+import com.skypan.myapplication.Retrofit.Rate;
+import com.skypan.myapplication.Retrofit.Request;
+import com.skypan.myapplication.Retrofit.User;
 import com.skypan.myapplication.passenger_model.Adapters.SearchedEventAdapter;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
 
 public class SearchEventsActivity extends AppCompatActivity {
 
 
-    int rgSelected;
+    static int rgSelected;
     boolean isHelmet, isFree;
-    List<JSONObject> events;
-    private String userID;
+    private String userID, TAG = "DEBUG";
     private TextView date_and_time;
     private Button choose_date_and_time;
     private ImageButton btn_filter;
@@ -53,71 +57,7 @@ public class SearchEventsActivity extends AppCompatActivity {
     private TimePickerView pvTime;
     private FloatingActionButton btn_done_all;
     private RecyclerView recyclerView;
-
-    private String test_json = "[\n" +
-            "  {\n" +
-            "    \"event_id\": \"OOO\",\n" +
-            "    \"event_name\": \"金瓜石特快車1\",\n" +
-            "    \"status\": \"white\",\n" +
-            "    \"driver_id\": \"ABC\",\n" +
-            "    \"passenger_id\": null,\n" +
-            "    \"acceptble_time_interval\": \"2020/10/16 13:00 - 2020/10/16 15:00\",\n" +
-            "    \"acceptble_start_point\": [\"海大校門口\", \"新豐街\", \"祥豐街\"],\n" +
-            "    \"acceptble_end_point\": [\"九份金瓜石\", \"九份老街\", \"金瓜石博物館\"],\n" +
-            "    \"acceptable_sex\": 0,\n" +
-            "    \"max_weight\": 100,\n" +
-            "    \"price\": 50,\n" +
-            "    \"is_self_helmet\": true,\n" +
-            "    \"repeat\": [true, true, true, true, true, true, true],\n" +
-            "\n" +
-            "    \"actual_time\": null,\n" +
-            "    \"actual_start_point\": null,\n" +
-            "    \"actual_end_point\": null,\n" +
-            "    \"extra_needed\": null,\n" +
-            "\n" +
-            "    \"user_id\": \"ABC\",\n" +
-            "    \"name\": \"小明\",\n" +
-            "    \"phone_num\": \"0987416888\",\n" +
-            "    \"sex\": true,\n" +
-            "    \"weight\": 87,\n" +
-            "    \"picture_url\": \"https://123.jpg\",\n" +
-            "    \"rate\": {\n" +
-            "      \"score\": 4.8,\n" +
-            "      \"times\": 6\n" +
-            "    }\n" +
-            "  },\n" +
-            "  {\n" +
-            "    \"event_id\": \"OOO\",\n" +
-            "    \"event_name\": \"金瓜石特快車2\",\n" +
-            "    \"status\": \"green\",\n" +
-            "    \"driver_id\": \"ABC\",\n" +
-            "    \"passenger_id\": \"XYZ\",\n" +
-            "    \"acceptble_time_interval\": \"2020/10/16 14:00 - 2020/10/16 16:00\",\n" +
-            "    \"acceptble_start_point\": [\"海大校門口\", \"新豐街\", \"祥豐街\"],\n" +
-            "    \"acceptble_end_point\": [\"九份金瓜石\", \"九份老街\", \"金瓜石博物館\"],\n" +
-            "    \"acceptable_sex\": 0,\n" +
-            "    \"max_weight\": 100,\n" +
-            "    \"price\": 40,\n" +
-            "    \"is_self_helmet\": true,\n" +
-            "    \"repeat\": [true, true, true, true, true, true, true],\n" +
-            "\n" +
-            "    \"actual_time\": \"2020/10/16 13:30\",\n" +
-            "    \"actual_start_point\": \"海大校門口\",\n" +
-            "    \"actual_end_point\": \"九份老街\",\n" +
-            "    \"extra_needed\": \"山路請慢慢騎，我不想晚七天回家QQ\",\n" +
-            "\n" +
-            "    \"user_id\": \"ABC\",\n" +
-            "    \"name\": \"小明\",\n" +
-            "    \"phone_num\": \"0987416888\",\n" +
-            "    \"sex\": true,\n" +
-            "    \"weight\": 87,\n" +
-            "    \"picture_url\": \"https://123.jpg\",\n" +
-            "    \"rate\": {\n" +
-            "      \"score\": 4.6,\n" +
-            "      \"times\": 6\n" +
-            "    }\n" +
-            "  }\n" +
-            "]\n";
+    private EditText et_pt_start, et_pt_end, et_driver_name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,29 +69,38 @@ public class SearchEventsActivity extends AppCompatActivity {
         choose_date_and_time = findViewById(R.id.choose_date_and_time);
         btn_filter = findViewById(R.id.filter);
         btn_done_all = findViewById(R.id.btn_done_all);
+        et_pt_start = findViewById(R.id.et_pt_start);
+        et_pt_end = findViewById(R.id.et_pt_end);
+        et_driver_name = findViewById(R.id.et_driver_name);
 
         btn_done_all.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder testDialog = new AlertDialog.Builder(SearchEventsActivity.this);
-                testDialog.setTitle("測試點擊");
-                testDialog.setMessage("你可以關掉我了");
-                testDialog.show();
-
+//                Retrofit retrofit = new Retrofit.Builder()
+//                        .baseUrl("")//todo :峻峻的API
+//                        .addConverterFactory(GsonConverterFactory.create())
+//                        .build();
+//                RetrofitManagerAPI retrofitManagerAPI = retrofit.create(RetrofitManagerAPI.class);
+//                Call<List<Event>> call = retrofitManagerAPI.getSearchEvents(et_pt_start.toString(), et_pt_end.toString(), et_driver_name.toString(), new Date(), isHelmet, isFree, rgSelected);
+//                call.enqueue(new Callback<List<Event>>() {
+//                    @Override
+//                    public void onResponse(Call<List<Event>> call, Response<List<Event>> response) {
+//                        if (!response.isSuccessful()) {
+//                            Log.d(TAG, String.valueOf(response.code()));
+//                        }
+//                        List<Event> events = response.body();
+//                        recyclerView = findViewById(R.id.rv_searched_events);
+//                        recyclerView.setLayoutManager(new LinearLayoutManager(SearchEventsActivity.this));
+//                        recyclerView.setAdapter(new SearchedEventAdapter(SearchEventsActivity.this, events));
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<List<Event>> call, Throwable t) {
+//                        Log.d(TAG, t.getMessage());
+//                    }
+//                });
             }
         });
-        try {
-            JSONArray array = new JSONArray(test_json);
-            events = new ArrayList<>();
-            for (int i = 0; i < array.length(); i++) {
-                JSONObject jsonObject = array.getJSONObject(i);
-                events.add(jsonObject);
-            }
-        } catch (Exception e) {
-        }
-        recyclerView = findViewById(R.id.rv_searched_events);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new SearchedEventAdapter(SearchEventsActivity.this, events));
 
         choose_date_and_time.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -268,6 +217,7 @@ public class SearchEventsActivity extends AppCompatActivity {
         pvTime = new TimePickerBuilder(this, new OnTimeSelectListener() {
             @Override
             public void onTimeSelect(Date date, View v) {
+                Log.d(TAG, date.toString());
                 date_and_time.setText(getTime(date));
             }
         }).setTimeSelectChangeListener(new OnTimeSelectChangeListener() {

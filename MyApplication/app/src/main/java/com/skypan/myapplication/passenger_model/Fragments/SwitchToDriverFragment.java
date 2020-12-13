@@ -34,6 +34,7 @@ public class SwitchToDriverFragment extends Fragment {
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 Intent intent = new Intent(getActivity(), DriverMainActivity.class);
                                 startActivity(intent);
+                                getActivity().finish();
                             }
                         })
                         .setNegativeButton("取消", new DialogInterface.OnClickListener() {

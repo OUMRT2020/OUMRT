@@ -1,4 +1,4 @@
-package com.skypan.myapplication.driver_model.ui;
+package com.skypan.myapplication.driver_model;
 
 
 import android.text.Editable;
@@ -7,13 +7,15 @@ import android.text.Editable;
 public class Setting {
     private int count = 0;
     private Editable name;
-    private String[] start = new String[3];
+    private String[] start = new String[10];
+    private String[] place = new String[3];
+    private String[] day = new String[7];
     private Editable end;
+    private Editable money;
     private Editable starttime;
     private Editable endtime;
     private String gneder;
     private String helmet;
-    private String Fee;
 
     public Editable getName() {
         return this.name;
@@ -27,21 +29,26 @@ public class Setting {
         this.start[i] = string;
     }
 
-    public String getStart1() {
-        return this.start[0];
+    public String getStart1(int i ) {
+        return this.start[i];
+    }
+    public void setPlace(String string, int i) {
+        this.place[i] = string;
+    }
+    public String getPlace() {
+        return this.place[0] +"\n"+ this.place[1] +"\n"+ this.place[2];
     }
 
-    public String getStart2() {
-        return this.start[1];
+    public void setDay(String string, int i) {
+        this.day[i] = string;
+    }
+    public void deleteDay( int i) {
+        this.day[i] = null;
+    }
+    public String getDay(int i ) {
+        return this.day[i];
     }
 
-    public String getStart3() {
-        return this.start[2];
-    }
-
-    public String getStart() {
-        return this.start[0] + this.start[1] + this.start[2];
-    }
 
     public Editable getEnd() {
         return this.end;
@@ -83,19 +90,19 @@ public class Setting {
         return this.helmet;
     }
 
-    public String getFee() {
-        return this.Fee;
+    public void setMoney(Editable text) {
+        this.money=text;
     }
-
-    public void setFee(String s) {
-        this.Fee = s;
+    public Editable getMoney() {
+        return this.money;
     }
 
     @Override
     public String toString() {
-        String result = getName() + " " + getStart() + " " + getEnd() + " " + getStarttime() + " "
-                + getEndtime() + " " + getGneder() + " " + getHelmet() + " " + getFee();
+        String result = getName() + " " + getPlace() + " " + getEnd() + " " + getStarttime() + " "
+                + getEndtime() + " " + getGneder() + " " + getHelmet() + " " + getMoney();
 
         return result;
     }
+
 }

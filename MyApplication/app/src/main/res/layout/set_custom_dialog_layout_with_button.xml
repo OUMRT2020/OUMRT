@@ -15,7 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
-            android:text="這是抬頭"
+            android:text="建立新事件"
             android:textColor="#FFF"
             android:textSize="24dp" />
     </LinearLayout>
@@ -23,7 +23,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_margin="5dp"
         android:orientation="horizontal">
 
         <TextView
@@ -39,6 +39,35 @@
             android:textSize="16sp" />
     </LinearLayout>
 
+    //錢
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="費用" />
+
+        <EditText
+            android:id="@+id/et_money"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:inputType="number"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="MAX weight" />
+
+        <EditText
+            android:id="@+id/et_weight"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:inputType="number"/>
+    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -53,7 +82,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/start"
@@ -77,24 +106,41 @@
                 android:textSize="16sp" />
         </LinearLayout>
     </LinearLayout>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:orientation="horizontal">
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="終點:"
-            android:textSize="16sp" />
-
-        <EditText
-            android:id="@+id/end"
-            android:layout_width="match_parent"
+            android:text="起點:" />
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="16sp" />
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/end"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="end1"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/end2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="end"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/end3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="end"
+                android:textSize="16sp" />
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -169,6 +215,14 @@
             android:text="女"
             android:textColor="#FF6600"
             android:textSize="18sp" />
+        <RadioButton
+            android:id="@+id/rb_gender_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rb_gender_1"
+            android:text="不限"
+            android:textColor="#FF6600"
+            android:textSize="18sp" />
     </RadioGroup>
     //安全帽
 
@@ -186,7 +240,7 @@
         <RadioButton
             android:id="@+id/rb_helmet_1"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="43dp"
             android:text="Yes"
             android:textColor="#FF6600"
             android:textSize="18sp" />
@@ -200,36 +254,7 @@
             android:textColor="#FF6600"
             android:textSize="18sp" />
     </RadioGroup>
-    //錢
 
-    <RadioGroup
-        android:id="@+id/rg_fee_1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="收費" />
-
-        <RadioButton
-            android:id="@+id/rb_fee_1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Yes"
-            android:textColor="#FF6600"
-            android:textSize="18sp" />
-
-        <RadioButton
-            android:id="@+id/rb_fee_2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/rb_fee_1"
-            android:text="No"
-            android:textColor="#FF6600"
-            android:textSize="18sp" />
-    </RadioGroup>
     //週期性
 
     <TextView
@@ -244,7 +269,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:id="@+id/cb">
 
             <CheckBox
                 android:id="@+id/cb_1"

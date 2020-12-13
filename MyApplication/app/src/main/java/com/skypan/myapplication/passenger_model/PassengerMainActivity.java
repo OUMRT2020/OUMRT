@@ -2,6 +2,7 @@ package com.skypan.myapplication.passenger_model;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,7 +19,7 @@ import com.skypan.myapplication.R;
 
 public class PassengerMainActivity extends AppCompatActivity {
 
-    private String userID;
+    public String userID;
     private FloatingActionButton btn_search;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
@@ -82,5 +83,4 @@ public class PassengerMainActivity extends AppCompatActivity {
             super.onBackPressed();
         }
     }
-
 }
