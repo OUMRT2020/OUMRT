@@ -2,6 +2,7 @@ package com.skypan.myapplication.passenger_model;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -81,9 +82,5 @@ public class PassengerMainActivity extends AppCompatActivity {
         } else {
             super.onBackPressed();
         }
-    }
-
-    public String getUserID() {
-        return this.userID;
     }
 }

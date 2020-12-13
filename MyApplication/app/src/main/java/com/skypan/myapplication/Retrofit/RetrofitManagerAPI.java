@@ -6,32 +6,44 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface RetrofitManagerAPI {
     @POST("new-event")
     Call<Ack> newEvent(@Body Event event);
 
+    @FormUrlEncoded
     @POST("delete-event")
-    Call<Ack> deleteEvent(@Body Event event);
+    Call<Ack> deleteEvent(@Field("event_id") String event_id,
+                          @Field("operation") String operation);//operation = delete finish drop
 
 //    @POST("alter-event")
-//    Call<Ack> alterEvent(@Body Event event);
+//    Call<Ack> alterEvent(@Body Event event);//key:value不固定，應該是用map
 
-    @GET("main-activity")
-    Call<List<Event>> getMain(
-            @Query("user_id") String user_id,
-            @Query("status") String status);
+    @FormUrlEncoded
+    @POST("accept-request")
+    Call<Ack> acceptRequest(@Field("user_id") String user_id,
+                            @Field("event_id") String event_id);
+
+    @GET("query_driver/{id}")
+    Call<List<Event>> getDriverMain(
+            @Path("id") int user_id);
+
+    @GET("query_passenger/{id}")
+    Call<List<Event>> getPassengerMain(
+            @Path("id") int user_id);
 
     @GET("query-event")
     Call<List<Event>> getSearchEvents(
-            @Query("pt_start") String pt_start,
-            @Query("pt_end") String pt_end,
             @Query("driver_name") String driver_name,
-            @Query("time") Date date,
-            @Query("is_helmet") boolean is_helmet,
+            @Query("actual_start_point") String pt_start,
+            @Query("actual_end_point") String pt_end,
+            @Query("actual_time") Date date,
+            @Query("is_self_helmet") boolean is_helmet,
             @Query("is_free") boolean is_free,
             @Query("sex") int sex
     );
@@ -42,13 +54,14 @@ public interface RetrofitManagerAPI {
     @POST("register")
     Call<String> register(@Body User user);
 
+    @FormUrlEncoded
     @POST("login")
     Call<String> login(@Field("password") String password,
                        @Field("email") String email);
 
-
     @GET("posts")
     Call<List<Post>> getPosts();
+
 //    @POST("alter-user")
 //    Call<Ack> alterUser(@Body Request request);
 
