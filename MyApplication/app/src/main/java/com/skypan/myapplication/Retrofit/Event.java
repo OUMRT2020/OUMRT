@@ -20,7 +20,6 @@ public class Event {
 
     private ArrayList<Request> all_request;
     private ArrayList<User> all_request_user;
-
     private String reason;
     private Request final_request;
     private User user;

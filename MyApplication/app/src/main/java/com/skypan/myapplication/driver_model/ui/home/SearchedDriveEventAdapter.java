@@ -14,17 +14,18 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.skypan.myapplication.R;
+import com.skypan.myapplication.Retrofit.Event;
 import com.skypan.myapplication.driver_model.Setting;
 
 import java.util.ArrayList;
 
 public class SearchedDriveEventAdapter extends RecyclerView.Adapter<SearchedDriveEventAdapter.ViewHolder> {
     private Context mContext;
-    private ArrayList<Setting> events;
+    private ArrayList<Event> Events;
 
-    public SearchedDriveEventAdapter(Context mContext, ArrayList<Setting> events) {
+    public SearchedDriveEventAdapter(Context mContext, ArrayList<Event> events) {
         this.mContext = mContext;
-        this.events = events;
+        this.Events = events;
     }
 
     @NonNull
@@ -35,25 +36,27 @@ public class SearchedDriveEventAdapter extends RecyclerView.Adapter<SearchedDriv
 
     @Override
     public void onBindViewHolder(@NonNull SearchedDriveEventAdapter.ViewHolder holder, int position) {
-        holder.textView.setText(events.get(position).getName());
-        holder.time.setText(events.get(position).getStarttime());
-        holder.endtime.setText(events.get(position).getEndtime());
+
+        holder.event_name.setText("" + Events.get(position).getEvent_name());
+        holder.event_time.setText("" + Events.get(position).getAcceptable_time_interval().get(0).toString());
+        holder.event_cost.setText("" + Events.get(position).getPrice());
+        if(Events.get(position).getStatus()=="green"){}
     }
 
     @Override
     public int getItemCount() {
-        return events.size();
+        return Events.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView textView, time, endtime;
+        private TextView event_name, event_time, event_cost;
 
         public ViewHolder(@NonNull final View itemView) {
             super(itemView);
-            textView = itemView.findViewById(R.id.event_title);
-            time = itemView.findViewById(R.id.event_time);
-            endtime = itemView.findViewById(R.id.event_endtime);
+            event_name = itemView.findViewById(R.id.event_title);
+            event_time = itemView.findViewById(R.id.event_time);
+            event_cost = itemView.findViewById(R.id.event_cost);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -61,7 +64,7 @@ public class SearchedDriveEventAdapter extends RecyclerView.Adapter<SearchedDriv
 
                     AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
                     alertDialog.setTitle("Your title");
-                    alertDialog.setMessage("起始地點" + "\n" + events.get(getAdapterPosition()).getPlace());
+                    alertDialog.setMessage("起始地點" + "\n" );
 
 
                     alertDialog.setPositiveButton("CANCEL", new DialogInterface.OnClickListener() {
@@ -75,10 +78,10 @@ public class SearchedDriveEventAdapter extends RecyclerView.Adapter<SearchedDriv
                         public void onClick(DialogInterface dialog, int which) {
 
                             // DO SOMETHING HERE
-                            events.remove(getAdapterPosition());
+                            Events.remove(getAdapterPosition());
                             notifyItemRemoved(which);
                             notifyDataSetChanged();
-                            System.out.println(events.size());
+                            System.out.println(Events.size());
                         }
                     });
 
