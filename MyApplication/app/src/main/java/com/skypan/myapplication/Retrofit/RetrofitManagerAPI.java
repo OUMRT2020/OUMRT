@@ -1,6 +1,5 @@
 package com.skypan.myapplication.Retrofit;
 
-import java.util.Date;
 import java.util.List;
 
 import retrofit2.Call;
@@ -8,6 +7,7 @@ import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
@@ -52,13 +52,12 @@ public interface RetrofitManagerAPI {
     Call<Ack> sendRequest(@Body Request request);
 
     @POST("register")
-    Call<String> register(@Field("user") User user,
-                          @Field("auth") Auth auth);
+    Call<String> register(@Body Custom_register custom_register);
 
     @FormUrlEncoded
     @POST("login")
     Call<String> login(@Field("password") String password,
-                       @Field("email") String email);
+                       @Field("mail") String email);
 
     @GET("posts")
     Call<List<Post>> getPosts();

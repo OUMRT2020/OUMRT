@@ -12,15 +12,12 @@ public class User {
     private String picture_url;
     private Rate rate;
 
-    public User(String user_id, String token, String name, String phone_num, boolean sex, int weight, String picture_url, Rate rate) {
-        this.user_id = user_id;
+    public User(String token, String name, String phone_num, boolean sex, int weight) {
         this.token = token;
         this.name = name;
         this.phone_num = phone_num;
         this.sex = sex;
         this.weight = weight;
-        this.picture_url = picture_url;
-        this.rate = rate;
     }
 
     public String getUser_id() {

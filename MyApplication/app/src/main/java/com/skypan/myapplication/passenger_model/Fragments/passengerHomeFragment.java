@@ -76,28 +76,28 @@ public class passengerHomeFragment extends Fragment {
 
         //這是測試資料
         //new出一堆物件假裝拿回json了
-        ArrayList<Event> es = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
-            Rate rate = new Rate(i, 5);
-            ArrayList<String> p =new ArrayList<String>();
-            p.add("時間一");
-            p.add("時間二");
-            User user = new User("AAA", "token", "峻峻", "48763", true, 87, "url", rate);
-            Event e = new Event("AAA", "金瓜石特快車" + i, "white", "BBB", "CCC", p, new ArrayList<String>(Arrays.asList("地點一", "地點二")),
-                    new ArrayList<String>(Arrays.asList("地點三", "地點四")), 0, 87, 48763 + i, true, new ArrayList<Boolean>(Arrays.asList(true, true, true, true, true, true, true)), user);
-            Event e2 = new Event("AAA", "金瓜石特快車" + i, "green", "BBB", "CCC", p, new ArrayList<String>(Arrays.asList("地點一", "地點二")),
-                    new ArrayList<String>(Arrays.asList("地點三", "地點四")), 0, 87, 48763 + i, true, new ArrayList<Boolean>(Arrays.asList(true, true, true, true, true, true, true)), user);
-            Event e3 = new Event("AAA", "金瓜石特快車" + i, "red", "BBB", "CCC", p, new ArrayList<String>(Arrays.asList("地點一", "地點二")),
-                    new ArrayList<String>(Arrays.asList("地點三", "地點四")), 0, 87, 48763 + i, true, new ArrayList<Boolean>(Arrays.asList(true, true, true, true, true, true, true)), user);
-            es.add(e);
-            es.add(e2);
-            es.add(e3);
-        }
+//        ArrayList<Event> es = new ArrayList<>();
+//        for (int i = 0; i < 5; i++) {
+//            Rate rate = new Rate(i, 5);
+//            ArrayList<String> p =new ArrayList<String>();
+//            p.add("時間一");
+//            p.add("時間二");
+//            User user = new User("AAA", "token", "峻峻", "48763", true, 87, "url", rate);
+//            Event e = new Event("AAA", "金瓜石特快車" + i, "white", "BBB", "CCC", p, new ArrayList<String>(Arrays.asList("地點一", "地點二")),
+//                    new ArrayList<String>(Arrays.asList("地點三", "地點四")), 0, 87, 48763 + i, true, new ArrayList<Boolean>(Arrays.asList(true, true, true, true, true, true, true)), user);
+//            Event e2 = new Event("AAA", "金瓜石特快車" + i, "green", "BBB", "CCC", p, new ArrayList<String>(Arrays.asList("地點一", "地點二")),
+//                    new ArrayList<String>(Arrays.asList("地點三", "地點四")), 0, 87, 48763 + i, true, new ArrayList<Boolean>(Arrays.asList(true, true, true, true, true, true, true)), user);
+//            Event e3 = new Event("AAA", "金瓜石特快車" + i, "red", "BBB", "CCC", p, new ArrayList<String>(Arrays.asList("地點一", "地點二")),
+//                    new ArrayList<String>(Arrays.asList("地點三", "地點四")), 0, 87, 48763 + i, true, new ArrayList<Boolean>(Arrays.asList(true, true, true, true, true, true, true)), user);
+//            es.add(e);
+//            es.add(e2);
+//            es.add(e3);
+//        }
+//
+//        mainRecycler = view.findViewById(R.id.mainRecycler);
+//        mainRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
+//        mainRecycler.setAdapter(new MainEventAdapter(getActivity(), es));
         //測試資料結束
-
-        mainRecycler = view.findViewById(R.id.mainRecycler);
-        mainRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mainRecycler.setAdapter(new MainEventAdapter(getActivity(), es));
         return view;
     }
 
