@@ -107,7 +107,7 @@
         android:text="出發時間:" />
 
     <TextView
-        android:id="@+id/time_interval"
+        android:id="@+id/actual_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/actual_end_point"
@@ -138,7 +138,7 @@
         android:text="額外需求:" />
 
     <TextView
-        android:id="@+id/et_extra_need"
+        android:id="@+id/tv_extra_need"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_8"

@@ -38,7 +38,7 @@ public class MainEventAdapter extends RecyclerView.Adapter<MainEventAdapter.View
     public void onBindViewHolder(@NonNull MainEventAdapter.ViewHolder holder, int position) {
         holder.event_name.setText("" + Events.get(position).getEvent_name());
         holder.driver_rate.setText("" + Events.get(position).getUser().getRate().getScore());
-        holder.event_time.setText("" + Events.get(position).getAcceptable_time_interval().get(0));
+        holder.event_time.setText("" + Events.get(position).getAcceptable_time_interval().get(0) + " " + Events.get(position).getAcceptable_time_interval().get(1));
         holder.event_cost.setText("" + Events.get(position).getPrice());
 
         if (Events.get(position).getStatus().equals("white")) {
@@ -83,7 +83,16 @@ public class MainEventAdapter extends RecyclerView.Adapter<MainEventAdapter.View
                         foo.setText(e.getUser().isSex() ? "男" : "女");
 
                         foo = content_layout.findViewById(R.id.actual_start_point);
+//                        foo.setText(e.getFinal_request().getActual_start_point());
+
                         foo = content_layout.findViewById(R.id.actual_end_point);
+//                        foo.setText(e.getFinal_request().getActual_end_point());
+
+                        foo = content_layout.findViewById(R.id.actual_time);
+//                        foo.setText(e.getFinal_request().getActual_time());
+
+                        foo = content_layout.findViewById(R.id.tv_extra_need);//todo :乘客主畫面白沒辦法看到extra_need
+//                        foo.setText(e.getFinal_request().getExtra_needed());
 
                         detailDialog.setView(content_layout);
                         detailDialog.setTitle(e.getEvent_name());
@@ -97,7 +106,7 @@ public class MainEventAdapter extends RecyclerView.Adapter<MainEventAdapter.View
                             foo.setVisibility(View.VISIBLE);
 
                             ImageButton btn_img = content_layout.findViewById(R.id.phone_icon);
-                            btn_img.setOnClickListener(new View.OnClickListener() {
+                            btn_img.setOnClickListener(new View.OnClickListener() {//打電話嘍
                                 @Override
                                 public void onClick(View v) {
                                     Intent intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", e.getUser().getPhone_num(), null));

@@ -10,12 +10,14 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -30,17 +32,19 @@ import com.bigkoo.pickerview.view.TimePickerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.skypan.myapplication.R;
 import com.skypan.myapplication.Retrofit.Event;
-import com.skypan.myapplication.Retrofit.Rate;
 import com.skypan.myapplication.Retrofit.Request;
-import com.skypan.myapplication.Retrofit.User;
+import com.skypan.myapplication.Retrofit.RetrofitManagerAPI;
 import com.skypan.myapplication.passenger_model.Adapters.SearchedEventAdapter;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class SearchEventsActivity extends AppCompatActivity {
 
@@ -57,7 +61,9 @@ public class SearchEventsActivity extends AppCompatActivity {
     private TimePickerView pvTime;
     private FloatingActionButton btn_done_all;
     private RecyclerView recyclerView;
-    private EditText et_pt_start, et_pt_end, et_driver_name;
+    private EditText et_driver_name;
+    private Spinner sp_pt_start, sp_pt_end;
+    String[] pts = new String[]{"全聯福利中心 基隆中正店", "正宗永和豆漿", "海大(栙豐校門)", "海大(濱海校門)", "國立台灣海洋大學附屬基隆海事高級中等學院", "貴族世家 海洋大學店", "麥當勞-基隆新豐店", "愛買基隆店", "基隆車站", "姚家清魚湯"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,36 +75,42 @@ public class SearchEventsActivity extends AppCompatActivity {
         choose_date_and_time = findViewById(R.id.choose_date_and_time);
         btn_filter = findViewById(R.id.filter);
         btn_done_all = findViewById(R.id.btn_done_all);
-        et_pt_start = findViewById(R.id.et_pt_start);
-        et_pt_end = findViewById(R.id.et_pt_end);
         et_driver_name = findViewById(R.id.et_driver_name);
+        sp_pt_start = findViewById(R.id.sp_pt_start);
+        sp_pt_end = findViewById(R.id.sp_pt_end);
+
+        ArrayAdapter<String> adapter_pt = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, pts);
+        adapter_pt.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        sp_pt_start.setAdapter(adapter_pt);
+        sp_pt_end.setAdapter(adapter_pt);
 
         btn_done_all.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Retrofit retrofit = new Retrofit.Builder()
-//                        .baseUrl("")//todo :峻峻的API
-//                        .addConverterFactory(GsonConverterFactory.create())
-//                        .build();
-//                RetrofitManagerAPI retrofitManagerAPI = retrofit.create(RetrofitManagerAPI.class);
-//                Call<List<Event>> call = retrofitManagerAPI.getSearchEvents(et_pt_start.toString(), et_pt_end.toString(), et_driver_name.toString(), new Date(), isHelmet, isFree, rgSelected);
-//                call.enqueue(new Callback<List<Event>>() {
-//                    @Override
-//                    public void onResponse(Call<List<Event>> call, Response<List<Event>> response) {
-//                        if (!response.isSuccessful()) {
-//                            Log.d(TAG, String.valueOf(response.code()));
-//                        }
-//                        List<Event> events = response.body();
-//                        recyclerView = findViewById(R.id.rv_searched_events);
-//                        recyclerView.setLayoutManager(new LinearLayoutManager(SearchEventsActivity.this));
-//                        recyclerView.setAdapter(new SearchedEventAdapter(SearchEventsActivity.this, events));
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Call<List<Event>> call, Throwable t) {
-//                        Log.d(TAG, t.getMessage());
-//                    }
-//                });
+                Request request = new Request(userID, date_and_time.getText().toString(), sp_pt_start.getSelectedItem().toString(), sp_pt_end.getSelectedItem().toString());
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl("")//todo 楊哥的API
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                RetrofitManagerAPI retrofitManagerAPI = retrofit.create(RetrofitManagerAPI.class);
+                Call<List<Event>> call = retrofitManagerAPI.getSearchEvents(sp_pt_start.getSelectedItem().toString(), sp_pt_end.getSelectedItem().toString(), et_driver_name.getText().toString(), date_and_time.getText().toString(), isHelmet, isFree, rgSelected);
+                call.enqueue(new Callback<List<Event>>() {
+                    @Override
+                    public void onResponse(Call<List<Event>> call, Response<List<Event>> response) {
+                        if (!response.isSuccessful()) {
+                            Log.d(TAG, String.valueOf(response.code()));
+                        }
+                        List<Event> events = response.body();
+                        recyclerView = findViewById(R.id.rv_searched_events);
+                        recyclerView.setLayoutManager(new LinearLayoutManager(SearchEventsActivity.this));
+                        recyclerView.setAdapter(new SearchedEventAdapter(SearchEventsActivity.this, events, request));
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<Event>> call, Throwable t) {
+                        Log.d(TAG, t.getMessage());
+                    }
+                });
             }
         });
 
@@ -111,38 +123,6 @@ public class SearchEventsActivity extends AppCompatActivity {
             }
         });
         initTimePicker();
-//        btn_time.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                final Calendar c = Calendar.getInstance();
-//                int hour = c.get(Calendar.HOUR_OF_DAY);
-//                int minute = c.get(Calendar.MINUTE);
-//                new TimePickerDialog(SearchEventsActivity.this, new TimePickerDialog.OnTimeSetListener() {
-//
-//                    @Override
-//                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-//                        timeText.setText(hourOfDay + ":" + minute);
-//                    }
-//                }, hour, minute, false).show();
-//
-//            }
-//        });
-
-//        btn_date.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Calendar calendar = Calendar.getInstance();
-//                int year = calendar.get(Calendar.YEAR);
-//                int month = calendar.get(Calendar.MONTH);
-//                int day = calendar.get(Calendar.DAY_OF_MONTH);
-//                new DatePickerDialog(SearchEventsActivity.this, new DatePickerDialog.OnDateSetListener() {
-//                    @Override
-//                    public void onDateSet(DatePicker view, int year, int month, int day) {
-//                        dateText.setText(String.valueOf(year) + "/" + String.valueOf(month) + "/" + String.valueOf(day));
-//                    }
-//                }, year, month, day).show();
-//            }
-//        });
 
         btn_filter.setOnClickListener(new View.OnClickListener() {
             @Override

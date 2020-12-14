@@ -9,10 +9,10 @@ public class User {
     private String phone_num;
     private boolean sex;
     private int weight;
-    private URL picture_url;
+    private String picture_url;
     private Rate rate;
 
-    public User(String user_id, String token, String name, String phone_num, boolean sex, int weight, URL picture_url, Rate rate) {
+    public User(String user_id, String token, String name, String phone_num, boolean sex, int weight, String picture_url, Rate rate) {
         this.user_id = user_id;
         this.token = token;
         this.name = name;
@@ -47,7 +47,7 @@ public class User {
         return weight;
     }
 
-    public URL getPicture_url() {
+    public String getPicture_url() {
         return picture_url;
     }
 
