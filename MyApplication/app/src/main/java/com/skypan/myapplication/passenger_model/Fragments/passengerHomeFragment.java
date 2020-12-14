@@ -40,7 +40,7 @@ public class passengerHomeFragment extends Fragment {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         RetrofitManagerAPI retrofitManagerAPI = retrofit.create(RetrofitManagerAPI.class);
-        Call<List<Event>> call = retrofitManagerAPI.getPassengerMain(((PassengerMainActivity)getActivity()).userID);
+        Call<List<Event>> call = retrofitManagerAPI.getDriverMain("AAA");
         call.enqueue(new Callback<List<Event>>() {
             @Override
             public void onResponse(Call<List<Event>> call, Response<List<Event>> response) {
