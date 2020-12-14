@@ -4,15 +4,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.skypan.myapplication.R;
 
 public class loginActivity extends AppCompatActivity {
     private Button login_button;            // 宣告login_button
     private Button forget_password_button;  // 宣告forget_password_button
     private Button register_button;         // 宣告register_button
+
+    // 以下要傳到後端的
+    private String email;
+    private String password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +25,10 @@ public class loginActivity extends AppCompatActivity {
         login_button = findViewById(R.id.login_button);
         forget_password_button = findViewById(R.id.forget_password_button);
         register_button = findViewById(R.id.register_button);
+
+        //以下要傳到後端的
+        email = findViewById(R.id.email).toString().trim();
+        password = findViewById(R.id.password).toString().trim();
 
         //監聽器
         setListeners();
@@ -43,15 +49,18 @@ public class loginActivity extends AppCompatActivity {
             Intent intent = null;
             switch (v.getId()) {
                 case R.id.login_button:
+
                     // 跳轉到登入後的頁面
                     intent = new Intent(loginActivity.this, select_identityActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     break;
                 case R.id.forget_password_button:
+
                     // 跳轉到忘記密碼的頁面
                     intent = new Intent(loginActivity.this, forget_password.class);
                     break;
                 case R.id.register_button:
+
                     // 跳轉到register介面
                     intent = new Intent(loginActivity.this, registerActivity.class);
                     break;

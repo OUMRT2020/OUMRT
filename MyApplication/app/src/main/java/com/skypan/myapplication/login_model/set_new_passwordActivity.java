@@ -4,14 +4,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-
+import android.widget.EditText;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.skypan.myapplication.R;
 
 public class set_new_passwordActivity extends AppCompatActivity {
     private Button cancel_new_password;
     private Button verify_new_password;
+    private EditText new_password;
+    private EditText new_password_again;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,15 +42,42 @@ public class set_new_passwordActivity extends AppCompatActivity {
             Intent intent = null;
             switch (v.getId()) {
                 case R.id.cancel_new_password:
+
                     // 跳轉到輸入驗證信箱(忘記密碼的)畫面
                     intent = new Intent(set_new_passwordActivity.this, verification_forgetActivity.class);
+                    startActivity(intent);
                     break;
                 case R.id.verify_new_password:
-                    // 跳轉到login介面
-                    intent = new Intent(set_new_passwordActivity.this, loginActivity.class);
+
+                    // 比較密碼
+                    new_password = findViewById(R.id.new_password);
+                    new_password_again = findViewById(R.id.new_password_again);
+                    String password1 = new_password.toString().trim();
+                    String password2 = new_password_again.toString().trim();
+                    if(password1.equals(password2)){
+
+                        // 跳轉到login介面
+                        System.out.println("密碼相同訊號 : 1");
+                        intent = new Intent(set_new_passwordActivity.this, loginActivity.class);
+                        startActivity(intent);
+                    }
+                    else {
+
+                        // 跳出警告視窗
+                        // 不跳轉頁面
+                        System.out.println("密碼不相同訊號 : 0");
+                        openDialog();
+                    }
                     break;
             }
-            startActivity(intent);
         }
+    }
+
+    // 跳出警告視窗
+    private void openDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(set_new_passwordActivity.this);
+        builder.setTitle("密碼輸入錯誤");
+        builder.setMessage("請重新輸入密碼!!");
+        builder.create().show();
     }
 }
