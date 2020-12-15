@@ -37,7 +37,6 @@ public class verification_register extends AppCompatActivity {
     private int weight = Integer.parseInt(registerActivity.weight_register.getText().toString().trim());
     private String phone = registerActivity.phone_register.getText().toString().trim();
     private String nickname = registerActivity.nickname_register.getText().toString().trim();
-    private String age = registerActivity.age_register.getText().toString().trim();
     private boolean sex = registerActivity.sex.equals("男");
 
     @Override
@@ -71,6 +70,7 @@ public class verification_register extends AppCompatActivity {
 
                     // 跳轉到register頁面
                     intent = new Intent(verification_register.this, registerActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                     break;
                 case R.id.verify_verification_register:
@@ -127,7 +127,6 @@ public class verification_register extends AppCompatActivity {
             System.out.println("weight : " + weight + "\n");
             System.out.println("phone : " + phone + "\n");
             System.out.println("nickname : " + nickname + "\n");
-            System.out.println("age : " + age + "\n");
             System.out.println("sex : " + sex + "\n");
         }
     }

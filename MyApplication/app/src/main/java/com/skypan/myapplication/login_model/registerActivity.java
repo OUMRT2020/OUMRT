@@ -6,8 +6,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.skypan.myapplication.R;
+
 import java.util.Random;
 
 public class registerActivity extends AppCompatActivity {
@@ -23,9 +27,7 @@ public class registerActivity extends AppCompatActivity {
     public static EditText weight_register;
     public static EditText phone_register;
     public static EditText nickname_register;
-    public static EditText age_register;
     public static String sex;
-
 
 
     @Override
@@ -43,7 +45,6 @@ public class registerActivity extends AppCompatActivity {
         weight_register = findViewById(R.id.weight_register);
         phone_register = findViewById(R.id.phone_register);
         nickname_register = findViewById(R.id.nickname_register);
-        age_register = findViewById(R.id.age_register);
 
         // 監聽器
         setListeners();
@@ -66,23 +67,31 @@ public class registerActivity extends AppCompatActivity {
 
                     // 跳轉到login介面
                     intent = new Intent(registerActivity.this, loginActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     break;
                 case R.id.verify_register:
 
-                    // 跳轉到認證信箱(註冊的)頁面
-                    // 寄出認證碼
-                    sendMail();
-                    check_gender();
-                    intent = new Intent(registerActivity.this, verification_register.class);
+                    if (email_register.getText().toString().matches("") || password_register.getText().toString().matches("") || weight_register.getText().toString().matches("") || phone_register.getText().toString().matches("") || nickname_register.getText().toString().matches("")) {
+                        Toast.makeText(registerActivity.this, "欄位不得為空", Toast.LENGTH_SHORT).show();
+                    } else {
+                        // 跳轉到認證信箱(註冊的)頁面
+                        // 寄出認證碼
+                        sendMail();
+                        check_gender();
+                        intent = new Intent(registerActivity.this, verification_register.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    }
                     break;
             }
-            startActivity(intent);
+            if(intent!=null){
+                startActivity(intent);
+            }
         }
     }
 
     private void check_gender() {
         RadioGroup gender = (RadioGroup) findViewById(R.id.gender);
-        switch (gender.getCheckedRadioButtonId()){
+        switch (gender.getCheckedRadioButtonId()) {
             case R.id.gender_man:
                 sex = "男";
                 break;
@@ -119,7 +128,7 @@ public class registerActivity extends AppCompatActivity {
         send_message = "歡迎註冊OUMRT, 這是您的驗證碼 : " + message;
 
         // send mail
-        JavaMailAPI javaMailAPI=new JavaMailAPI(this,mail,subject,send_message);
+        JavaMailAPI javaMailAPI = new JavaMailAPI(this, mail, subject, send_message);
         javaMailAPI.execute();
     }
 }

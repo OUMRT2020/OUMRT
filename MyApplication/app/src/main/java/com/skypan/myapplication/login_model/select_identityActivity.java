@@ -24,6 +24,7 @@ public class select_identityActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(select_identityActivity.this, DriverMainActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -33,6 +34,7 @@ public class select_identityActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(select_identityActivity.this, PassengerMainActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
     }
