@@ -63,37 +63,40 @@ public class loginActivity extends AppCompatActivity {
             switch (v.getId()) {
                 case R.id.login_button:
 
-                    Gson gson = new GsonBuilder()
-                            .setLenient()
-                            .create();
-                    Retrofit retrofit = new Retrofit.Builder()
-                            .baseUrl("https://nmsl666.herokuapp.com/")
-                            .addConverterFactory(GsonConverterFactory.create(gson))
-                            .build();
-                    RetrofitManagerAPI retrofitManagerAPI = retrofit.create(RetrofitManagerAPI.class);
-                    Call<String> call = retrofitManagerAPI.login(password.getText().toString(), email.getText().toString());
-                    call.enqueue(new Callback<String>() {
-                        @Override
-                        public void onResponse(Call<String> call, Response<String> response) {
-                            if (!response.isSuccessful()) {
-                                Log.d("error0", response.message());
+                    if (email.getText().toString().equals("") || password.getText().toString().equals("")) {
+                        Toast.makeText(loginActivity.this, "帳號密碼不得為空", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Gson gson = new GsonBuilder()
+                                .setLenient()
+                                .create();
+                        Retrofit retrofit = new Retrofit.Builder()
+                                .baseUrl("https://nmsl666.herokuapp.com/")
+                                .addConverterFactory(GsonConverterFactory.create(gson))
+                                .build();
+                        RetrofitManagerAPI retrofitManagerAPI = retrofit.create(RetrofitManagerAPI.class);
+                        Call<String> call = retrofitManagerAPI.login(password.getText().toString(), email.getText().toString());
+                        call.enqueue(new Callback<String>() {
+                            @Override
+                            public void onResponse(Call<String> call, Response<String> response) {
+                                if (!response.isSuccessful()) {
+                                    Log.d("error0", response.message());
+                                }
+                                if (response.body().equals("Fail")) {
+                                    Toast.makeText(loginActivity.this, "login failed", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    // 跳轉到登入後的頁面
+                                    Intent intent = new Intent(loginActivity.this, select_identityActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                }
                             }
-                            if (response.body().equals("Fail")) {
-                                Toast.makeText(loginActivity.this, "login failed", Toast.LENGTH_SHORT).show();
-                            } else {
-                                // 跳轉到登入後的頁面
-                                Intent intent = new Intent(loginActivity.this, select_identityActivity.class);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                startActivity(intent);
+
+                            @Override
+                            public void onFailure(Call<String> call, Throwable t) {
+                                Toast.makeText(loginActivity.this, "server error", Toast.LENGTH_SHORT).show();
                             }
-                        }
-
-                        @Override
-                        public void onFailure(Call<String> call, Throwable t) {
-                            Toast.makeText(loginActivity.this, "server error", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-
+                        });
+                    }
                     break;
                 case R.id.forget_password_button:
 
