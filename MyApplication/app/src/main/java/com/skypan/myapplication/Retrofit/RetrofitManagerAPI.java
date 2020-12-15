@@ -1,6 +1,5 @@
 package com.skypan.myapplication.Retrofit;
 
-import java.util.Date;
 import java.util.List;
 
 import retrofit2.Call;
@@ -8,6 +7,7 @@ import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
@@ -42,7 +42,7 @@ public interface RetrofitManagerAPI {
             @Query("driver_name") String driver_name,
             @Query("actual_start_point") String pt_start,
             @Query("actual_end_point") String pt_end,
-            @Query("actual_time") Date date,
+            @Query("actual_time") String date,
             @Query("is_self_helmet") boolean is_helmet,
             @Query("is_free") boolean is_free,
             @Query("sex") int sex
@@ -52,12 +52,12 @@ public interface RetrofitManagerAPI {
     Call<Ack> sendRequest(@Body Request request);
 
     @POST("register")
-    Call<String> register(@Body User user);
+    Call<String> register(@Body Custom_register custom_register);
 
     @FormUrlEncoded
     @POST("login")
     Call<String> login(@Field("password") String password,
-                       @Field("email") String email);
+                       @Field("mail") String email);
 
     @GET("posts")
     Call<List<Post>> getPosts();
@@ -65,7 +65,7 @@ public interface RetrofitManagerAPI {
 //    @POST("alter-user")
 //    Call<Ack> alterUser(@Body Request request);
 
-    @GET("query-user")
+    @GET("query-user")//查詢個人資料
     Call<User> queryUser(@Query("user_id") String user_id);
 
 }

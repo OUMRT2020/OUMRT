@@ -27,7 +27,7 @@
                 android:layout_weight="1"
                 android:text="email"
                 android:textColor="#000000"
-                android:textSize="24sp"></TextView>
+                android:textSize="24sp" />
 
             <EditText
                 android:id="@+id/email_register"
@@ -36,7 +36,8 @@
                 android:layout_weight="3"
                 android:background="#ECECFF"
                 android:hint="123456@gmail.com"
-                android:textSize="24sp"></EditText>
+                android:inputType="textVisiblePassword"
+                android:textSize="24sp" />
         </LinearLayout>
 
         <!--    password_register    -->
@@ -54,7 +55,7 @@
                 android:layout_weight="1"
                 android:text="密碼"
                 android:textColor="#000000"
-                android:textSize="24sp"></TextView>
+                android:textSize="24sp" />
 
             <EditText
                 android:id="@+id/password_register"
@@ -62,7 +63,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
                 android:background="#ECECFF"
-                android:textSize="24sp"></EditText>
+                android:inputType="textPassword"
+                android:textSize="24sp" />
         </LinearLayout>
 
         <!--    weight_register    -->
@@ -80,7 +82,7 @@
                 android:layout_weight="1"
                 android:text="體重"
                 android:textColor="#000000"
-                android:textSize="24sp"></TextView>
+                android:textSize="24sp" />
 
             <EditText
                 android:id="@+id/weight_register"
@@ -90,7 +92,8 @@
                 android:background="#ECECFF"
                 android:gravity="center"
                 android:hint="45"
-                android:textSize="24sp"></EditText>
+                android:inputType="number"
+                android:textSize="24sp" />
         </LinearLayout>
 
         <!--    phone_register    -->
@@ -108,7 +111,7 @@
                 android:layout_weight="1"
                 android:text="手機"
                 android:textColor="#000000"
-                android:textSize="24sp"></TextView>
+                android:textSize="24sp" />
 
             <EditText
                 android:id="@+id/phone_register"
@@ -118,7 +121,8 @@
                 android:background="#ECECFF"
                 android:gravity="center"
                 android:hint="0921212121"
-                android:textSize="24sp"></EditText>
+                android:inputType="number"
+                android:textSize="24sp" />
         </LinearLayout>
 
         <!--    nickname_register    -->
@@ -136,7 +140,7 @@
                 android:layout_weight="1"
                 android:text="暱稱"
                 android:textColor="#000000"
-                android:textSize="24sp"></TextView>
+                android:textSize="24sp" />
 
             <EditText
                 android:id="@+id/nickname_register"
@@ -146,7 +150,8 @@
                 android:background="#ECECFF"
                 android:gravity="center"
                 android:hint="峻峻"
-                android:textSize="24sp"></EditText>
+                android:inputType="text"
+                android:textSize="24sp" />
         </LinearLayout>
 
         <!--    age_register    -->
@@ -164,7 +169,7 @@
                 android:layout_weight="1"
                 android:text="年紀"
                 android:textColor="#000000"
-                android:textSize="24sp"></TextView>
+                android:textSize="24sp" />
 
             <EditText
                 android:id="@+id/age_register"
@@ -174,7 +179,8 @@
                 android:background="#ECECFF"
                 android:gravity="center"
                 android:hint="20"
-                android:textSize="24sp"></EditText>
+                android:inputType="number"
+                android:textSize="24sp" />
         </LinearLayout>
 
         <!--    gender    -->
@@ -192,7 +198,7 @@
                 android:layout_weight="1"
                 android:text="性別"
                 android:textColor="#000000"
-                android:textSize="24sp"></TextView>
+                android:textSize="24sp" />
 
             <RadioGroup
                 android:id="@+id/gender"
@@ -209,7 +215,7 @@
                     android:checked="true"
                     android:text="男"
                     android:textColor="#000000"
-                    android:textSize="24sp"></RadioButton>
+                    android:textSize="24sp" />
 
                 <RadioButton
                     android:id="@+id/gender_woman"
@@ -218,7 +224,7 @@
                     android:layout_marginLeft="50dp"
                     android:text="女"
                     android:textColor="#000000"
-                    android:textSize="24sp"></RadioButton>
+                    android:textSize="24sp" />
             </RadioGroup>
         </LinearLayout>
 
@@ -238,7 +244,7 @@
                 android:background="#ECECFF"
                 android:text="cancel"
                 android:textColor="#000000"
-                android:textSize="20sp"></Button>
+                android:textSize="20sp" />
 
             <!--    verify    -->
             <Button
@@ -249,7 +255,7 @@
                 android:background="#ECECFF"
                 android:text="verify"
                 android:textColor="#000000"
-                android:textSize="20sp"></Button>
+                android:textSize="20sp" />
 
         </LinearLayout>
     </LinearLayout>
