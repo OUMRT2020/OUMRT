@@ -19,7 +19,7 @@ import com.skypan.myapplication.R;
 
 public class PassengerMainActivity extends AppCompatActivity {
 
-    public String userID;
+    public String user_id;
     private FloatingActionButton btn_search;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
@@ -30,7 +30,9 @@ public class PassengerMainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_passenger_main);
-
+        Intent intent = getIntent();
+        user_id = intent.getStringExtra("user_id");
+        Log.d("user_id", user_id);
         //find views
         btn_search = findViewById(R.id.search);
         drawerLayout = findViewById(R.id.passenger_drawer_layout);
@@ -40,7 +42,7 @@ public class PassengerMainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(PassengerMainActivity.this, SearchEventsActivity.class);
-                intent.putExtra("userID", userID);
+                intent.putExtra("userID", user_id);
                 startActivity(intent);
             }
         });

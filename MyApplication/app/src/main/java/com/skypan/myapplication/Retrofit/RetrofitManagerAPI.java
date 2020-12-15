@@ -39,13 +39,14 @@ public interface RetrofitManagerAPI {
 
     @GET("query-event")
     Call<List<Event>> getSearchEvents(
+            @Query("user_id") String user_id,
             @Query("driver_name") String driver_name,
-            @Query("actual_start_point") String pt_start,
-            @Query("actual_end_point") String pt_end,
-            @Query("actual_time") String date,
+            @Query("start") String pt_start,
+            @Query("end") String pt_end,
+            @Query("time") String date,
             @Query("is_self_helmet") boolean is_helmet,
             @Query("is_free") boolean is_free,
-            @Query("sex") int sex
+            @Query("driver_sex") int sex
     );
 
     @POST("request")

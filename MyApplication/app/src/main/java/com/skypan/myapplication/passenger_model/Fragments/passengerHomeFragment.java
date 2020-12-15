@@ -12,16 +12,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.skypan.myapplication.R;
 import com.skypan.myapplication.Retrofit.Event;
-import com.skypan.myapplication.Retrofit.Rate;
 import com.skypan.myapplication.Retrofit.RetrofitManagerAPI;
-import com.skypan.myapplication.Retrofit.User;
 import com.skypan.myapplication.passenger_model.Adapters.MainEventAdapter;
-import com.skypan.myapplication.passenger_model.PassengerMainActivity;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import retrofit2.Call;
@@ -40,39 +33,38 @@ public class passengerHomeFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_passenger_home, container, false);
 
-        // todo :連線API
-//        Retrofit retrofit = new Retrofit.Builder()
-//                .baseUrl("https://database87.herokuapp.com/")
-//                .addConverterFactory(GsonConverterFactory.create())
-//                .build();
-//        RetrofitManagerAPI retrofitManagerAPI = retrofit.create(RetrofitManagerAPI.class);
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://database87.herokuapp.com/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        RetrofitManagerAPI retrofitManagerAPI = retrofit.create(RetrofitManagerAPI.class);
 //        Call<List<Event>> call = retrofitManagerAPI.getPassengerMain(((PassengerMainActivity) getActivity()).userID);
-//        call.enqueue(new Callback<List<Event>>() {
-//            @Override
-//            public void onResponse(Call<List<Event>> call, Response<List<Event>> response) {
-//                if (!response.isSuccessful()) {
-//                    Log.d("TAG1", String.valueOf(response.code()));
-//                }
-//                try {
-//                    List<Event> events = response.body();
-//                    if (events == null) {
-//                        throw new NullPointerException("沒有回傳值");
-//                    }
-//                    mainRecycler = view.findViewById(R.id.mainRecycler);
-//                    mainRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
-//                    mainRecycler.setAdapter(new MainEventAdapter(getActivity(), events));
-//                } catch (Exception e) {
-//                    Log.d("error", e.getMessage());
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<List<Event>> call, Throwable t) {
-//                Log.d("TAG2", t.getMessage());
-//                Log.d("TAG2", t.getLocalizedMessage());
-//                Log.d("TAG2", t.toString());
-//            }
-//        });
+        Call<List<Event>> call = retrofitManagerAPI.getPassengerMain("JIU");//todo :修改user_id = uuid
+
+        call.enqueue(new Callback<List<Event>>() {
+            @Override
+            public void onResponse(Call<List<Event>> call, Response<List<Event>> response) {
+                if (!response.isSuccessful()) {
+                    Log.d("TAG1", String.valueOf(response.code()));
+                }
+                try {
+                    List<Event> events = response.body();
+                    if (events == null) {
+                        throw new NullPointerException("沒有回傳值");
+                    }
+                    mainRecycler = view.findViewById(R.id.mainRecycler);
+                    mainRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
+                    mainRecycler.setAdapter(new MainEventAdapter(getActivity(), events));
+                } catch (Exception e) {
+                    Log.d("error", e.getMessage());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Event>> call, Throwable t) {
+                Log.d("TAG2", t.getMessage());
+            }
+        });
 
         //這是測試資料
         //new出一堆物件假裝拿回json了
