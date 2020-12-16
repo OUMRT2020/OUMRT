@@ -121,10 +121,12 @@ public class requests_in_multiRecyclerViewAdapter extends RecyclerView.Adapter<r
                                     if (!response.isSuccessful()) {
                                         Log.d("accept error", response.message());
                                     }
-                                    if (response.body().isSuccess()) {
+                                    if (!response.body().isSuccess()) {
                                         Log.d("accept fail", response.body().getReason());
                                     }
-                                    Log.d("accept success", "accept success");
+                                    else{
+                                        Log.d("accept success", "accept success");
+                                    }
                                 }
 
                                 @Override
@@ -137,10 +139,33 @@ public class requests_in_multiRecyclerViewAdapter extends RecyclerView.Adapter<r
                     alertDialog.setNegativeButton("拒絕", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            //todo :連線API
+                            Retrofit retrofit = new Retrofit.Builder()
+                                    .baseUrl("https://database87.herokuapp.com/")
+                                    .addConverterFactory(GsonConverterFactory.create())
+                                    .build();
+                            RetrofitManagerAPI retrofitManagerAPI = retrofit.create(RetrofitManagerAPI.class);
+                            Call<Ack> call = retrofitManagerAPI.rejectRequest(user.getUser_id(), request.getEvent_id(),"這是預設的拒絕訊息，之後會修改");
+                            call.enqueue(new Callback<Ack>() {
+                                @Override
+                                public void onResponse(Call<Ack> call, Response<Ack> response) {
+                                    if (!response.isSuccessful()) {
+                                        Log.d("reject error", response.message());
+                                    }
+                                    if (!response.body().isSuccess()) {
+                                        Log.d("reject fail", response.body().getReason());
+                                    }
+                                    else{
+                                        Log.d("reject success", "reject success");
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(Call<Ack> call, Throwable t) {
+                                    Log.d("reject server error", t.getMessage());
+                                }
+                            });
                         }
                     });
-
 
                     alertDialog.setView(content_layout);
                     alertDialog.show();
