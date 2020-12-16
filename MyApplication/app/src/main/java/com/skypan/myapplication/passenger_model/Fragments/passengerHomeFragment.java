@@ -38,6 +38,7 @@ public class passengerHomeFragment extends Fragment {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         RetrofitManagerAPI retrofitManagerAPI = retrofit.create(RetrofitManagerAPI.class);
+
 //        Call<List<Event>> call = retrofitManagerAPI.getPassengerMain(((PassengerMainActivity) getActivity()).userID);
         Call<List<Event>> call = retrofitManagerAPI.getPassengerMain("JIU");//todo :修改user_id = uuid
 

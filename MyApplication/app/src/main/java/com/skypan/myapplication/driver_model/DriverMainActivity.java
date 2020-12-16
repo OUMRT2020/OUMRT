@@ -56,7 +56,7 @@ public class DriverMainActivity extends AppCompatActivity {
     private Date endTime = new Date();
     private TimePickerView pvTime;
     private String event_name;
-    private Date[] acceptable_time_interval = new Date[2];
+    private String[] acceptable_time_interval = new String[2];
     private boolean[] day = new boolean[7];
     private CheckBox cb1,cb2,cb3,cb4,cb5,cb6,cb7;
     private String[] acceptable_start_point = new String[3];
@@ -285,7 +285,7 @@ public class DriverMainActivity extends AppCompatActivity {
                     calendar.setTime(startTime);
                     pvTime.setDate(calendar);
                     pvTime.show(v1);
-                    acceptable_time_interval[0]=startTime;
+                    acceptable_time_interval[0]= String.valueOf(startTime);
                 }
             }
         }));
@@ -297,7 +297,7 @@ public class DriverMainActivity extends AppCompatActivity {
                     calendar.setTime(endTime);
                     pvTime.setDate(calendar);
                     pvTime.show(v1);
-                    acceptable_time_interval[1]=endTime;
+                    acceptable_time_interval[1]= String.valueOf(endTime);
                 }
             }
         }));
@@ -309,31 +309,31 @@ public class DriverMainActivity extends AppCompatActivity {
             public void onClick(View v1) {
                 final Editable Temp;
 
-                event_name=name.toString();
+                event_name= String.valueOf(name.getText());
                 String value= editText_Money.getText().toString();
                 money=Integer.parseInt(value);
 
                value= editText_Weught.getText().toString();
                weight=Integer.parseInt(value);
 
-                // TODO: 2020/12/13 time
+                // TODO:
                 AlertDialog.Builder twoDialog = new AlertDialog.Builder(DriverMainActivity.this);
                 twoDialog.setTitle("新增成功");
                 twoDialog.setPositiveButton("瞭解", (new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog1, int which) {
 
-//                        System.out.println(money+weight+gender);
-//                        //addSetting.addSetting(temp);
-//                        User user = new User("AAA", "token", "峻峻", "48763", true, 87, null, null);
-//                        Event e = new Event("AAA", event_name , "white", "BBB", "CCC"
-//                                , new ArrayList<Date>(Arrays.asList(acceptable_time_interval[0],acceptable_time_interval[1]))
-//                                , new ArrayList<String>(Arrays.asList(acceptable_start_point[0],acceptable_start_point[1],acceptable_start_point[2]))
-//                                , new ArrayList<String>(Arrays.asList(acceptable_end_point[0],acceptable_end_point[1],acceptable_end_point[2]))
-//                                , gender, weight, money, ishamlet, new ArrayList<Boolean>(Arrays.asList(day[0],day[1],day[2],day[3],day[4],day[5],day[6])), user);
-//                        addSetting.addSetting(e);
-//                        dialog.dismiss();
-//                        refresh();
+                        System.out.println(money+weight+gender);
+                        //addSetting.addSetting(temp);
+                        User user = new User("AAA", "token", "峻峻", "48763", true, 87, null, null);
+                        Event e = new Event("AAA", event_name , "white", "BBB", "CCC"
+                                , new ArrayList<String>(Arrays.asList(acceptable_time_interval[0],acceptable_time_interval[1]))
+                                , new ArrayList<String>(Arrays.asList(acceptable_start_point[0],acceptable_start_point[1],acceptable_start_point[2]))
+                                , new ArrayList<String>(Arrays.asList(acceptable_end_point[0],acceptable_end_point[1],acceptable_end_point[2]))
+                                , gender, weight, money, ishamlet, new ArrayList<Boolean>(Arrays.asList(day[0],day[1],day[2],day[3],day[4],day[5],day[6])), user);
+                        addSetting.addSetting(e);
+                        dialog.dismiss();
+                        refresh();
                     }
                 }));
                 twoDialog.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
