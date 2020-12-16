@@ -20,6 +20,7 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -87,15 +88,17 @@ public class SearchEventsActivity extends AppCompatActivity {
         btn_done_all.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Request request = new Request(date_and_time.getText().toString(), sp_pt_start.getSelectedItem().toString(), sp_pt_end.getSelectedItem().toString());
+                Request request = new Request(user_id, date_and_time.getText().toString(), sp_pt_start.getSelectedItem().toString(), sp_pt_end.getSelectedItem().toString());
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl("https://database87.herokuapp.com/")
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
                 RetrofitManagerAPI retrofitManagerAPI = retrofit.create(RetrofitManagerAPI.class);
-//                Call<List<Event>> call = retrofitManagerAPI.getSearchEvents("AAA", et_driver_name.getText().toString(), sp_pt_start.getSelectedItem().toString(), sp_pt_end.getSelectedItem().toString(), date_and_time.getText().toString(), isHelmet, !isFree, rgSelected);
+                Log.d("user_id", user_id);
+
+                Call<List<Event>> call = retrofitManagerAPI.getSearchEvents(user_id, et_driver_name.getText().toString(), sp_pt_start.getSelectedItem().toString(), sp_pt_end.getSelectedItem().toString(), date_and_time.getText().toString(), isHelmet, !isFree, rgSelected);
                 //todo 需要修改
-                Call<List<Event>> call = retrofitManagerAPI.getSearchEvents("JIU", "", "海大校門口", "九份金瓜石", date_and_time.getText().toString(), isHelmet, !isFree, rgSelected);
+//                Call<List<Event>> call = retrofitManagerAPI.getSearchEvents("JIU", "", "海大校門口", "九份金瓜石", date_and_time.getText().toString(), isHelmet, !isFree, rgSelected);
                 call.enqueue(new Callback<List<Event>>() {
                     @Override
                     public void onResponse(Call<List<Event>> call, Response<List<Event>> response) {
@@ -104,8 +107,9 @@ public class SearchEventsActivity extends AppCompatActivity {
                         }
                         List<Event> events = response.body();
                         if (events != null) {
-                            if(events.size()==0){
+                            if (events.size() == 0) {
                                 Log.d("debug", "no event");
+                                Toast.makeText(SearchEventsActivity.this, "沒有搜尋到相符事件", Toast.LENGTH_SHORT).show();
                             }
                             recyclerView = findViewById(R.id.rv_searched_events);
                             recyclerView.setLayoutManager(new LinearLayoutManager(SearchEventsActivity.this));
