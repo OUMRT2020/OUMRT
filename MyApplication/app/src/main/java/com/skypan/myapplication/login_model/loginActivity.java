@@ -86,6 +86,7 @@ public class loginActivity extends AppCompatActivity {
                                 } else {
                                     // 跳轉到登入後的頁面
                                     Intent intent = new Intent(loginActivity.this, select_identityActivity.class);
+                                    intent.putExtra("user_id", response.body());
                                     startActivity(intent);
                                     finish();
                                 }

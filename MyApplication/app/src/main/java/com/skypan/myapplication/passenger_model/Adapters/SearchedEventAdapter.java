@@ -50,7 +50,7 @@ public class SearchedEventAdapter extends RecyclerView.Adapter<SearchedEventAdap
     public void onBindViewHolder(@NonNull SearchedEventAdapter.ViewHolder holder, int position) {
         holder.event_name.setText("" + Events.get(position).getEvent_name());
         holder.driver_rate.setText("" + Events.get(position).getUser().getRate().getScore());
-        holder.event_time.setText("" + Events.get(position).getAcceptable_time_interval().get(0) + " " + Events.get(position).getAcceptable_time_interval().get(1));
+        holder.event_time.setText("" + Events.get(position).getAcceptable_time_interval().get(0) + "至" + Events.get(position).getAcceptable_time_interval().get(1));
         holder.event_cost.setText("" + Events.get(position).getPrice());
 
         if (Events.get(position).getStatus().equals("white")) {
@@ -134,12 +134,13 @@ public class SearchedEventAdapter extends RecyclerView.Adapter<SearchedEventAdap
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 request.setEvent_id(e.getEvent_id());
+                                request.setUser_id(e.getDriver_id());
                                 EditText et = content_layout.findViewById(R.id.et_extra_need);
                                 request.setExtra_needed(et.getText().toString());
 
                                 //送出請求
                                 Retrofit retrofit = new Retrofit.Builder()
-                                        .baseUrl("https://jsonplaceholder.typicode.com/")//todo :楊哥的API
+                                        .baseUrl("https://database87.herokuapp.com/")
                                         .addConverterFactory(GsonConverterFactory.create())
                                         .build();
                                 RetrofitManagerAPI retrofitManagerAPI = retrofit.create(RetrofitManagerAPI.class);

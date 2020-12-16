@@ -49,9 +49,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class SearchEventsActivity extends AppCompatActivity {
 
 
-    static int rgSelected;
-    boolean isHelmet, isFree;
-    private String userID, TAG = "DEBUG";
+    private int rgSelected;
+    private boolean isHelmet, isFree;
+    private String user_id, TAG = "DEBUG";
     private TextView date_and_time;
     private Button choose_date_and_time;
     private ImageButton btn_filter;
@@ -70,7 +70,7 @@ public class SearchEventsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_events);
         Intent intent = getIntent();
-        userID = intent.getStringExtra("userID");
+        user_id = intent.getStringExtra("user_id");
         date_and_time = findViewById(R.id.date_and_time);
         choose_date_and_time = findViewById(R.id.choose_date_and_time);
         btn_filter = findViewById(R.id.filter);
@@ -87,13 +87,15 @@ public class SearchEventsActivity extends AppCompatActivity {
         btn_done_all.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Request request = new Request(userID, date_and_time.getText().toString(), sp_pt_start.getSelectedItem().toString(), sp_pt_end.getSelectedItem().toString());
+                Request request = new Request(date_and_time.getText().toString(), sp_pt_start.getSelectedItem().toString(), sp_pt_end.getSelectedItem().toString());
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl("")//todo 楊哥的API
+                        .baseUrl("https://database87.herokuapp.com/")
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
                 RetrofitManagerAPI retrofitManagerAPI = retrofit.create(RetrofitManagerAPI.class);
-                Call<List<Event>> call = retrofitManagerAPI.getSearchEvents(sp_pt_start.getSelectedItem().toString(), sp_pt_end.getSelectedItem().toString(), et_driver_name.getText().toString(), date_and_time.getText().toString(), isHelmet, isFree, rgSelected);
+//                Call<List<Event>> call = retrofitManagerAPI.getSearchEvents("AAA", et_driver_name.getText().toString(), sp_pt_start.getSelectedItem().toString(), sp_pt_end.getSelectedItem().toString(), date_and_time.getText().toString(), isHelmet, !isFree, rgSelected);
+                //todo 需要修改
+                Call<List<Event>> call = retrofitManagerAPI.getSearchEvents("JIU", "", "海大校門口", "九份金瓜石", date_and_time.getText().toString(), isHelmet, !isFree, rgSelected);
                 call.enqueue(new Callback<List<Event>>() {
                     @Override
                     public void onResponse(Call<List<Event>> call, Response<List<Event>> response) {
@@ -101,9 +103,16 @@ public class SearchEventsActivity extends AppCompatActivity {
                             Log.d(TAG, String.valueOf(response.code()));
                         }
                         List<Event> events = response.body();
-                        recyclerView = findViewById(R.id.rv_searched_events);
-                        recyclerView.setLayoutManager(new LinearLayoutManager(SearchEventsActivity.this));
-                        recyclerView.setAdapter(new SearchedEventAdapter(SearchEventsActivity.this, events, request));
+                        if (events != null) {
+                            if(events.size()==0){
+                                Log.d("debug", "no event");
+                            }
+                            recyclerView = findViewById(R.id.rv_searched_events);
+                            recyclerView.setLayoutManager(new LinearLayoutManager(SearchEventsActivity.this));
+                            recyclerView.setAdapter(new SearchedEventAdapter(SearchEventsActivity.this, events, request));
+                        } else {
+                            Log.d("debug", "null");
+                        }
                     }
 
                     @Override
