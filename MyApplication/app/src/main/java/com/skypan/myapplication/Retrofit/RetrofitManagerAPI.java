@@ -7,7 +7,6 @@ import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
-import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
@@ -28,6 +27,12 @@ public interface RetrofitManagerAPI {
     @POST("accept-request")
     Call<Ack> acceptRequest(@Field("user_id") String user_id,
                             @Field("event_id") String event_id);
+
+    @FormUrlEncoded
+    @POST("reject-event")
+    Call<Ack> rejectRequest(@Field("user_id") String user_id,
+                            @Field("event_id") String event_id,
+                            @Field("reason") String reason);
 
     @GET("query_driver/{id}")
     Call<List<Event>> getDriverMain(
@@ -66,7 +71,8 @@ public interface RetrofitManagerAPI {
 //    @POST("alter-user")
 //    Call<Ack> alterUser(@Body Request request);
 
-    @GET("query-user")//查詢個人資料
+    @GET("query-user")
+//查詢個人資料
     Call<User> queryUser(@Query("user_id") String user_id);
 
 }

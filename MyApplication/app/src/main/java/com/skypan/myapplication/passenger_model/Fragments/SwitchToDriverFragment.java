@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 
 import com.skypan.myapplication.R;
 import com.skypan.myapplication.driver_model.DriverMainActivity;
+import com.skypan.myapplication.passenger_model.PassengerMainActivity;
 
 public class SwitchToDriverFragment extends Fragment {
     private Button btn_switch_to_driver;
@@ -33,6 +34,7 @@ public class SwitchToDriverFragment extends Fragment {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 Intent intent = new Intent(getActivity(), DriverMainActivity.class);
+                                intent.putExtra("user_id", ((PassengerMainActivity) getActivity()).user_id);
                                 startActivity(intent);
                                 getActivity().finish();
                             }
