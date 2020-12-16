@@ -42,6 +42,7 @@ public class passengerHomeFragment extends Fragment {
         Call<List<Event>> call = retrofitManagerAPI.getPassengerMain(((PassengerMainActivity) getActivity()).user_id);
 //        Call<List<Event>> call = retrofitManagerAPI.getPassengerMain("JIU");//todo :修改user_id = uuid
 
+
         call.enqueue(new Callback<List<Event>>() {
             @Override
             public void onResponse(Call<List<Event>> call, Response<List<Event>> response) {

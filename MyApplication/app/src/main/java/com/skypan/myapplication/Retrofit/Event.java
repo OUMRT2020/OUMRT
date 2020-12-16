@@ -26,12 +26,10 @@ public class Event {
     private Request final_request;
     private User user;
 
-    public Event(String event_id, String event_name, String status, String driver_id, String passenger_id, ArrayList<String> acceptable_time_interval, ArrayList<String> acceptable_start_point, ArrayList<String> acceptable_end_point, int acceptable_sex, int max_weight, int price, boolean is_self_helmet, ArrayList<Boolean> repeat, User user) {
-        this.event_id = event_id;
+    public Event( String event_name, String status, String driver_id, ArrayList<String> acceptable_time_interval, ArrayList<String> acceptable_start_point, ArrayList<String> acceptable_end_point, int acceptable_sex, int max_weight, int price, boolean is_self_helmet, ArrayList<Boolean> repeat) {
         this.event_name = event_name;
         this.status = status;
         this.driver_id = driver_id;
-        this.passenger_id = passenger_id;
         this.acceptable_time_interval = acceptable_time_interval;
         this.acceptable_start_point = acceptable_start_point;
         this.acceptable_end_point = acceptable_end_point;
@@ -40,7 +38,6 @@ public class Event {
         this.price = price;
         this.is_self_helmet = is_self_helmet;
         this.repeat = repeat;
-        this.user = user;
     }
 
     public String getEvent_id() {

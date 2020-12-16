@@ -11,6 +11,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -18,6 +19,7 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -36,7 +38,9 @@ import com.bigkoo.pickerview.view.TimePickerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.skypan.myapplication.R;
+import com.skypan.myapplication.Retrofit.Ack;
 import com.skypan.myapplication.Retrofit.Event;
+import com.skypan.myapplication.Retrofit.RetrofitManagerAPI;
 import com.skypan.myapplication.Retrofit.User;
 
 import java.lang.reflect.Array;
@@ -45,6 +49,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class DriverMainActivity extends AppCompatActivity {
@@ -55,21 +66,29 @@ public class DriverMainActivity extends AppCompatActivity {
     private Date startTime = new Date();
     private Date endTime = new Date();
     private TimePickerView pvTime;
+    public String user_id;
     private String event_name;
-    private Date[] acceptable_time_interval = new Date[2];
+    private String[] acceptable_time_interval = new String[2];
     private boolean[] day = new boolean[7];
-    private CheckBox cb1,cb2,cb3,cb4,cb5,cb6,cb7;
+    private CheckBox cb1, cb2, cb3, cb4, cb5, cb6, cb7;
     private String[] acceptable_start_point = new String[3];
     private String[] acceptable_end_point = new String[3];
-    private int money,weight,gender;
+    private int money, weight, gender;
     private boolean ishamlet;
-
+    private ArrayList<String> acc_time_interval = new ArrayList<>();
+    private ArrayList<String> acc_start_pts = new ArrayList<>();
+    private ArrayList<String> acc_end_pt = new ArrayList<>();
+    private ArrayList<Boolean> repete = new ArrayList<>();
+    String[] pts = new String[]{"全聯福利中心 基隆中正店", "正宗永和豆漿", "海大(栙豐校門)", "海大(濱海校門)", "國立台灣海洋大學附屬基隆海事高級中等學院", "貴族世家 海洋大學店", "麥當勞-基隆新豐店", "愛買基隆店", "基隆車站", "姚家清魚湯"};
+    private Spinner driver_sp_pt_start,driver_sp_pt_end;
     //private Event temp = new Event();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_driver_main);
+        Intent intent = getIntent();
+        user_id = intent.getStringExtra("user_id");
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         FloatingActionButton fab = findViewById(R.id.fab);
@@ -105,53 +124,61 @@ public class DriverMainActivity extends AppCompatActivity {
 
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(DriverMainActivity.this);
         View v = getLayoutInflater().inflate(R.layout.set_custom_dialog_layout_with_button, null);
+
+        driver_sp_pt_start = v.findViewById(R.id.driver_sp_pt_start);
+        driver_sp_pt_end = v.findViewById(R.id.driver_sp_pt_end);
+        ArrayAdapter<String> adapter_pt = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, pts);
+        adapter_pt.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        driver_sp_pt_start.setAdapter(adapter_pt);
+        driver_sp_pt_end.setAdapter(adapter_pt);
+
         alertDialog.setView(v);
         Button btOK = v.findViewById(R.id.button_ok);
         Button btC = v.findViewById(R.id.buttonCancel);
-
-        //place
-        final Button start = v.findViewById(R.id.start);
-        start.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                acceptable_start_point[0]=placeChoose(start);
-            }
-        });
-        final Button start2 = v.findViewById(R.id.start2);
-        start2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                acceptable_start_point[1]=placeChoose(start2);
-            }
-        });
-        final Button start3 = v.findViewById(R.id.start3);
-        start3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                acceptable_start_point[2]=placeChoose(start3);
-            }
-        });
-        final Button end = v.findViewById(R.id.end);
-        end.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                acceptable_end_point[0]=placeChoose(end);
-            }
-        });
-        final Button end2 = v.findViewById(R.id.end2);
-        end2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                acceptable_end_point[1]=placeChoose(end2);
-            }
-        });
-        final Button end3 = v.findViewById(R.id.end3);
-        end3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                acceptable_end_point[2]=placeChoose(end3);
-            }
-        });
+//
+//        //place
+//        final Button start = v.findViewById(R.id.start);
+//        start.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                acc_start_pts.add(placeChoose(start));
+//            }
+//        });
+//        final Button start2 = v.findViewById(R.id.start2);
+//        start2.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                acc_start_pts.add(placeChoose(start2));
+//            }
+//        });
+//        final Button start3 = v.findViewById(R.id.start3);
+//        start3.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                acc_start_pts.add(placeChoose(start3));
+//            }
+//        });
+//        final Button end = v.findViewById(R.id.end);
+//        end.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                acc_end_pt.add(placeChoose(end));
+//            }
+//        });
+//        final Button end2 = v.findViewById(R.id.end2);
+//        end2.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                acc_end_pt.add(placeChoose(end2));
+//            }
+//        });
+//        final Button end3 = v.findViewById(R.id.end3);
+//        end3.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                acc_end_pt.add(placeChoose(end3));
+//            }
+//        });
 
 
         final EditText name = v.findViewById(R.id.name);
@@ -191,13 +218,13 @@ public class DriverMainActivity extends AppCompatActivity {
             mRg3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                    ishamlet=true;
+                    ishamlet = true;
                 }
             });
             mRg4.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                    ishamlet=false;
+                    ishamlet = false;
                 }
             });
         }
@@ -207,70 +234,76 @@ public class DriverMainActivity extends AppCompatActivity {
         cb1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-               if(isChecked) {
-                   day[0]=true;
-                   System.out.println(day[0]);
-               }else day[0]=false;
+                if (isChecked) {
+                    day[0] = true;
+                    System.out.println(day[0]);
+                } else day[0] = false;
             }
         });
-        cb2 = v.findViewById(R.id.cb_2);;
+        cb2 = v.findViewById(R.id.cb_2);
+        ;
         cb2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                if(isChecked) {
-                    day[1]=true;
+                if (isChecked) {
+                    day[1] = true;
                     System.out.println(day[1]);
-                }else day[1]=false;
+                } else day[1] = false;
             }
         });
-        cb3 = v.findViewById(R.id.cb_3);;
+        cb3 = v.findViewById(R.id.cb_3);
+        ;
         cb3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                if(isChecked) {
-                    day[2]=true;
+                if (isChecked) {
+                    day[2] = true;
                     System.out.println(day[2]);
-                }else day[2]=false;
+                } else day[2] = false;
             }
         });
-        cb4 = v.findViewById(R.id.cb_4);;
+        cb4 = v.findViewById(R.id.cb_4);
+        ;
         cb4.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                if(isChecked) {
-                    day[3]=true;
+                if (isChecked) {
+                    day[3] = true;
                     System.out.println(day[3]);
-                }else day[3]=false;
+                } else day[3] = false;
             }
         });
-        cb5 = v.findViewById(R.id.cb_5);;
+        cb5 = v.findViewById(R.id.cb_5);
+        ;
         cb5.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                if(isChecked) {
-                    day[4]=true;
+                if (isChecked) {
+                    day[4] = true;
                     System.out.println(day[4]);
-                }else day[4]=false;
+                } else day[4] = false;
             }
         });
-        cb6 = v.findViewById(R.id.cb_6);;
+        cb6 = v.findViewById(R.id.cb_6);
+        ;
         cb6.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                if(isChecked) {
-                    day[5]=true;
+                if (isChecked) {
+                    day[5] = true;
                     System.out.println(day[5]);
-                }else day[5]=false;
+                } else day[5] = false;
             }
         });
-        cb7 = v.findViewById(R.id.cb_7);;
+        cb7 = v.findViewById(R.id.cb_7);
+        ;
         cb7.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                if(isChecked) {
-                    day[6]=true;
+                if (isChecked) {
+                    day[6] = true;
                     System.out.println(day[6]);
-                }else day[6]=false;
+                } else day[6] = false;
             }
         });
 
@@ -285,7 +318,8 @@ public class DriverMainActivity extends AppCompatActivity {
                     calendar.setTime(startTime);
                     pvTime.setDate(calendar);
                     pvTime.show(v1);
-                    acceptable_time_interval[0]=startTime;
+//                    acceptable_time_interval[0] = String.valueOf(startTime);
+
                 }
             }
         }));
@@ -297,7 +331,7 @@ public class DriverMainActivity extends AppCompatActivity {
                     calendar.setTime(endTime);
                     pvTime.setDate(calendar);
                     pvTime.show(v1);
-                    acceptable_time_interval[1]=endTime;
+//                    acceptable_time_interval[1] = String.valueOf(endTime);
                 }
             }
         }));
@@ -309,30 +343,74 @@ public class DriverMainActivity extends AppCompatActivity {
             public void onClick(View v1) {
                 final Editable Temp;
 
-                event_name=name.toString();
-                String value= editText_Money.getText().toString();
-                money=Integer.parseInt(value);
+                event_name = String.valueOf(name.getText());
+                String value = editText_Money.getText().toString();
+                money = Integer.parseInt(value);
 
-               value= editText_Weught.getText().toString();
-               weight=Integer.parseInt(value);
+                value = editText_Weught.getText().toString();
+                weight = Integer.parseInt(value);
 
-                // TODO: 2020/12/13 time
+                // TODO:
                 AlertDialog.Builder twoDialog = new AlertDialog.Builder(DriverMainActivity.this);
                 twoDialog.setTitle("新增成功");
                 twoDialog.setPositiveButton("瞭解", (new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog1, int which) {
 
-//                        System.out.println(money+weight+gender);
-//                        //addSetting.addSetting(temp);
-//                        User user = new User("AAA", "token", "峻峻", "48763", true, 87, null, null);
-//                        Event e = new Event("AAA", event_name , "white", "BBB", "CCC"
-//                                , new ArrayList<Date>(Arrays.asList(acceptable_time_interval[0],acceptable_time_interval[1]))
-//                                , new ArrayList<String>(Arrays.asList(acceptable_start_point[0],acceptable_start_point[1],acceptable_start_point[2]))
-//                                , new ArrayList<String>(Arrays.asList(acceptable_end_point[0],acceptable_end_point[1],acceptable_end_point[2]))
-//                                , gender, weight, money, ishamlet, new ArrayList<Boolean>(Arrays.asList(day[0],day[1],day[2],day[3],day[4],day[5],day[6])), user);
-//                        addSetting.addSetting(e);
-//                        dialog.dismiss();
+                        System.out.println(money + weight + gender);
+
+                        acc_start_pts.add(driver_sp_pt_start.getSelectedItem().toString());
+                        acc_end_pt.add(driver_sp_pt_end.getSelectedItem().toString());
+
+                        for (boolean b : day) {
+                            repete.add(b);
+                        }
+
+                        System.out.println(user_id);
+                        Event e = new Event(event_name, "white", user_id
+                                , acc_time_interval
+                                , acc_start_pts
+                                , acc_end_pt
+                                , gender, weight, money, ishamlet, repete);
+                        System.out.println("event_name" + event_name);
+                        System.out.println("status" + "white");
+                        System.out.println("user_id" + user_id);
+                        System.out.println("acc_time_interval" + acc_time_interval);
+                        System.out.println("acc_start_pts" + acc_start_pts);
+                        System.out.println("acc_end_pt" + acc_end_pt);
+                        System.out.println("gender" + gender);
+                        System.out.println("weight" + weight);
+                        System.out.println("money" + money);
+                        System.out.println("ishamlet" + ishamlet);
+                        System.out.println("repete" + repete);
+
+
+
+                        Retrofit retrofit = new Retrofit.Builder()
+                                .baseUrl("https://database87.herokuapp.com/")
+                                .addConverterFactory(GsonConverterFactory.create())
+                                .build();
+                        RetrofitManagerAPI retrofitManagerAPI = retrofit.create(RetrofitManagerAPI.class);
+                        Call<Ack> call = retrofitManagerAPI.newEvent(e);
+                        call.enqueue(new Callback<Ack>() {
+                            @Override
+                            public void onResponse(Call<Ack> call, Response<Ack> response) {
+                                if (!response.isSuccessful()) {
+                                    Log.d("add", "new enent error");
+                                }
+                                Ack ack = response.body();
+                                Log.d("ACK", ack.isSuccess() ? "true" : "fasle");
+                                Log.d("ACK", ack.getReason());
+
+
+                            }
+
+                            @Override
+                            public void onFailure(Call<Ack> call, Throwable t) {
+                                Log.d("add", "new enent server error");
+                            }
+                        });
+                        dialog.dismiss();
 //                        refresh();
                     }
                 }));
@@ -353,110 +431,111 @@ public class DriverMainActivity extends AppCompatActivity {
             }
         }));
     }
-
-    private String placeChoose(final Button start) {
-
-        AlertDialog.Builder placealertDialog = new AlertDialog.Builder(DriverMainActivity.this);
-        View v = getLayoutInflater().inflate(R.layout.choose_place, null);
-        placealertDialog.setView(v);
-
-        final AlertDialog dialog = placealertDialog.create();
-        dialog.show();
-
-
-        final RadioButton mp1 = v.findViewById(R.id.rb_place_1);
-        final RadioButton mp2 = v.findViewById(R.id.rb_place_2);
-        final RadioButton mp3 = v.findViewById(R.id.rb_place_3);
-        final RadioButton mp4 = v.findViewById(R.id.rb_place_4);
-        final RadioButton mp5 = v.findViewById(R.id.rb_place_5);
-        final RadioButton mp6 = v.findViewById(R.id.rb_place_6);
-        final RadioButton mp7 = v.findViewById(R.id.rb_place_7);
-        final RadioButton mp8 = v.findViewById(R.id.rb_place_8);
-        final RadioButton mp9 = v.findViewById(R.id.rb_place_9);
-        final RadioButton mp10 = v.findViewById(R.id.rb_place_10);
-        final String[] place = new String[1];
-        mp1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                place[0] = String.valueOf(mp1.getText());
-                start.setText(mp1.getText());
-                dialog.dismiss();
-            }
-        });
-        mp2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                place[0] = String.valueOf(mp2.getText());
-                start.setText(mp2.getText());
-                dialog.dismiss();
-            }
-        });
-        mp3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                place[0] = String.valueOf(mp3.getText());
-                start.setText(mp3.getText());
-                dialog.dismiss();
-            }
-        });
-        mp4.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                place[0] = String.valueOf(mp4.getText());
-                start.setText(mp4.getText());
-                dialog.dismiss();
-            }
-        });
-        mp5.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                place[0] = String.valueOf(mp5.getText());
-                start.setText(mp5.getText());
-                dialog.dismiss();
-            }
-        });
-        mp6.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                place[0] = String.valueOf(mp6.getText());
-                start.setText(mp6.getText());
-                dialog.dismiss();
-            }
-        });
-        mp7.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                place[0] = String.valueOf(mp7.getText());
-                start.setText(mp7.getText());
-                dialog.dismiss();
-            }
-        });
-        mp8.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                place[0] = String.valueOf(mp8.getText());
-                start.setText(mp8.getText());
-                dialog.dismiss();
-            }
-        });
-        mp9.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                place[0] = String.valueOf(mp9.getText());
-                start.setText(mp9.getText());
-                dialog.dismiss();
-            }
-        });
-        mp10.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                place[0] = String.valueOf(mp10.getText());
-                start.setText(mp10.getText());
-                dialog.dismiss();
-            }
-        });
-        return place[0];
-    }
+//
+//    private String placeChoose(final Button start) {
+//
+//        AlertDialog.Builder placealertDialog = new AlertDialog.Builder(DriverMainActivity.this);
+//        View v = getLayoutInflater().inflate(R.layout.choose_place, null);
+//        placealertDialog.setView(v);
+//
+//        final AlertDialog dialog = placealertDialog.create();
+//        dialog.show();
+//
+//
+//        final RadioButton mp1 = v.findViewById(R.id.rb_place_1);
+//        final RadioButton mp2 = v.findViewById(R.id.rb_place_2);
+//        final RadioButton mp3 = v.findViewById(R.id.rb_place_3);
+//        final RadioButton mp4 = v.findViewById(R.id.rb_place_4);
+//        final RadioButton mp5 = v.findViewById(R.id.rb_place_5);
+//        final RadioButton mp6 = v.findViewById(R.id.rb_place_6);
+//        final RadioButton mp7 = v.findViewById(R.id.rb_place_7);
+//        final RadioButton mp8 = v.findViewById(R.id.rb_place_8);
+//        final RadioButton mp9 = v.findViewById(R.id.rb_place_9);
+//        final RadioButton mp10 = v.findViewById(R.id.rb_place_10);
+//        final String[] place = new String[1];
+//        mp1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+//                place[0] = String.valueOf(mp1.getText());
+//                start.setText(mp1.getText());
+//                dialog.dismiss();
+//            }
+//        });
+//        mp2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+//                place[0] = String.valueOf(mp2.getText());
+//                start.setText(mp2.getText());
+//                dialog.dismiss();
+//            }
+//        });
+//        mp3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+//                place[0] = String.valueOf(mp3.getText());
+//                start.setText(mp3.getText());
+//                dialog.dismiss();
+//            }
+//        });
+//        mp4.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+//                place[0] = String.valueOf(mp4.getText());
+//                start.setText(mp4.getText());
+//                dialog.dismiss();
+//            }
+//        });
+//        mp5.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+//                place[0] = String.valueOf(mp5.getText());
+//                start.setText(mp5.getText());
+//                dialog.dismiss();
+//            }
+//        });
+//        mp6.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+//                place[0] = String.valueOf(mp6.getText());
+//                start.setText(mp6.getText());
+//                dialog.dismiss();
+//            }
+//        });
+//        mp7.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+//                place[0] = String.valueOf(mp7.getText());
+//                start.setText(mp7.getText());
+//                dialog.dismiss();
+//            }
+//        });
+//        mp8.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+//                place[0] = String.valueOf(mp8.getText());
+//                start.setText(mp8.getText());
+//                dialog.dismiss();
+//            }
+//        });
+//        mp9.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+//                place[0] = String.valueOf(mp9.getText());
+//                start.setText(mp9.getText());
+//                dialog.dismiss();
+//            }
+//        });
+//        mp10.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+//                place[0] = String.valueOf(mp10.getText());
+//                start.setText(mp10.getText());
+//                dialog.dismiss();
+//            }
+//        });
+//        System.out.println(place[0]);
+//        return place[0];
+//    }
 
     private void refresh() {
         Intent intent = new Intent(DriverMainActivity.this, DriverMainActivity.class);
@@ -477,6 +556,7 @@ public class DriverMainActivity extends AppCompatActivity {
                 }
                 EditText editText = (EditText) v;
                 editText.setText(getTime(date));
+                acc_time_interval.add(getTime(date));
             }
         })
                 .setTimeSelectChangeListener(new OnTimeSelectChangeListener() {

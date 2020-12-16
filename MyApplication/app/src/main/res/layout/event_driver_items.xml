@@ -34,6 +34,13 @@
                 android:padding="10dp"
                 android:text="time"
                 android:textSize="20sp" />
+            <TextView
+                android:id="@+id/event_time2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="time"
+                android:textSize="20sp" />
 
 <!--            <TextView-->
 <!--                android:layout_width="wrap_content"-->
@@ -51,21 +58,18 @@
 <!--                android:textSize="20sp" />-->
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/event_driver_rate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <Button
+            android:id="@+id/event_delete"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
             android:layout_alignParentEnd="true"
             android:padding="10dp"
-            android:text="4.7"
-            android:textSize="25sp"
-            app:drawableLeftCompat="@drawable/ic_baseline_star_rate_24" />
-
+            android:drawableLeft="@drawable/ic_delete"/>
         <TextView
             android:id="@+id/event_cost"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/event_driver_rate"
+            android:layout_below="@+id/event_delete"
             android:layout_alignParentEnd="true"
             android:drawableLeft="@drawable/ic_baseline_attach_money_24"
             android:padding="10dp"
