@@ -134,9 +134,15 @@ public class SearchedEventAdapter extends RecyclerView.Adapter<SearchedEventAdap
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 request.setEvent_id(e.getEvent_id());
-                                request.setUser_id(e.getDriver_id());
                                 EditText et = content_layout.findViewById(R.id.et_extra_need);
                                 request.setExtra_needed(et.getText().toString());
+
+                                System.out.println(request.getUser_id());
+                                System.out.println(request.getActual_end_point());
+                                System.out.println(request.getActual_start_point());
+                                System.out.println(request.getActual_time());
+                                System.out.println(request.getEvent_id());
+                                System.out.println(request.getExtra_needed());
 
                                 //送出請求
                                 Retrofit retrofit = new Retrofit.Builder()

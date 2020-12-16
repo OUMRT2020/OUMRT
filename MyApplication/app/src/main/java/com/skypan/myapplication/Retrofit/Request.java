@@ -10,7 +10,8 @@ public class Request {
     private String actual_end_point;
     private String extra_needed;
 
-    public Request(String actual_time, String actual_start_point, String actual_end_point) {
+    public Request(String user_id,String actual_time, String actual_start_point, String actual_end_point) {
+        this.user_id = user_id;
         this.actual_time = actual_time;
         this.actual_start_point = actual_start_point;
         this.actual_end_point = actual_end_point;

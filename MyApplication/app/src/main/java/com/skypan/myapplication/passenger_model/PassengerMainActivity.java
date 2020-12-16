@@ -42,7 +42,7 @@ public class PassengerMainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(PassengerMainActivity.this, SearchEventsActivity.class);
-                intent.putExtra("userID", user_id);
+                intent.putExtra("user_id", user_id);
                 startActivity(intent);
             }
         });
