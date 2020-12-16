@@ -39,15 +39,14 @@ public class passengerHomeFragment extends Fragment {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         RetrofitManagerAPI retrofitManagerAPI = retrofit.create(RetrofitManagerAPI.class);
+        Log.d("fragment user_id", ((PassengerMainActivity) getActivity()).user_id);
         Call<List<Event>> call = retrofitManagerAPI.getPassengerMain(((PassengerMainActivity) getActivity()).user_id);
 //        Call<List<Event>> call = retrofitManagerAPI.getPassengerMain("JIU");//todo :修改user_id = uuid
-
-
         call.enqueue(new Callback<List<Event>>() {
             @Override
             public void onResponse(Call<List<Event>> call, Response<List<Event>> response) {
                 if (!response.isSuccessful()) {
-                    Log.d("TAG1", String.valueOf(response.code()));
+                    Log.d("passengerHomeFragment", String.valueOf(response.code()));
                 }
                 try {
                     List<Event> events = response.body();
@@ -58,7 +57,7 @@ public class passengerHomeFragment extends Fragment {
                     mainRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
                     mainRecycler.setAdapter(new MainEventAdapter(getActivity(), events));
                 } catch (Exception e) {
-                    Log.d("error", e.getMessage());
+                    Log.d("passengerHomeFragment", e.getMessage());
                 }
             }
 

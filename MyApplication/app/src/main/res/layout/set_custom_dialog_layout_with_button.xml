@@ -88,7 +88,7 @@
             android:orientation="horizontal">
 
             <Spinner
-                android:id="@+id/driver_sp_pt_end"
+                android:id="@+id/driver_sp_pt_start"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@color/searchBackground" />
@@ -124,7 +124,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="起點:" />
+            android:text="終點:" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -132,7 +132,7 @@
             android:orientation="horizontal">
 
             <Spinner
-                android:id="@+id/driver_sp_pt_start"
+                android:id="@+id/driver_sp_pt_end"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@color/searchBackground" />

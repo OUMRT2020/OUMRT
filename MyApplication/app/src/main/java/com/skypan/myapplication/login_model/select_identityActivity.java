@@ -2,6 +2,7 @@ package com.skypan.myapplication.login_model;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,7 +21,7 @@ public class select_identityActivity extends AppCompatActivity {
         setContentView(R.layout.activity_select_identity);
         Intent intent = getIntent();
         user_id = intent.getStringExtra("user_id");
-
+        Log.d("user_id", user_id);
         driver_button = findViewById(R.id.driver_button);
         driver_button.setOnClickListener(new View.OnClickListener() {
             @Override
