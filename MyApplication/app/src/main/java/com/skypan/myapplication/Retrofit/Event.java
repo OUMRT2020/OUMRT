@@ -1,7 +1,6 @@
 package com.skypan.myapplication.Retrofit;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 public class Event {
     private String event_id;
@@ -20,6 +19,9 @@ public class Event {
 
     private ArrayList<Request> all_request;
     private ArrayList<User> all_request_user;
+    private Request my_request;
+
+
     private String reason;
     private Request final_request;
     private User user;
@@ -107,6 +109,10 @@ public class Event {
 
     public Request getFinal_request() {
         return final_request;
+    }
+
+    public Request getMy_request() {
+        return my_request;
     }
 
     public User getUser() {

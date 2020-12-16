@@ -72,7 +72,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="email"
+                android:text="帳號"
                 android:textColor="#000000"
                 android:textSize="24sp"></TextView>
 
@@ -82,7 +82,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
                 android:background="#ECECFF"
-                android:hint="123456@gmail.com"
+                android:inputType="textEmailAddress"
+                android:digits="0123456789abcdefghigklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ@."
                 android:textSize="24sp"></EditText>
         </LinearLayout>
 
@@ -109,6 +110,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
                 android:background="#ECECFF"
+                android:inputType="textPassword"
                 android:textSize="24sp"></EditText>
         </LinearLayout>
 

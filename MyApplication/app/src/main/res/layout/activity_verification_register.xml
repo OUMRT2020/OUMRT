@@ -27,7 +27,8 @@
                 android:layout_marginRight="10dp"
                 android:background="#ECECFF"
                 android:hint="verification code"
-                android:textSize="30sp"></EditText>
+                android:inputType="textVisiblePassword"
+                android:textSize="30sp" />
         </LinearLayout>
 
         <!--    cancel_verify    -->
@@ -46,7 +47,7 @@
                 android:background="#ECECFF"
                 android:text="cancel"
                 android:textColor="#000000"
-                android:textSize="20sp"></Button>
+                android:textSize="20sp" />
 
             <!--    verify    -->
             <Button
@@ -57,7 +58,7 @@
                 android:background="#ECECFF"
                 android:text="verify"
                 android:textColor="#000000"
-                android:textSize="20sp"></Button>
+                android:textSize="20sp" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

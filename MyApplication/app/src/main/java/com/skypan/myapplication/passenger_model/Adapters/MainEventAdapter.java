@@ -38,7 +38,7 @@ public class MainEventAdapter extends RecyclerView.Adapter<MainEventAdapter.View
     public void onBindViewHolder(@NonNull MainEventAdapter.ViewHolder holder, int position) {
         holder.event_name.setText("" + Events.get(position).getEvent_name());
         holder.driver_rate.setText("" + Events.get(position).getUser().getRate().getScore());
-        holder.event_time.setText("" + Events.get(position).getAcceptable_time_interval().get(0));
+        holder.event_time.setText("" + Events.get(position).getAcceptable_time_interval().get(0) + " " + Events.get(position).getAcceptable_time_interval().get(1));
         holder.event_cost.setText("" + Events.get(position).getPrice());
 
         if (Events.get(position).getStatus().equals("white")) {
@@ -71,43 +71,67 @@ public class MainEventAdapter extends RecyclerView.Adapter<MainEventAdapter.View
                     final Event e = Events.get(position);
                     final AlertDialog.Builder detailDialog = new AlertDialog.Builder(mContext);
                     final View content_layout = LayoutInflater.from(mContext).inflate(R.layout.passenger_main_event_detail, null);
-
+                    TextView foo;
                     if (e.getStatus().equals("red")) {//////////////////////////////////////若是紅色
                         detailDialog.setTitle("拒絕原因");
-                        detailDialog.setMessage(e.getReason());
-                    } else {/////////////////////////////////////////////////////////////////白或綠
-                        TextView foo;
+                        detailDialog.setMessage(e.getUser().getName() + " : " + e.getReason());
+                    } else if (e.getStatus().equals("white")) {/////////////////////////////若是白色
                         foo = content_layout.findViewById(R.id.driver_name);
                         foo.setText(e.getUser().getName());
                         foo = content_layout.findViewById(R.id.driver_sex);
                         foo.setText(e.getUser().isSex() ? "男" : "女");
 
                         foo = content_layout.findViewById(R.id.actual_start_point);
+                        foo.setText(e.getMy_request().getActual_start_point());
+
                         foo = content_layout.findViewById(R.id.actual_end_point);
+                        foo.setText(e.getMy_request().getActual_end_point());
+
+                        foo = content_layout.findViewById(R.id.actual_time);
+                        foo.setText(e.getMy_request().getActual_time());
+
+                        foo = content_layout.findViewById(R.id.tv_extra_need);
+                        foo.setText(e.getMy_request().getExtra_needed());
 
                         detailDialog.setView(content_layout);
                         detailDialog.setTitle(e.getEvent_name());
-                        if (e.getStatus().equals("green")) {/////////////////////////////////若是綠色就多加電話
+                    } else if (e.getStatus().equals("green")) {////////////////////////////若是綠色
+                        foo = content_layout.findViewById(R.id.driver_name);
+                        foo.setText(e.getUser().getName());
+                        foo = content_layout.findViewById(R.id.driver_sex);
+                        foo.setText(e.getUser().isSex() ? "男" : "女");
 
-                            foo = content_layout.findViewById(R.id.tv_3);
-                            foo.setVisibility(View.VISIBLE);
+                        foo = content_layout.findViewById(R.id.actual_start_point);
+                        foo.setText(e.getFinal_request().getActual_start_point());
 
-                            foo = content_layout.findViewById(R.id.driver_phone);
-                            foo.setText(e.getUser().getPhone_num());
-                            foo.setVisibility(View.VISIBLE);
+                        foo = content_layout.findViewById(R.id.actual_end_point);
+                        foo.setText(e.getFinal_request().getActual_end_point());
 
-                            ImageButton btn_img = content_layout.findViewById(R.id.phone_icon);
-                            btn_img.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    Intent intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", e.getUser().getPhone_num(), null));
-                                    mContext.startActivity(intent);
-                                }
-                            });
-                            btn_img.setVisibility(View.VISIBLE);
-                        }
+                        foo = content_layout.findViewById(R.id.actual_time);
+                        foo.setText(e.getFinal_request().getActual_time());
+
+                        foo = content_layout.findViewById(R.id.tv_extra_need);
+                        foo.setText(e.getFinal_request().getExtra_needed());
+
+                        foo = content_layout.findViewById(R.id.tv_3);//打電話嘍
+                        foo.setVisibility(View.VISIBLE);
+
+                        foo = content_layout.findViewById(R.id.driver_phone);
+                        foo.setText(e.getUser().getPhone_num());
+                        foo.setVisibility(View.VISIBLE);
+
+                        ImageButton btn_img = content_layout.findViewById(R.id.phone_icon);
+                        btn_img.setOnClickListener(new View.OnClickListener() {//打電話嘍
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", e.getUser().getPhone_num(), null));
+                                mContext.startActivity(intent);
+                            }
+                        });
+                        btn_img.setVisibility(View.VISIBLE);
+                        detailDialog.setView(content_layout);
+                        detailDialog.setTitle(e.getEvent_name());
                     }
-
                     detailDialog.show();
                 }
 

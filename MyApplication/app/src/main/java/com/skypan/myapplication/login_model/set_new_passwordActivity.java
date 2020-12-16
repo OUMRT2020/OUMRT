@@ -52,8 +52,8 @@ public class set_new_passwordActivity extends AppCompatActivity {
                     // 比較密碼
                     new_password = findViewById(R.id.new_password);
                     new_password_again = findViewById(R.id.new_password_again);
-                    String password1 = new_password.toString().trim();
-                    String password2 = new_password_again.toString().trim();
+                    String password1 = new_password.getText().toString();
+                    String password2 = new_password_again.getText().toString();
                     if(password1.equals(password2)){
 
                         // 跳轉到login介面

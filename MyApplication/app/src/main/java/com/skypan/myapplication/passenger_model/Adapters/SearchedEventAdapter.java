@@ -20,6 +20,7 @@ import com.skypan.myapplication.Retrofit.Event;
 import com.skypan.myapplication.Retrofit.Request;
 import com.skypan.myapplication.Retrofit.RetrofitManagerAPI;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -49,7 +50,7 @@ public class SearchedEventAdapter extends RecyclerView.Adapter<SearchedEventAdap
     public void onBindViewHolder(@NonNull SearchedEventAdapter.ViewHolder holder, int position) {
         holder.event_name.setText("" + Events.get(position).getEvent_name());
         holder.driver_rate.setText("" + Events.get(position).getUser().getRate().getScore());
-        holder.event_time.setText("" + Events.get(position).getAcceptable_time_interval().get(0).toString());
+        holder.event_time.setText("" + Events.get(position).getAcceptable_time_interval().get(0) + "至" + Events.get(position).getAcceptable_time_interval().get(1));
         holder.event_cost.setText("" + Events.get(position).getPrice());
 
         if (Events.get(position).getStatus().equals("white")) {
@@ -93,8 +94,39 @@ public class SearchedEventAdapter extends RecyclerView.Adapter<SearchedEventAdap
                         foo.setText(e.getUser().getName());
                         foo = content_layout.findViewById(R.id.driver_sex);
                         foo.setText(e.getUser().isSex() ? "男" : "女");
+
                         foo = content_layout.findViewById(R.id.acceptable_pt_start);
+                        ArrayList<String> acceptable_list = e.getAcceptable_start_point();
+                        String temp = "";
+                        for (int i = 0; i < acceptable_list.size(); ++i) {
+                            if (i != 0) {
+                                temp += '、';
+                            }
+                            temp += acceptable_list.get(i);
+                        }
+                        foo.setText(temp);
+
                         foo = content_layout.findViewById(R.id.acceptable_pt_end);
+                        acceptable_list = e.getAcceptable_end_point();
+                        temp = "";
+                        for (int i = 0; i < acceptable_list.size(); ++i) {
+                            if (i != 0) {
+                                temp += '、';
+                            }
+                            temp += acceptable_list.get(i);
+                        }
+                        foo.setText(temp);
+
+                        foo = content_layout.findViewById(R.id.time_interval);
+                        acceptable_list = e.getAcceptable_time_interval();
+                        temp = "";
+                        for (int i = 0; i < acceptable_list.size(); ++i) {
+                            if (i != 0) {
+                                temp += ' ';
+                            }
+                            temp += acceptable_list.get(i);
+                        }
+                        foo.setText(temp);
 
                         detailDialog.setView(content_layout);
                         detailDialog.setTitle(e.getEvent_name());
@@ -102,12 +134,13 @@ public class SearchedEventAdapter extends RecyclerView.Adapter<SearchedEventAdap
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 request.setEvent_id(e.getEvent_id());
+                                request.setUser_id(e.getDriver_id());
                                 EditText et = content_layout.findViewById(R.id.et_extra_need);
                                 request.setExtra_needed(et.getText().toString());
 
                                 //送出請求
                                 Retrofit retrofit = new Retrofit.Builder()
-                                        .baseUrl("https://jsonplaceholder.typicode.com/")//todo :峻峻的API
+                                        .baseUrl("https://database87.herokuapp.com/")
                                         .addConverterFactory(GsonConverterFactory.create())
                                         .build();
                                 RetrofitManagerAPI retrofitManagerAPI = retrofit.create(RetrofitManagerAPI.class);
