@@ -5,27 +5,35 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.skypan.myapplication.R;
+import com.skypan.myapplication.Retrofit.Ack;
 import com.skypan.myapplication.Retrofit.Event;
-import com.skypan.myapplication.driver_model.Setting;
+import com.skypan.myapplication.Retrofit.RetrofitManagerAPI;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class SearchedDriveEventAdapter extends RecyclerView.Adapter<SearchedDriveEventAdapter.ViewHolder> {
     private Context mContext;
-    private ArrayList<Event> Events;
+    private List<Event> Events;
 
-    public SearchedDriveEventAdapter(Context mContext, ArrayList<Event> events) {
+    public SearchedDriveEventAdapter(Context mContext, List<Event> events) {
         this.mContext = mContext;
         this.Events = events;
     }
@@ -41,6 +49,7 @@ public class SearchedDriveEventAdapter extends RecyclerView.Adapter<SearchedDriv
 
         holder.event_name.setText("" + Events.get(position).getEvent_name());
         holder.event_time.setText("" + Events.get(position).getAcceptable_time_interval().get(0).toString());
+        holder.event_time2.setText("" + Events.get(position).getAcceptable_time_interval().get(1).toString());
         holder.event_cost.setText("" + Events.get(position).getPrice());
         if (Events.get(position).getStatus().equals("white")) {
             holder.itemView.setBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -56,21 +65,24 @@ public class SearchedDriveEventAdapter extends RecyclerView.Adapter<SearchedDriv
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView event_name, event_time, event_cost;
+        private TextView event_name, event_time, event_time2,event_cost;
         private Button event_delete;;
 
         public ViewHolder(@NonNull final View itemView) {
             super(itemView);
+
             event_name = itemView.findViewById(R.id.event_title);
             event_time = itemView.findViewById(R.id.event_time);
+            event_time2 = itemView.findViewById(R.id.event_time2);
             event_cost = itemView.findViewById(R.id.event_cost);
             event_delete = itemView.findViewById(R.id.event_delete);
             event_delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+
+                    final int position = getAdapterPosition();
+                    final Event e = Events.get(position);
                     AlertDialog.Builder deleteDialog = new AlertDialog.Builder(mContext);
-                    deleteDialog.setTitle("Your title");
-                    deleteDialog.setMessage("起始地點" + "\n");
                     deleteDialog.setPositiveButton("CANCEL", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -84,7 +96,26 @@ public class SearchedDriveEventAdapter extends RecyclerView.Adapter<SearchedDriv
                             Events.remove(getAdapterPosition());
                             notifyItemRemoved(which);
                             notifyDataSetChanged();
-                            System.out.println(Events.size());
+                            Retrofit retrofit = new Retrofit.Builder()
+                                    .baseUrl("https://database87.herokuapp.com/")
+                                    .addConverterFactory(GsonConverterFactory.create())
+                                    .build();
+                            RetrofitManagerAPI retrofitManagerAPI = retrofit.create(RetrofitManagerAPI.class);
+                            Call<Ack> call = retrofitManagerAPI.deleteEvent(e.getEvent_id(),"delete");
+                            call.enqueue(new Callback<Ack>() {
+                                @Override
+                                public void onResponse(Call<Ack> call, Response<Ack> response) {
+                                    if (!response.isSuccessful()) {
+                                        Log.d("delete", "delete driver error");
+                                    }
+                                    Log.d("delete", response.body().getReason());
+                                }
+
+                                @Override
+                                public void onFailure(Call<Ack> call, Throwable t) {
+                                    Log.d("delete", "delete server error");
+                                }
+                            });
                         }
                     });
 
@@ -95,6 +126,7 @@ public class SearchedDriveEventAdapter extends RecyclerView.Adapter<SearchedDriv
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
                     final int position = getAdapterPosition();
                     final Event e = Events.get(position);
                     AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
@@ -105,18 +137,18 @@ public class SearchedDriveEventAdapter extends RecyclerView.Adapter<SearchedDriv
                         tv_1 = content_passenegr.findViewById(R.id.request1);
                         tv_2 = content_passenegr.findViewById(R.id.request2);
                         tv_3 = content_passenegr.findViewById(R.id.request3);
-                        tv_1.setText("User1:" );
-                        tv_2.setText("User2 " );
-                        tv_3.setText("User3 " );
+                    tv_1.setText("User1:" +e.getAll_request_user().get(0).getName());
+//                        tv_2.setText("User2 " +e.getAll_request_user().get(1).getName());
+//                        tv_3.setText("User3 " +e.getAll_request_user().get(2).getName());
                         tv_1.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
                                 AlertDialog.Builder requestDialog = new AlertDialog.Builder(mContext);
                                 requestDialog.setMessage("1"
-//                                        "time: " + e.getAll_request().get(0).getActual_time() + "\n"
-//                                        + "start: " + e.getAll_request().get(0).getActual_start_point() +"\n"
-//                                        + "end: " + e.getAll_request().get(0).getActual_end_point() +"\n"
-//                                        + "another request: " + e.getAll_request().get(0).getExtra_needed() +"\n"
+                                        + "time: " + e.getAll_request().get(0).getActual_time() + "\n"
+                                        + "start: " + e.getAll_request().get(0).getActual_start_point() +"\n"
+                                        + "end: " + e.getAll_request().get(0).getActual_end_point() +"\n"
+                                        + "another request: " + e.getAll_request().get(0).getExtra_needed() +"\n"
                                 );
                                 requestDialog.setPositiveButton("拒絕", new DialogInterface.OnClickListener() {
                                     @Override
@@ -188,6 +220,7 @@ public class SearchedDriveEventAdapter extends RecyclerView.Adapter<SearchedDriv
                                 requestDialog.show();
                             }
                         });
+
                         alertDialog.setView(content_passenegr);
                     }
                     else if(e.getStatus().equals("green")){
