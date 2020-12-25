@@ -1,9 +1,12 @@
 package com.skypan.myapplication.passenger_model;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
@@ -15,11 +18,13 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.Snackbar;
 import com.skypan.myapplication.R;
 
 public class PassengerMainActivity extends AppCompatActivity {
 
     public String user_id;
+    private Button btn_logout;
     private FloatingActionButton btn_search;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
@@ -35,15 +40,25 @@ public class PassengerMainActivity extends AppCompatActivity {
         Log.d("user_id", user_id);
         //find views
         btn_search = findViewById(R.id.search);
+        btn_logout = findViewById(R.id.btn_logout);
         drawerLayout = findViewById(R.id.passenger_drawer_layout);
         navigationView = findViewById(R.id.navigationView);
-
         btn_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(PassengerMainActivity.this, SearchEventsActivity.class);
                 intent.putExtra("user_id", user_id);
                 startActivity(intent);
+            }
+        });
+        btn_logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences preferences = getSharedPreferences("isOUMRTLogin", MODE_PRIVATE);
+                preferences.edit()
+                        .clear()
+                        .commit();
+                finish();
             }
         });
 
@@ -77,12 +92,26 @@ public class PassengerMainActivity extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
+    private boolean doubleBackToExitPressedOnce = false;
+
     @Override
     public void onBackPressed() {
         if (this.drawerLayout.isDrawerOpen(GravityCompat.START)) {//點返回鍵可以讓漢寶寶收回去
             this.drawerLayout.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            if (doubleBackToExitPressedOnce) {
+                super.onBackPressed();
+
+            } else {
+                doubleBackToExitPressedOnce = true;
+                Snackbar.make(findViewById(android.R.id.content), "再點擊一次返回鍵以退出", Snackbar.LENGTH_SHORT).show();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        doubleBackToExitPressedOnce = false;
+                    }
+                }, 2000);
+            }
         }
     }
 }
