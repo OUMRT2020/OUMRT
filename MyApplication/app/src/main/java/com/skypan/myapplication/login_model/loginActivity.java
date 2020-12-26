@@ -1,6 +1,7 @@
 package com.skypan.myapplication.login_model;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -85,8 +86,13 @@ public class loginActivity extends AppCompatActivity {
                                     Toast.makeText(loginActivity.this, "login failed", Toast.LENGTH_SHORT).show();
                                 } else {
                                     // 跳轉到登入後的頁面
+                                    SharedPreferences preferences = getSharedPreferences("isOUMRTLogin", MODE_PRIVATE);//創建一個isLogin.xml
+                                    preferences.edit()
+                                            .putBoolean("isLogin", true)
+                                            .putString("user_id", response.body())
+                                            .commit();
                                     Intent intent = new Intent(loginActivity.this, select_identityActivity.class);
-                                    intent.putExtra("user_id", response.body());
+//                                    intent.putExtra("user_id", response.body());
                                     startActivity(intent);
                                     finish();
                                 }

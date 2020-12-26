@@ -91,7 +91,13 @@ public class MainEventAdapter extends RecyclerView.Adapter<MainEventAdapter.View
                         foo.setText(e.getMy_request().getActual_time());
 
                         foo = content_layout.findViewById(R.id.tv_extra_need);
-                        foo.setText(e.getMy_request().getExtra_needed());
+                        if(!e.getMy_request().getExtra_needed().equals("")){
+                            foo.setText(e.getMy_request().getExtra_needed());
+                        }
+                        else{
+                            foo.setText("(沒有額外需求)");
+                        }
+
 
                         detailDialog.setView(content_layout);
                         detailDialog.setTitle(e.getEvent_name());

@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.skypan.myapplication.R;
 import com.skypan.myapplication.Retrofit.Event;
@@ -25,6 +26,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class passengerHomeFragment extends Fragment {
+    private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView mainRecycler;
     private View view;
 
@@ -33,7 +35,50 @@ public class passengerHomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_passenger_home, container, false);
+        swipeRefreshLayout = view.findViewById(R.id.passenger_main_refreshLayout);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {//refresh
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl("https://database87.herokuapp.com/")
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                RetrofitManagerAPI retrofitManagerAPI = retrofit.create(RetrofitManagerAPI.class);
+                Call<List<Event>> call = retrofitManagerAPI.getPassengerMain(((PassengerMainActivity) getActivity()).user_id);
 
+                call.enqueue(new Callback<List<Event>>() {
+                    @Override
+                    public void onResponse(Call<List<Event>> call, Response<List<Event>> response) {
+                        if (!response.isSuccessful()) {
+                            Log.d("TAG1", String.valueOf(response.code()));
+                        }
+                        try {
+                            List<Event> events = response.body();
+                            if (events == null) {
+                                throw new NullPointerException("沒有回傳值");
+                            }
+                            mainRecycler = view.findViewById(R.id.mainRecycler);
+                            mainRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
+                            mainRecycler.setAdapter(new MainEventAdapter(getActivity(), events));
+                            swipeRefreshLayout.setRefreshing(false);
+
+                        } catch (Exception e) {
+                            Log.d("error", e.getMessage());
+                            swipeRefreshLayout.setRefreshing(false);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<Event>> call, Throwable t) {
+                        Log.d("TAG2", t.getMessage());
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+
+                });
+
+            }
+        });
+        //第一次加載時呼叫
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://database87.herokuapp.com/")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -41,7 +86,6 @@ public class passengerHomeFragment extends Fragment {
         RetrofitManagerAPI retrofitManagerAPI = retrofit.create(RetrofitManagerAPI.class);
         Log.d("fragment user_id", ((PassengerMainActivity) getActivity()).user_id);
         Call<List<Event>> call = retrofitManagerAPI.getPassengerMain(((PassengerMainActivity) getActivity()).user_id);
-//        Call<List<Event>> call = retrofitManagerAPI.getPassengerMain("JIU");//todo :修改user_id = uuid
         call.enqueue(new Callback<List<Event>>() {
             @Override
             public void onResponse(Call<List<Event>> call, Response<List<Event>> response) {
@@ -66,36 +110,11 @@ public class passengerHomeFragment extends Fragment {
                 Log.d("TAG2", t.getMessage());
             }
         });
-
-        //這是測試資料
-        //new出一堆物件假裝拿回json了
-//        ArrayList<Event> es = new ArrayList<>();
-//        for (int i = 0; i < 5; i++) {
-//            Rate rate = new Rate(i, 5);
-//            ArrayList<String> p =new ArrayList<String>();
-//            p.add("時間一");
-//            p.add("時間二");
-//            User user = new User("AAA", "token", "峻峻", "48763", true, 87, "url", rate);
-//            Event e = new Event("AAA", "金瓜石特快車" + i, "white", "BBB", "CCC", p, new ArrayList<String>(Arrays.asList("地點一", "地點二")),
-//                    new ArrayList<String>(Arrays.asList("地點三", "地點四")), 0, 87, 48763 + i, true, new ArrayList<Boolean>(Arrays.asList(true, true, true, true, true, true, true)), user);
-//            Event e2 = new Event("AAA", "金瓜石特快車" + i, "green", "BBB", "CCC", p, new ArrayList<String>(Arrays.asList("地點一", "地點二")),
-//                    new ArrayList<String>(Arrays.asList("地點三", "地點四")), 0, 87, 48763 + i, true, new ArrayList<Boolean>(Arrays.asList(true, true, true, true, true, true, true)), user);
-//            Event e3 = new Event("AAA", "金瓜石特快車" + i, "red", "BBB", "CCC", p, new ArrayList<String>(Arrays.asList("地點一", "地點二")),
-//                    new ArrayList<String>(Arrays.asList("地點三", "地點四")), 0, 87, 48763 + i, true, new ArrayList<Boolean>(Arrays.asList(true, true, true, true, true, true, true)), user);
-//            es.add(e);
-//            es.add(e2);
-//            es.add(e3);
-//        }
-//
-//        mainRecycler = view.findViewById(R.id.mainRecycler);
-//        mainRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
-//        mainRecycler.setAdapter(new MainEventAdapter(getActivity(), es));
-        //測試資料結束
         return view;
     }
 
     @Override
-    public void onResume() {
+    public void onResume() {//返回時呼叫
         super.onResume();
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://database87.herokuapp.com/")
