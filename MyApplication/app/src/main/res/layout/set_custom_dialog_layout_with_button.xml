@@ -82,37 +82,94 @@
             android:layout_height="wrap_content"
             android:text="起點:" />
 
-        <LinearLayout
+        <HorizontalScrollView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_marginRight="10dp">
 
-            <Spinner
-                android:id="@+id/driver_sp_pt_start"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@color/searchBackground" />
-            <!--            <Button-->
-            <!--                android:id="@+id/start"-->
-            <!--                android:layout_width="wrap_content"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:text="place1"-->
-            <!--                android:textSize="16sp" />-->
+            <LinearLayout
+                android:id="@+id/st"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <!--            <Button-->
-            <!--                android:id="@+id/start2"-->
-            <!--                android:layout_width="wrap_content"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:text="place2"-->
-            <!--                android:textSize="16sp" />-->
+                <CheckBox
+                    android:id="@+id/st_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="全聯福利中心 基隆中正店"
+                    android:textSize="14sp"/>
 
-            <!--            <Button-->
-            <!--                android:id="@+id/start3"-->
-            <!--                android:layout_width="wrap_content"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:text="place3"-->
-            <!--                android:textSize="16sp" />-->
-        </LinearLayout>
+                <CheckBox
+                    android:id="@+id/st_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="正宗永和豆漿"
+                    android:textSize="14sp" />
+
+                <CheckBox
+                    android:id="@+id/st_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="海大(栙豐校門)"
+                    android:textSize="14sp" />
+
+                <CheckBox
+                    android:id="@+id/st_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="海大(濱海校門)"
+                    android:textSize="14sp" />
+
+                <CheckBox
+                    android:id="@+id/st_5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="國立台灣海洋大學附屬基隆海事高級中等學院"
+                    android:textSize="14sp" />
+
+                <CheckBox
+                    android:id="@+id/st_6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="貴族世家 海洋大學店"
+                    android:textSize="14sp" />
+
+                <CheckBox
+                    android:id="@+id/st_7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="麥當勞-基隆新豐店"
+                    android:textSize="14sp" />
+                <CheckBox
+                    android:id="@+id/st_8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="愛買基隆店"
+                    android:textSize="14sp" />
+                <CheckBox
+                    android:id="@+id/st_9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="基隆車站"
+                    android:textSize="14sp" />
+                <CheckBox
+                    android:id="@+id/st_10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="姚家清魚湯"
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </HorizontalScrollView>
     </LinearLayout>
 
     <LinearLayout
@@ -126,37 +183,94 @@
             android:layout_height="wrap_content"
             android:text="終點:" />
 
-        <LinearLayout
+        <HorizontalScrollView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_marginRight="10dp">
 
-            <Spinner
-                android:id="@+id/driver_sp_pt_end"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@color/searchBackground" />
-            <!--            <Button-->
-            <!--                android:id="@+id/end"-->
-            <!--                android:layout_width="wrap_content"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:text="end1"-->
-            <!--                android:textSize="16sp" />-->
+            <LinearLayout
+                android:id="@+id/end"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <!--            <Button-->
-            <!--                android:id="@+id/end2"-->
-            <!--                android:layout_width="wrap_content"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:text="end"-->
-            <!--                android:textSize="16sp" />-->
+                <CheckBox
+                    android:id="@+id/end_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="全聯福利中心 基隆中正店"
+                    android:textSize="14sp"/>
 
-            <!--            <Button-->
-            <!--                android:id="@+id/end3"-->
-            <!--                android:layout_width="wrap_content"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:text="end"-->
-            <!--                android:textSize="16sp" />-->
-        </LinearLayout>
+                <CheckBox
+                    android:id="@+id/end_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="正宗永和豆漿"
+                    android:textSize="14sp" />
+
+                <CheckBox
+                    android:id="@+id/end_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="海大(栙豐校門)"
+                    android:textSize="14sp" />
+
+                <CheckBox
+                    android:id="@+id/end_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="海大(濱海校門)"
+                    android:textSize="14sp" />
+
+                <CheckBox
+                    android:id="@+id/end_5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="國立台灣海洋大學附屬基隆海事高級中等學院"
+                    android:textSize="14sp" />
+
+                <CheckBox
+                    android:id="@+id/end_6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="貴族世家 海洋大學店"
+                    android:textSize="14sp" />
+
+                <CheckBox
+                    android:id="@+id/end_7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="麥當勞-基隆新豐店"
+                    android:textSize="14sp" />
+                <CheckBox
+                    android:id="@+id/end_8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="愛買基隆店"
+                    android:textSize="14sp" />
+                <CheckBox
+                    android:id="@+id/end_9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="基隆車站"
+                    android:textSize="14sp" />
+                <CheckBox
+                    android:id="@+id/end_10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="姚家清魚湯"
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </HorizontalScrollView>
     </LinearLayout>
 
     <LinearLayout
@@ -260,7 +374,8 @@
             android:layout_height="43dp"
             android:text="Yes"
             android:textColor="#FF6600"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:checked="true"/>
 
         <RadioButton
             android:id="@+id/rb_helmet_2"

@@ -136,17 +136,18 @@ public class SearchedDriveEventAdapter extends RecyclerView.Adapter<SearchedDriv
 
                     if (e.getStatus().equals("white")) {
                         AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
+                        alertDialog.setTitle("乘客申請名單");
                         //final View content_layout = LayoutInflater.from(mContext).inflate(R.layout.searched_driver_event_detail, null);
                         final View content_layout = LayoutInflater.from(mContext).inflate(R.layout.event_passenger_request, null);
                         RecyclerView recyclerView;
-                        recyclerView = content_layout.findViewById(R.id.recyclerView_in_recyclerView);
+                            recyclerView = content_layout.findViewById(R.id.recyclerView_in_recyclerView);
                         recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
                         recyclerView.setAdapter(new requests_in_multiRecyclerViewAdapter(mContext, e.getAll_request(), e.getAll_request_user()));
                         alertDialog.setView(content_layout);
                         alertDialog.show();
                     } else if (e.getStatus().equals("green")) {
                         AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
-                        final View content_layout = LayoutInflater.from(mContext).inflate(R.layout.passenger_main_event_detail, null);
+                        final View content_layout = LayoutInflater.from(mContext).inflate(R.layout.driver_main_event_detail, null);
 
                         TextView foo;
                         foo = content_layout.findViewById(R.id.tv_1);
@@ -173,15 +174,35 @@ public class SearchedDriveEventAdapter extends RecyclerView.Adapter<SearchedDriv
                         foo = content_layout.findViewById(R.id.actual_time);
                         foo.setText(e.getFinal_request().getActual_time());
 
-                        //把車照隱藏
-                        foo = content_layout.findViewById(R.id.tv_7);
-                        foo.setVisibility(View.GONE);
-                        ImageView imageView;
-                        imageView = content_layout.findViewById(R.id.picture);
-                        imageView.setVisibility(View.GONE);
+//                        //把車照隱藏
+//                        foo = content_layout.findViewById(R.id.tv_7);
+//                        foo.setVisibility(View.GONE);
+//                        ImageView imageView;
+//                        imageView = content_layout.findViewById(R.id.picture);
+//                        imageView.setVisibility(View.GONE);
 
                         foo = content_layout.findViewById(R.id.tv_extra_need);
                         foo.setText(e.getFinal_request().getExtra_needed());
+
+                        alertDialog.setPositiveButton("finish", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                //todo
+                            }
+                        });
+                        alertDialog.setNegativeButton("放棄", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                //todo
+                            }
+                        });
+                        alertDialog.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.cancel();
+                            }
+                        });
+
                         alertDialog.setView(content_layout);
                         alertDialog.show();
                     }
