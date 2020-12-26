@@ -61,6 +61,7 @@ public class passengerHomeFragment extends Fragment {
                             mainRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
                             mainRecycler.setAdapter(new MainEventAdapter(getActivity(), events));
                             swipeRefreshLayout.setRefreshing(false);
+
                         } catch (Exception e) {
                             Log.d("error", e.getMessage());
                             swipeRefreshLayout.setRefreshing(false);
@@ -72,7 +73,9 @@ public class passengerHomeFragment extends Fragment {
                         Log.d("TAG2", t.getMessage());
                         swipeRefreshLayout.setRefreshing(false);
                     }
+
                 });
+
             }
         });
         //第一次加載時呼叫
@@ -83,7 +86,6 @@ public class passengerHomeFragment extends Fragment {
         RetrofitManagerAPI retrofitManagerAPI = retrofit.create(RetrofitManagerAPI.class);
         Log.d("fragment user_id", ((PassengerMainActivity) getActivity()).user_id);
         Call<List<Event>> call = retrofitManagerAPI.getPassengerMain(((PassengerMainActivity) getActivity()).user_id);
-//        Call<List<Event>> call = retrofitManagerAPI.getPassengerMain("JIU");//todo :修改user_id = uuid
         call.enqueue(new Callback<List<Event>>() {
             @Override
             public void onResponse(Call<List<Event>> call, Response<List<Event>> response) {
