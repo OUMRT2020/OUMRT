@@ -64,7 +64,7 @@ public class SearchEventsActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private EditText et_driver_name;
     private Spinner sp_pt_start, sp_pt_end;
-    String[] pts = new String[]{"全聯福利中心 基隆中正店", "正宗永和豆漿", "海大(栙豐校門)", "海大(濱海校門)", "國立台灣海洋大學附屬基隆海事高級中等學院", "貴族世家 海洋大學店", "麥當勞-基隆新豐店", "愛買基隆店", "基隆車站", "姚家清魚湯"};
+    String[] pts = new String[]{"不限", "全聯福利中心 基隆中正店", "正宗永和豆漿", "海大(栙豐校門)", "海大(濱海校門)", "國立台灣海洋大學附屬基隆海事高級中等學院", "貴族世家 海洋大學店", "麥當勞-基隆新豐店", "愛買基隆店", "基隆車站", "姚家清魚湯"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,10 +95,15 @@ public class SearchEventsActivity extends AppCompatActivity {
                         .build();
                 RetrofitManagerAPI retrofitManagerAPI = retrofit.create(RetrofitManagerAPI.class);
                 Log.d("user_id", user_id);
-
-                Call<List<Event>> call = retrofitManagerAPI.getSearchEvents(user_id, et_driver_name.getText().toString(), sp_pt_start.getSelectedItem().toString(), sp_pt_end.getSelectedItem().toString(), date_and_time.getText().toString(), isHelmet, !isFree, rgSelected);
-                //todo 需要修改
-//                Call<List<Event>> call = retrofitManagerAPI.getSearchEvents("JIU", "", "海大校門口", "九份金瓜石", date_and_time.getText().toString(), isHelmet, !isFree, rgSelected);
+                String pt_start = sp_pt_start.getSelectedItem().toString();
+                if (pt_start.equals("不限")) {
+                    pt_start = "";
+                }
+                String pt_end = sp_pt_end.getSelectedItem().toString();
+                if (pt_end.equals("不限")) {
+                    pt_end = "";
+                }
+                Call<List<Event>> call = retrofitManagerAPI.getSearchEvents(user_id, et_driver_name.getText().toString(), pt_start, pt_end, date_and_time.getText().toString(), isHelmet, !isFree, rgSelected);
                 call.enqueue(new Callback<List<Event>>() {
                     @Override
                     public void onResponse(Call<List<Event>> call, Response<List<Event>> response) {

@@ -122,7 +122,7 @@ public class SearchedEventAdapter extends RecyclerView.Adapter<SearchedEventAdap
                         temp = "";
                         for (int i = 0; i < acceptable_list.size(); ++i) {
                             if (i != 0) {
-                                temp += ' ';
+                                temp += " 至 ";
                             }
                             temp += acceptable_list.get(i);
                         }
