@@ -19,17 +19,7 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.skypan.myapplication.R;
-import com.skypan.myapplication.Retrofit.User;
-import com.skypan.myapplication.Retrofit.RetrofitManagerAPI;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class PassengerMainActivity extends AppCompatActivity {
 
@@ -41,10 +31,6 @@ public class PassengerMainActivity extends AppCompatActivity {
     private AppBarConfiguration appBarConfiguration;
     private NavController navController;
 
-    //黑糖有動的東西如下
-    public static User user;
-    //黑糖有動的東西如上
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,36 +38,6 @@ public class PassengerMainActivity extends AppCompatActivity {
         Intent intent = getIntent();
         user_id = intent.getStringExtra("user_id");
         Log.d("user_id", user_id);
-
-        //黑糖動的東西如下
-        // 把個人資料存入存入public的變數讓personal_informationActivity可以用後端吐回來的東西
-        Gson gson = new GsonBuilder()
-                        .setLenient()
-                        .create();
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://nmsl666.herokuapp.com/")
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .build();
-        RetrofitManagerAPI retrofitManagerAPI = retrofit.create(RetrofitManagerAPI.class);
-        Call<User> call = retrofitManagerAPI.showData(user_id);
-        System.out.println("call信號 : " + call);
-        call.enqueue(new Callback<User>() {
-            @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-                if (!response.isSuccessful()) {
-                    Log.d("error0", response.message());
-                } else {
-                    user = response.body();
-                    System.out.println(user.getName());
-                }
-            }
-            @Override
-            public void onFailure(Call<User> call, Throwable t) {
-
-            }
-        });
-        //黑糖動的東西如上
-
         //find views
         btn_search = findViewById(R.id.search);
         btn_logout = findViewById(R.id.btn_logout);

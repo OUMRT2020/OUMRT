@@ -22,12 +22,15 @@ public class personal_informationActivity extends AppCompatActivity {
     private TextView weight;
     private TextView sex;
     private TextView point;
-    private User user = PassengerMainActivity.user;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_information);
+
+        // 變動textview的text
+        System.out.println("user name = " + user.getName());
 
         // find id
         edit_information_button = findViewById(R.id.edit_information_button);
