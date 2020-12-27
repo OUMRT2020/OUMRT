@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.skypan.myapplication.R;
+import com.skypan.myapplication.Retrofit.User;
 import com.skypan.myapplication.passenger_model.PassengerMainActivity;
 
 
@@ -21,7 +22,7 @@ public class personal_informationActivity extends AppCompatActivity {
     private TextView weight;
     private TextView sex;
     private TextView point;
-    private String Name = PassengerMainActivity.name;
+    private User user = PassengerMainActivity.user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,12 +34,12 @@ public class personal_informationActivity extends AppCompatActivity {
         return_button = findViewById(R.id.return_button);
         name = findViewById(R.id.name);
         phone = findViewById(R.id.phone);
-        weight = findViewById(R.id.phone);
+        weight = findViewById(R.id.weight);
         sex = findViewById(R.id.sex);
         point = findViewById(R.id.point);
 
         // 變動textview的text
-        System.out.println("Name : " );
+        System.out.println("user name = " + user.getName());
 
         // 監聽器
         setListeners();

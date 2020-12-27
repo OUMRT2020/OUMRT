@@ -85,5 +85,5 @@ public interface RetrofitManagerAPI {
 
     @FormUrlEncoded
     @POST("showData")
-    Call<profile> showData(@Field("user_id") String userID);
+    Call<User> showData(@Field("user_id") String userID);
 }

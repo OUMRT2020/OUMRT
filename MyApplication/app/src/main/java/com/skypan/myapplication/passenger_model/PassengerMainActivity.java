@@ -22,8 +22,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.skypan.myapplication.R;
-import com.skypan.myapplication.Retrofit.Rate;
-import com.skypan.myapplication.Retrofit.profile;
+import com.skypan.myapplication.Retrofit.User;
 import com.skypan.myapplication.Retrofit.RetrofitManagerAPI;
 
 import retrofit2.Call;
@@ -43,11 +42,7 @@ public class PassengerMainActivity extends AppCompatActivity {
     private NavController navController;
 
     //黑糖有動的東西如下
-    public static String name;
-    public static String phone;
-    public static Rate rate;
-    public static Boolean sex;
-    public static int weight;
+    public static User user;
     //黑糖有動的東西如上
 
     @Override
@@ -68,29 +63,24 @@ public class PassengerMainActivity extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
         RetrofitManagerAPI retrofitManagerAPI = retrofit.create(RetrofitManagerAPI.class);
-        Call<profile> call = retrofitManagerAPI.showData(user_id);
+        Call<User> call = retrofitManagerAPI.showData(user_id);
         System.out.println("call信號 : " + call);
-        call.enqueue(new Callback<profile>() {
+        call.enqueue(new Callback<User>() {
             @Override
-            public void onResponse(Call<profile> call, Response<profile> response) {
+            public void onResponse(Call<User> call, Response<User> response) {
                 if (!response.isSuccessful()) {
                     Log.d("error0", response.message());
                 } else {
-                    name = response.body().getName();
-                    phone = response.body().getPhone();
-                    rate = response.body().getRate();
-                    sex = response.body().getSex();
-                    weight = response.body().getWeight();
+                    user = response.body();
+                    System.out.println(user.getName());
                 }
             }
             @Override
-            public void onFailure(Call<profile> call, Throwable t) {
+            public void onFailure(Call<User> call, Throwable t) {
 
             }
         });
         //黑糖動的東西如上
-
-
 
         //find views
         btn_search = findViewById(R.id.search);
