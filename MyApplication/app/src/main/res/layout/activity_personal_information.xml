@@ -56,19 +56,18 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="暱稱"
+                    android:text="名字"
                     android:textColor="#000000"
                     android:textSize="24sp"></TextView>
 
-                <EditText
-                    android:id="@+id/nickname"
+                <TextView
+                    android:id="@+id/name"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:background="#ECECFF"
                     android:gravity="center"
-                    android:hint="黑糖"
-                    android:textSize="24sp"></EditText>
+                    android:textSize="24sp"></TextView>
             </LinearLayout>
 
             <!--    phone    -->
@@ -87,15 +86,14 @@
                     android:textColor="#000000"
                     android:textSize="24sp"></TextView>
 
-                <EditText
+                <TextView
                     android:id="@+id/phone"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:background="#ECECFF"
                     android:gravity="center"
-                    android:hint="0987212121"
-                    android:textSize="24sp"></EditText>
+                    android:textSize="24sp"></TextView>
             </LinearLayout>
 
             <!--    weight    -->
@@ -114,42 +112,14 @@
                     android:textColor="#000000"
                     android:textSize="24sp"></TextView>
 
-                <EditText
+                <TextView
                     android:id="@+id/weight"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:background="#ECECFF"
                     android:gravity="center"
-                    android:hint="10"
-                    android:textSize="24sp"></EditText>
-            </LinearLayout>
-
-            <!--    email    -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="mail"
-                    android:textColor="#000000"
                     android:textSize="24sp"></TextView>
-
-                <EditText
-                    android:id="@+id/mail"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:background="#ECECFF"
-                    android:gravity="center"
-                    android:hint="12345@gmal.com"
-                    android:textSize="24sp"></EditText>
             </LinearLayout>
 
             <!--    gender    -->
@@ -168,35 +138,17 @@
                     android:textColor="#000000"
                     android:textSize="24sp"></TextView>
 
-                <RadioGroup
-                    android:id="@+id/gender"
+                <TextView
+                    android:id="@+id/sex"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
-                    android:orientation="horizontal">
-
-                    <RadioButton
-                        android:id="@+id/gender_man"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="30dp"
-                        android:checked="true"
-                        android:text="男"
-                        android:textColor="#000000"
-                        android:textSize="24sp"></RadioButton>
-
-                    <RadioButton
-                        android:id="@+id/gender_woman"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="50dp"
-                        android:text="女"
-                        android:textColor="#000000"
-                        android:textSize="24sp"></RadioButton>
-                </RadioGroup>
+                    android:background="#ECECFF"
+                    android:gravity="center"
+                    android:textSize="24sp"></TextView>
             </LinearLayout>
 
-            <!--    preferred_gender    -->
+            <!--    point    -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -208,36 +160,18 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="偏好性別"
+                    android:text="評分"
                     android:textColor="#000000"
                     android:textSize="24sp"></TextView>
 
-                <RadioGroup
-                    android:id="@+id/preferred_gender"
+                <TextView
+                    android:id="@+id/point"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
-                    android:orientation="horizontal">
-
-                    <RadioButton
-                        android:id="@+id/preferred_gender_man"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="30dp"
-                        android:checked="true"
-                        android:text="男"
-                        android:textColor="#000000"
-                        android:textSize="24sp"></RadioButton>
-
-                    <RadioButton
-                        android:id="@+id/preferred_gender_woman"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="50dp"
-                        android:text="女"
-                        android:textColor="#000000"
-                        android:textSize="24sp"></RadioButton>
-                </RadioGroup>
+                    android:background="#ECECFF"
+                    android:gravity="center"
+                    android:textSize="24sp"></TextView>
             </LinearLayout>
 
             <!--    edit_information_button    -->

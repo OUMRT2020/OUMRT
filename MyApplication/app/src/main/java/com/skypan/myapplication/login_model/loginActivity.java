@@ -16,6 +16,8 @@ import com.google.gson.GsonBuilder;
 import com.skypan.myapplication.R;
 import com.skypan.myapplication.Retrofit.RetrofitManagerAPI;
 
+import java.security.PublicKey;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -30,6 +32,9 @@ public class loginActivity extends AppCompatActivity {
     // 以下要傳到後端的
     private TextView email;
     private TextView password;
+
+    //以下要傳到個人資料那頁顯示的
+    public static String userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +91,8 @@ public class loginActivity extends AppCompatActivity {
                                     Toast.makeText(loginActivity.this, "login failed", Toast.LENGTH_SHORT).show();
                                 } else {
                                     // 跳轉到登入後的頁面
+                                    // 把userId存入
+                                    userId = response.body();
                                     SharedPreferences preferences = getSharedPreferences("isOUMRTLogin", MODE_PRIVATE);//創建一個isLogin.xml
                                     preferences.edit()
                                             .putBoolean("isLogin", true)
