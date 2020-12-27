@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -93,7 +92,7 @@ public class SearchedDriveEventAdapter extends RecyclerView.Adapter<SearchedDriv
                         //final View content_layout = LayoutInflater.from(mContext).inflate(R.layout.searched_driver_event_detail, null);
                         final View content_layout = LayoutInflater.from(mContext).inflate(R.layout.event_passenger_request, null);
                         RecyclerView recyclerView;
-                            recyclerView = content_layout.findViewById(R.id.recyclerView_in_recyclerView);
+                        recyclerView = content_layout.findViewById(R.id.recyclerView_in_recyclerView);
                         recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
                         recyclerView.setAdapter(new requests_in_multiRecyclerViewAdapter(mContext, e.getAll_request(), e.getAll_request_user()));
 
@@ -125,7 +124,7 @@ public class SearchedDriveEventAdapter extends RecyclerView.Adapter<SearchedDriv
                                                 if (!response.isSuccessful()) {
                                                     Log.d("delete", "delete driver error");
                                                 }
-                                                if(!response.body().isSuccess()){
+                                                if (!response.body().isSuccess()) {
                                                     Log.d("delete", response.body().getReason());
                                                 }
                                             }
@@ -150,8 +149,7 @@ public class SearchedDriveEventAdapter extends RecyclerView.Adapter<SearchedDriv
 
                         alertDialog.setView(content_layout);
                         alertDialog.show();
-                    }
-                    else if (e.getStatus().equals("green")) {
+                    } else if (e.getStatus().equals("green")) {
                         AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
 
                         event_delete.setOnClickListener(new View.OnClickListener() {
@@ -180,7 +178,7 @@ public class SearchedDriveEventAdapter extends RecyclerView.Adapter<SearchedDriv
                                                 if (!response.isSuccessful()) {
                                                     Log.d("Finish", "Finish driver error");
                                                 }
-                                                if(!response.body().isSuccess()){
+                                                if (!response.body().isSuccess()) {
                                                     Log.d("Finish", response.body().getReason());
                                                 }
                                             }
@@ -212,7 +210,7 @@ public class SearchedDriveEventAdapter extends RecyclerView.Adapter<SearchedDriv
                                                 if (!response.isSuccessful()) {
                                                     Log.d("drop", "drop driver error");
                                                 }
-                                                if(!response.body().isSuccess()){
+                                                if (!response.body().isSuccess()) {
                                                     Log.d("drop", response.body().getReason());
                                                 }
                                             }
@@ -236,8 +234,6 @@ public class SearchedDriveEventAdapter extends RecyclerView.Adapter<SearchedDriv
                                 deleteDialog.show();
                             }
                         });
-
-
 
 
                         final View content_layout = LayoutInflater.from(mContext).inflate(R.layout.driver_main_event_detail, null);

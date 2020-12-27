@@ -37,10 +37,6 @@ public class requests_in_multiRecyclerViewAdapter extends RecyclerView.Adapter<r
         this.mContext = mContext;
         this.all_request = all_request;
         this.all_request_user = all_request_user;
-//        System.out.println(all_request.get(0).get
-//        Extra_needed());
-//        System.out.println(all_request_user.get(0).getName());
-
     }
 
     @NonNull
