@@ -50,7 +50,7 @@ public class SearchedEventAdapter extends RecyclerView.Adapter<SearchedEventAdap
     public void onBindViewHolder(@NonNull SearchedEventAdapter.ViewHolder holder, int position) {
         holder.event_name.setText("" + Events.get(position).getEvent_name());
         holder.driver_rate.setText("" + Events.get(position).getUser().getRate().getScore());
-        holder.event_time.setText("" + Events.get(position).getAcceptable_time_interval().get(0) + "至" + Events.get(position).getAcceptable_time_interval().get(1));
+        holder.event_time.setText("" + Events.get(position).getAcceptable_time_interval().get(0) + " 至 " + Events.get(position).getAcceptable_time_interval().get(1));
         holder.event_cost.setText("" + Events.get(position).getPrice());
 
         if (Events.get(position).getStatus().equals("white")) {
