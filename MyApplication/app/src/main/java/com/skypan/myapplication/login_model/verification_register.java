@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.skypan.myapplication.R;
@@ -82,7 +83,8 @@ public class verification_register extends AppCompatActivity {
 
                         // 跳轉到login頁面
                         System.out.println("驗證碼相同訊號 : 1");
-                        Custom_register custom_register = new Custom_register(new User("token", nickname, phone, sex, weight), new Auth(password, mail));
+                        String tkn = FirebaseInstanceId.getInstance().getToken();
+                        Custom_register custom_register = new Custom_register(new User(tkn, nickname, phone, sex, weight), new Auth(password, mail));
 
                         Gson gson = new GsonBuilder()
                                 .setLenient()
