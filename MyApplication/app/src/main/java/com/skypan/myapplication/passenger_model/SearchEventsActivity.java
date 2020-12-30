@@ -90,7 +90,7 @@ public class SearchEventsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Request request = new Request(user_id, date_and_time.getText().toString(), sp_pt_start.getSelectedItem().toString(), sp_pt_end.getSelectedItem().toString());
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl("https://database87.herokuapp.com/")
+                        .baseUrl("http://140.121.197.130:5601/")
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
                 RetrofitManagerAPI retrofitManagerAPI = retrofit.create(RetrofitManagerAPI.class);

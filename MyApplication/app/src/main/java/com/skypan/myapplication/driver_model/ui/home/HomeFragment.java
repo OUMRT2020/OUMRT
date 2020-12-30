@@ -55,7 +55,7 @@ public class HomeFragment extends Fragment {
         String user_id = ((DriverMainActivity) getActivity()).user_id;
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://database87.herokuapp.com/")
+                .baseUrl("http://140.121.197.130:5601/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         RetrofitManagerAPI retrofitManagerAPI = retrofit.create(RetrofitManagerAPI.class);
@@ -86,7 +86,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onRefresh() {//refresh
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl("https://database87.herokuapp.com/")
+                        .baseUrl("http://140.121.197.130:5601/")
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
                 RetrofitManagerAPI retrofitManagerAPI = retrofit.create(RetrofitManagerAPI.class);
