@@ -148,7 +148,7 @@ public class SearchedEventAdapter extends RecyclerView.Adapter<SearchedEventAdap
 
                                 //送出請求
                                 Retrofit retrofit = new Retrofit.Builder()
-                                        .baseUrl("http://140.121.197.130:5601/")
+                                        .baseUrl("http://140.121.197.130:5602/")
                                         .addConverterFactory(GsonConverterFactory.create())
                                         .build();
                                 RetrofitManagerAPI retrofitManagerAPI = retrofit.create(RetrofitManagerAPI.class);

@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.skypan.myapplication.R;
@@ -53,6 +54,8 @@ public class select_identityActivity extends AppCompatActivity {
             driver_button.setEnabled(false);
             passenger_button.setEnabled(false);
             Toast.makeText(select_identityActivity.this, "正在確認資訊，請稍後", Toast.LENGTH_SHORT).show();
+//            String tkn = FirebaseInstanceId.getInstance().getToken();
+//            Toast.makeText(select_identityActivity.this, "register mTkn" + tkn, Toast.LENGTH_SHORT).show();
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                     WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
@@ -62,7 +65,7 @@ public class select_identityActivity extends AppCompatActivity {
                     .setLenient()
                     .create();
             Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl("https://nmsl666.herokuapp.com/")
+                    .baseUrl("http://140.121.197.130:5602/")
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .build();
             RetrofitManagerAPI retrofitManagerAPI = retrofit.create(RetrofitManagerAPI.class);
