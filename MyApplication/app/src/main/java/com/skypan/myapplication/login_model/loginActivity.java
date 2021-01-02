@@ -17,6 +17,8 @@ import com.skypan.myapplication.R;
 import com.skypan.myapplication.Retrofit.RetrofitManagerAPI;
 import com.skypan.myapplication.Retrofit.User;
 
+import java.security.PublicKey;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -31,6 +33,9 @@ public class loginActivity extends AppCompatActivity {
     // 以下要傳到後端的
     private TextView email;
     private TextView password;
+
+    //以下要傳到個人資料那頁顯示的
+    public static String userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
