@@ -8,16 +8,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.skypan.myapplication.R;
 import com.skypan.myapplication.Retrofit.RetrofitManagerAPI;
-
-import java.security.PublicKey;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -28,6 +23,7 @@ public class loginActivity extends AppCompatActivity {
     private Button login_button;            // 宣告login_button
     private Button forget_password_button;  // 宣告forget_password_button
     private Button register_button;         // 宣告register_button
+    private TextView marquee_title;         // 宣告marquee_title
 
     // 以下要傳到後端的
     private TextView email;
@@ -45,6 +41,10 @@ public class loginActivity extends AppCompatActivity {
         login_button = findViewById(R.id.login_button);
         forget_password_button = findViewById(R.id.forget_password_button);
         register_button = findViewById(R.id.register_button);
+        marquee_title = findViewById(R.id.marquee_title);
+
+        // 把跑馬燈的focus設定為true
+        marquee_title.setSelected(true);
 
         //以下要傳到後端的
         email = findViewById(R.id.email);
