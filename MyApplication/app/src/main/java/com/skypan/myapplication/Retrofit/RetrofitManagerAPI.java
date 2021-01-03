@@ -61,7 +61,7 @@ public interface RetrofitManagerAPI {
 
     @FormUrlEncoded
     @POST("login")
-    Call<User> login(@Field("password") String password,
+    Call<String> login(@Field("password") String password,
                        @Field("mail") String email);
 
     @GET("posts")
