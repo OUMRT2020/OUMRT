@@ -82,6 +82,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
                 android:background="#ECECFF"
+                android:singleLine="true"
                 android:inputType="textEmailAddress"
                 android:digits="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ@."
                 android:textSize="24sp"></EditText>
@@ -110,6 +111,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
                 android:background="#ECECFF"
+                android:singleLine="true"
                 android:inputType="textPassword"
                 android:textSize="24sp"></EditText>
         </LinearLayout>

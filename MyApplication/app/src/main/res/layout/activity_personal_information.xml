@@ -68,6 +68,7 @@
                     android:background="#ECECFF"
                     android:gravity="center"
                     android:hint="黑糖"
+                    android:singleLine="true"
                     android:textSize="24sp"></EditText>
             </LinearLayout>
 
@@ -95,6 +96,7 @@
                     android:background="#ECECFF"
                     android:gravity="center"
                     android:hint="0987212121"
+                    android:singleLine="true"
                     android:textSize="24sp"></EditText>
             </LinearLayout>
 
@@ -122,6 +124,7 @@
                     android:background="#ECECFF"
                     android:gravity="center"
                     android:hint="10"
+                    android:singleLine="true"
                     android:textSize="24sp"></EditText>
             </LinearLayout>
 
@@ -149,6 +152,7 @@
                     android:background="#ECECFF"
                     android:gravity="center"
                     android:hint="12345@gmal.com"
+                    android:singleLine="true"
                     android:textSize="24sp"></EditText>
             </LinearLayout>
 

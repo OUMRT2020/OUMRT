@@ -28,6 +28,7 @@
                 android:background="#ECECFF"
                 android:hint="verification code"
                 android:inputType="textVisiblePassword"
+                android:singleLine="true"
                 android:textSize="30sp"></EditText>
         </LinearLayout>
 

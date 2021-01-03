@@ -67,6 +67,7 @@
                     android:background="#ECECFF"
                     android:gravity="center"
                     android:hint="黑糖"
+                    android:singleLine="true"
                     android:textColorHint="#000000"
                     android:textSize="24sp"></EditText>
             </LinearLayout>
@@ -95,6 +96,7 @@
                     android:background="#ECECFF"
                     android:gravity="center"
                     android:hint="0987212121"
+                    android:singleLine="true"
                     android:textColorHint="#000000"
                     android:textSize="24sp"></EditText>
             </LinearLayout>
@@ -123,6 +125,7 @@
                     android:background="#ECECFF"
                     android:gravity="center"
                     android:hint="10"
+                    android:singleLine="true"
                     android:textColorHint="#000000"
                     android:textSize="24sp"></EditText>
             </LinearLayout>
