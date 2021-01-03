@@ -50,7 +50,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class SearchEventsActivity extends AppCompatActivity {
 
 
-    private int rgSelected;
+    private int rgSelected = 2, rgSelectedID;
     private boolean isHelmet, isFree;
     private String user_id, TAG = "DEBUG";
     private TextView date_and_time;
@@ -94,11 +94,8 @@ public class SearchEventsActivity extends AppCompatActivity {
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
                 RetrofitManagerAPI retrofitManagerAPI = retrofit.create(RetrofitManagerAPI.class);
-                Log.d("user_id", user_id);
 
                 Call<List<Event>> call = retrofitManagerAPI.getSearchEvents(user_id, et_driver_name.getText().toString(), sp_pt_start.getSelectedItem().toString(), sp_pt_end.getSelectedItem().toString(), date_and_time.getText().toString(), isHelmet, !isFree, rgSelected);
-                //todo 需要修改
-//                Call<List<Event>> call = retrofitManagerAPI.getSearchEvents("JIU", "", "海大校門口", "九份金瓜石", date_and_time.getText().toString(), isHelmet, !isFree, rgSelected);
                 call.enqueue(new Callback<List<Event>>() {
                     @Override
                     public void onResponse(Call<List<Event>> call, Response<List<Event>> response) {
@@ -167,18 +164,28 @@ public class SearchEventsActivity extends AppCompatActivity {
                 sex_radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                        rgSelected = i;
+                        if (sex_male.getId() == i) {
+                            rgSelected = 0;
+                        } else if (sex_female.getId() == i) {
+                            rgSelected = 1;
+                        } else {
+                            rgSelected = 2;
+                        }
+                        rgSelectedID = i;
                     }
                 });
 
                 //回復篩選條件
                 sw_isFree.setChecked(isFree);
                 sw_helmet.setChecked(isHelmet);
-                if (sex_male.getId() == rgSelected) {
+                if (sex_male.getId() == rgSelectedID) {
+                    rgSelected = 0;
                     sex_male.setChecked(true);
-                } else if (sex_female.getId() == rgSelected) {
+                } else if (sex_female.getId() == rgSelectedID) {
+                    rgSelected = 1;
                     sex_female.setChecked(true);
                 } else {
+                    rgSelected = 2;
                     sex_none.setChecked(true);
                 }
 

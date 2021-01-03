@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -78,55 +77,6 @@ public class SearchedDriveEventAdapter extends RecyclerView.Adapter<SearchedDriv
             event_time2 = itemView.findViewById(R.id.event_time2);
             event_cost = itemView.findViewById(R.id.event_cost);
             event_delete = itemView.findViewById(R.id.event_delete);
-            event_delete.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                    final int position = getAdapterPosition();
-                    final Event e = Events.get(position);
-                    AlertDialog.Builder deleteDialog = new AlertDialog.Builder(mContext);
-                    deleteDialog.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            // DO SOMETHING HERE
-                            Events.remove(getAdapterPosition());
-                            notifyItemRemoved(which);
-                            notifyDataSetChanged();
-                            Retrofit retrofit = new Retrofit.Builder()
-                                    .baseUrl("http://140.121.197.130:5602/")
-                                    .addConverterFactory(GsonConverterFactory.create())
-                                    .build();
-                            RetrofitManagerAPI retrofitManagerAPI = retrofit.create(RetrofitManagerAPI.class);
-                            Call<Ack> call = retrofitManagerAPI.deleteEvent(e.getEvent_id(), "delete");
-                            call.enqueue(new Callback<Ack>() {
-                                @Override
-                                public void onResponse(Call<Ack> call, Response<Ack> response) {
-                                    if (!response.isSuccessful()) {
-                                        Log.d("delete", "delete driver error");
-                                    }
-                                    if(!response.body().isSuccess()){
-                                        Log.d("delete", response.body().getReason());
-                                    }
-                                }
-
-                                @Override
-                                public void onFailure(Call<Ack> call, Throwable t) {
-                                    Log.d("delete", "delete server error");
-                                }
-                            });
-                        }
-                    });
-                    deleteDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-
-                        }
-                    });
-
-                    deleteDialog.show();
-                }
-            });
-
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -135,18 +85,156 @@ public class SearchedDriveEventAdapter extends RecyclerView.Adapter<SearchedDriv
 
 
                     if (e.getStatus().equals("white")) {
+                        System.out.println(Events.get(position).getAll_request().size());
                         AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
                         alertDialog.setTitle("乘客申請名單");
                         //final View content_layout = LayoutInflater.from(mContext).inflate(R.layout.searched_driver_event_detail, null);
                         final View content_layout = LayoutInflater.from(mContext).inflate(R.layout.event_passenger_request, null);
                         RecyclerView recyclerView;
-                            recyclerView = content_layout.findViewById(R.id.recyclerView_in_recyclerView);
+                        recyclerView = content_layout.findViewById(R.id.recyclerView_in_recyclerView);
                         recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
                         recyclerView.setAdapter(new requests_in_multiRecyclerViewAdapter(mContext, e.getAll_request(), e.getAll_request_user()));
+
+
+                        event_delete.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+
+                                final int position = getAdapterPosition();
+                                final Event e = Events.get(position);
+                                AlertDialog.Builder deleteDialog = new AlertDialog.Builder(mContext);
+                                deleteDialog.setTitle("確定刪除?");
+                                deleteDialog.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        // DO SOMETHING HERE
+                                        Events.remove(getAdapterPosition());
+                                        notifyItemRemoved(which);
+                                        notifyDataSetChanged();
+                                        Retrofit retrofit = new Retrofit.Builder()
+                                                .baseUrl("http://140.121.197.130:5602/")
+                                                .addConverterFactory(GsonConverterFactory.create())
+                                                .build();
+                                        RetrofitManagerAPI retrofitManagerAPI = retrofit.create(RetrofitManagerAPI.class);
+                                        Call<Ack> call = retrofitManagerAPI.deleteEvent(e.getEvent_id(), "delete");
+                                        call.enqueue(new Callback<Ack>() {
+                                            @Override
+                                            public void onResponse(Call<Ack> call, Response<Ack> response) {
+                                                if (!response.isSuccessful()) {
+                                                    Log.d("delete", "delete driver error");
+                                                }
+                                                if (!response.body().isSuccess()) {
+                                                    Log.d("delete", response.body().getReason());
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onFailure(Call<Ack> call, Throwable t) {
+                                                Log.d("delete", "delete server error");
+                                            }
+                                        });
+                                    }
+                                });
+                                deleteDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+
+                                    }
+                                });
+
+                                deleteDialog.show();
+                            }
+                        });
+
                         alertDialog.setView(content_layout);
                         alertDialog.show();
                     } else if (e.getStatus().equals("green")) {
                         AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
+
+                        event_delete.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+
+                                final int position = getAdapterPosition();
+                                final Event e = Events.get(position);
+                                AlertDialog.Builder deleteDialog = new AlertDialog.Builder(mContext);
+                                deleteDialog.setPositiveButton("Finish", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        // DO SOMETHING HERE
+                                        Events.remove(getAdapterPosition());
+                                        notifyItemRemoved(which);
+                                        notifyDataSetChanged();
+                                        Retrofit retrofit = new Retrofit.Builder()
+                                                .baseUrl("http://140.121.197.130:5602/")
+                                                .addConverterFactory(GsonConverterFactory.create())
+                                                .build();
+                                        RetrofitManagerAPI retrofitManagerAPI = retrofit.create(RetrofitManagerAPI.class);
+                                        Call<Ack> call = retrofitManagerAPI.deleteEvent(e.getEvent_id(), "finish");
+                                        call.enqueue(new Callback<Ack>() {
+                                            @Override
+                                            public void onResponse(Call<Ack> call, Response<Ack> response) {
+                                                if (!response.isSuccessful()) {
+                                                    Log.d("Finish", "Finish driver error");
+                                                }
+                                                if (!response.body().isSuccess()) {
+                                                    Log.d("Finish", response.body().getReason());
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onFailure(Call<Ack> call, Throwable t) {
+                                                Log.d("Finish", "Finish server error");
+                                            }
+                                        });
+                                    }
+                                });
+
+                                deleteDialog.setNeutralButton("Drop", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        // DO SOMETHING HERE
+                                        Events.remove(getAdapterPosition());
+                                        notifyItemRemoved(which);
+                                        notifyDataSetChanged();
+                                        Retrofit retrofit = new Retrofit.Builder()
+                                                .baseUrl("http://140.121.197.130:5602/")
+                                                .addConverterFactory(GsonConverterFactory.create())
+                                                .build();
+                                        RetrofitManagerAPI retrofitManagerAPI = retrofit.create(RetrofitManagerAPI.class);
+                                        Call<Ack> call = retrofitManagerAPI.deleteEvent(e.getEvent_id(), "drop");
+                                        call.enqueue(new Callback<Ack>() {
+                                            @Override
+                                            public void onResponse(Call<Ack> call, Response<Ack> response) {
+                                                if (!response.isSuccessful()) {
+                                                    Log.d("drop", "drop driver error");
+                                                }
+                                                if (!response.body().isSuccess()) {
+                                                    Log.d("drop", response.body().getReason());
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onFailure(Call<Ack> call, Throwable t) {
+                                                Log.d("drop", "drop server error");
+                                            }
+                                        });
+                                    }
+                                });
+
+
+                                deleteDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+
+                                    }
+                                });
+
+                                deleteDialog.show();
+                            }
+                        });
+
+
                         final View content_layout = LayoutInflater.from(mContext).inflate(R.layout.driver_main_event_detail, null);
 
                         TextView foo;
@@ -184,24 +272,13 @@ public class SearchedDriveEventAdapter extends RecyclerView.Adapter<SearchedDriv
                         foo = content_layout.findViewById(R.id.tv_extra_need);
                         foo.setText(e.getFinal_request().getExtra_needed());
 
-                        alertDialog.setPositiveButton("finish", new DialogInterface.OnClickListener() {
+                        alertDialog.setPositiveButton("cancel", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                //todo
+
                             }
                         });
-                        alertDialog.setNegativeButton("放棄", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                //todo
-                            }
-                        });
-                        alertDialog.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                dialogInterface.cancel();
-                            }
-                        });
+
 
                         alertDialog.setView(content_layout);
                         alertDialog.show();

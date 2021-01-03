@@ -2,32 +2,18 @@ package com.skypan.myapplication.login_model;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
-
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.skypan.myapplication.R;
-import com.skypan.myapplication.Retrofit.RetrofitManagerAPI;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class set_new_passwordActivity extends AppCompatActivity {
     private Button cancel_new_password;
     private Button verify_new_password;
     private EditText new_password;
     private EditText new_password_again;
-    private String email = forget_password.email_forget.getText().toString();  // 從forget_password製造出來的認證碼
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +39,7 @@ public class set_new_passwordActivity extends AppCompatActivity {
     private class OnClick implements View.OnClickListener {
         @Override
         public void onClick(View v) {
+            Intent intent = null;
             switch (v.getId()) {
                 case R.id.cancel_new_password:
 

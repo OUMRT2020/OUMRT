@@ -9,32 +9,16 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class FCM {
-    public String token;
+public class Notification {
+    public static class Notify extends AsyncTask<Void, Void, Void> {
+        private String tkn;
 
-    public void send_notify(String token) {
-//        FirebaseInstanceId.getInstance()
-//                .getInstanceId()
-//                .addOnCompleteListener(task -> {
-//                    if (!task.isSuccessful()) {
-//                        Log.d("FCMDemo", "getInstanceId failed", task.getException());
-//                        return;
-//                    }
-//                    // Get new Instance ID token
-//                    String token = task.getResult().getToken();
-//                    tkn = token;
-//                    Log.d("FCMDemo", "token: " + token);
-//                });
-        this.token = token;
-        new Notify().execute();
-    }
-
-    public class Notify extends AsyncTask<Void, Void, Void> {
+        public Notify(String token) {
+            this.tkn = token;
+        }
 
         @Override
         protected Void doInBackground(Void... voids) {
-
-
             try {
                 URL url = new URL("https://fcm.googleapis.com/fcm/send");
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -49,7 +33,7 @@ public class FCM {
 
                 JSONObject json = new JSONObject();
 
-                json.put("to", token);
+                json.put("to", tkn);
 
 
                 JSONObject info = new JSONObject();

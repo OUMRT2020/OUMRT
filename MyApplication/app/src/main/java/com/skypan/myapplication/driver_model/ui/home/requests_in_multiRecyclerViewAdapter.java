@@ -37,10 +37,6 @@ public class requests_in_multiRecyclerViewAdapter extends RecyclerView.Adapter<r
         this.mContext = mContext;
         this.all_request = all_request;
         this.all_request_user = all_request_user;
-//        System.out.println(all_request.get(0).get
-//        Extra_needed());
-//        System.out.println(all_request_user.get(0).getName());
-
     }
 
     @NonNull
@@ -105,7 +101,7 @@ public class requests_in_multiRecyclerViewAdapter extends RecyclerView.Adapter<r
                     foo = content_layout.findViewById(R.id.tv_extra_need);
                     foo.setText(request.getExtra_needed());
 
-                    alertDialog.setTitle("test");
+                    alertDialog.setTitle("確定接受");
                     alertDialog.setPositiveButton("接受", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {

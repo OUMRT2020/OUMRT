@@ -29,9 +29,6 @@ public class loginActivity extends AppCompatActivity {
     private TextView email;
     private TextView password;
 
-    //以下要傳到個人資料那頁顯示的
-    public static String userId;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,24 +77,27 @@ public class loginActivity extends AppCompatActivity {
                                 .addConverterFactory(GsonConverterFactory.create(gson))
                                 .build();
                         RetrofitManagerAPI retrofitManagerAPI = retrofit.create(RetrofitManagerAPI.class);
-                        Call<String> call = retrofitManagerAPI.login(password.getText().toString(), email.getText().toString());
-                        call.enqueue(new Callback<String>() {
+                        String temp_password = password.getText().toString();
+                        String temp_mail = email.getText().toString();
+                        Call<User> call = retrofitManagerAPI.login(temp_password, temp_mail);
+                        call.enqueue(new Callback<User>() {
                             @Override
-                            public void onResponse(Call<String> call, Response<String> response) {
+                            public void onResponse(Call<User> call, Response<User> response) {
                                 if (!response.isSuccessful()) {
-                                    Log.d("error0", response.message());
-                                }
-                                if (response.body().equals("Fail")) {
-                                    Toast.makeText(loginActivity.this, "login failed", Toast.LENGTH_SHORT).show();
+                                    Log.d("login failed: ", response.message());
                                 } else {
-                                    // 跳轉到登入後的頁面
-                                    // 把userId存入
-                                    userId = response.body();
                                     SharedPreferences preferences = getSharedPreferences("isOUMRTLogin", MODE_PRIVATE);//創建一個isLogin.xml
                                     preferences.edit()
                                             .putBoolean("isLogin", true)
-                                            .putString("user_id", response.body())
-                                            .commit();
+                                            .putString("email", temp_mail)
+                                            .putString("password", temp_password)
+                                            .putString("user_id", response.body().getUser_id())
+                                            .putString("name",response.body().getName())
+                                            .putString("phone_num", response.body().getPhone_num())
+                                            .putString("sex", response.body().isSex() ? "男" : "女")
+                                            .putInt("weight",response.body().getWeight())
+                                            .putFloat("rate", (float) response.body().getRate().getScore())
+                                            .apply();
                                     Intent intent = new Intent(loginActivity.this, select_identityActivity.class);
                                     // intent.putExtra("user_id", response.body());
                                     startActivity(intent);
@@ -106,7 +106,7 @@ public class loginActivity extends AppCompatActivity {
                             }
 
                             @Override
-                            public void onFailure(Call<String> call, Throwable t) {
+                            public void onFailure(Call<User> call, Throwable t) {
                                 Toast.makeText(loginActivity.this, "server error", Toast.LENGTH_SHORT).show();
                             }
                         });

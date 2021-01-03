@@ -2,24 +2,17 @@ package com.skypan.myapplication.login_model;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+
 import com.skypan.myapplication.R;
-import com.skypan.myapplication.Retrofit.RetrofitManagerAPI;
 
 import java.util.Random;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class registerActivity extends AppCompatActivity {
     private Button cancel_register;
@@ -68,16 +61,16 @@ public class registerActivity extends AppCompatActivity {
     private class OnClick implements View.OnClickListener {
         @Override
         public void onClick(View v) {
+            Intent intent = null;
             switch (v.getId()) {
                 case R.id.cancel_register:
-                    System.out.println("跳轉回login頁面信號 : 1");
+
                     // 跳轉到login介面
-                    Intent intent0 = new Intent(registerActivity.this, loginActivity.class);
-                    intent0.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intent0);
+                    intent = new Intent(registerActivity.this, loginActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     break;
                 case R.id.verify_register:
-                    System.out.println("成功按下verify_btn信號 : 1");
+
                     if (email_register.getText().toString().matches("") || password_register.getText().toString().matches("") || weight_register.getText().toString().matches("") || phone_register.getText().toString().matches("") || nickname_register.getText().toString().matches("")) {
                         Toast.makeText(registerActivity.this, "欄位不得為空", Toast.LENGTH_SHORT).show();
                     } else {
@@ -121,6 +114,9 @@ public class registerActivity extends AppCompatActivity {
                         });
                     }
                     break;
+            }
+            if(intent!=null){
+                startActivity(intent);
             }
         }
     }
