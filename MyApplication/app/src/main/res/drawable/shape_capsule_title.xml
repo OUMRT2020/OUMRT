@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape>
+            // 元件的漸層
+            <gradient
+                android:startColor="#0080FF"
+                android:centerColor="#ECECFF"
+                android:endColor="#0080FF"
+                android:angle="90" />
+
+            // 內容文字與橢圓的距離
+            <padding
+                android:bottom="2dp"
+                android:left="2dp"
+                android:right="2dp"
+                android:top="2dp" />
+
+            // 設定圓角, 只適用於rectangle
+            <corners android:radius="900dp"/>
+        </shape>
+    </item>
+</selector>

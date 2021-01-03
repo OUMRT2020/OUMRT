@@ -64,6 +64,7 @@ public class forget_password extends AppCompatActivity {
 
                     // 跳轉到login介面
                     Intent intent0 = new Intent(forget_password.this, loginActivity.class);
+                    intent0.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent0);
                     break;
                 case R.id.send_forget_password:
@@ -76,7 +77,7 @@ public class forget_password extends AppCompatActivity {
                                 .setLenient()
                                 .create();
                         Retrofit retrofit = new Retrofit.Builder()
-                                .baseUrl("https://nmsl666.herokuapp.com/")
+                                .baseUrl("http://140.121.197.130:5602/")
                                 .addConverterFactory(GsonConverterFactory.create(gson))
                                 .build();
                         RetrofitManagerAPI check_email_in_registerAPI = retrofit.create(RetrofitManagerAPI.class);

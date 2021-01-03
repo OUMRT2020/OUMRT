@@ -93,7 +93,7 @@ public class SearchedDriveEventAdapter extends RecyclerView.Adapter<SearchedDriv
                             notifyItemRemoved(which);
                             notifyDataSetChanged();
                             Retrofit retrofit = new Retrofit.Builder()
-                                    .baseUrl("https://database87.herokuapp.com/")
+                                    .baseUrl("http://140.121.197.130:5602/")
                                     .addConverterFactory(GsonConverterFactory.create())
                                     .build();
                             RetrofitManagerAPI retrofitManagerAPI = retrofit.create(RetrofitManagerAPI.class);

@@ -68,6 +68,7 @@ public class personal_informationActivity extends AppCompatActivity {
                 case R.id.return_button:
                     // 跳轉到passengerHomeFragment畫面
                     Intent intent1=new Intent(personal_informationActivity.this, PassengerMainActivity.class);
+                    intent1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent1);
                     break;
             }

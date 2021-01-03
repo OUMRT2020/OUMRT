@@ -50,6 +50,7 @@ public class edit_personal_informationActivity extends AppCompatActivity {
                 case R.id.return_button:
                     // 跳轉到個人資料介面介面
                     Intent intent1 = new Intent(edit_personal_informationActivity.this, personal_informationActivity.class);
+                    intent1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent1);
                     break;
             }

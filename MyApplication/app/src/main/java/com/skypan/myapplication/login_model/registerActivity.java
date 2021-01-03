@@ -86,7 +86,7 @@ public class registerActivity extends AppCompatActivity {
                                 .setLenient()
                                 .create();
                         Retrofit retrofit = new Retrofit.Builder()
-                                .baseUrl("https://nmsl666.herokuapp.com/")
+                                .baseUrl("http://140.121.197.130:5602/")
                                 .addConverterFactory(GsonConverterFactory.create(gson))
                                 .build();
                         RetrofitManagerAPI check_email_in_registerAPI = retrofit.create(RetrofitManagerAPI.class);

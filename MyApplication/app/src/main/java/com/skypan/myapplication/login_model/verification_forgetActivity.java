@@ -41,13 +41,13 @@ public class verification_forgetActivity extends AppCompatActivity {
     private class OnClick implements View.OnClickListener {
         @Override
         public void onClick(View v) {
-            Intent intent = null;
             switch (v.getId()) {
                 case R.id.cancel_verification_forget:
 
                     // 跳轉到輸入驗證信箱(忘記密碼的)畫面
-                    intent = new Intent(verification_forgetActivity.this, forget_password.class);
-                    startActivity(intent);
+                    Intent intent0 = new Intent(verification_forgetActivity.this, forget_password.class);
+                    intent0.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent0);
                     break;
                 case R.id.verify_verification_forget:
 
@@ -58,14 +58,15 @@ public class verification_forgetActivity extends AppCompatActivity {
 
                         // 跳轉到輸入新密碼的頁面
                         System.out.println("驗證碼相同訊號 : 1");
-                        intent = new Intent(verification_forgetActivity.this, set_new_passwordActivity.class);
-                        startActivity(intent);
+                        Intent intent1 = new Intent(verification_forgetActivity.this, set_new_passwordActivity.class);
+                        startActivity(intent1);
                     }
                     else {
 
                         // 跳出警告視窗
                         // 不跳轉頁面
                         System.out.println("驗證碼不相同訊號 : 0");
+                        System.out.println("message = " + message);
                         openDialog();
                     }
                     break;

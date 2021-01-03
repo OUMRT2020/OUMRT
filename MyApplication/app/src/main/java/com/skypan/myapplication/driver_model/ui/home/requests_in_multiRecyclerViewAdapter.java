@@ -111,7 +111,7 @@ public class requests_in_multiRecyclerViewAdapter extends RecyclerView.Adapter<r
                         public void onClick(DialogInterface dialog, int which) {
                             //todo :連線API
                             Retrofit retrofit = new Retrofit.Builder()
-                                    .baseUrl("https://database87.herokuapp.com/")
+                                    .baseUrl("http://140.121.197.130:5602/")
                                     .addConverterFactory(GsonConverterFactory.create())
                                     .build();
                             RetrofitManagerAPI retrofitManagerAPI = retrofit.create(RetrofitManagerAPI.class);
@@ -141,7 +141,7 @@ public class requests_in_multiRecyclerViewAdapter extends RecyclerView.Adapter<r
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             Retrofit retrofit = new Retrofit.Builder()
-                                    .baseUrl("https://database87.herokuapp.com/")
+                                    .baseUrl("http://140.121.197.130:5602/")
                                     .addConverterFactory(GsonConverterFactory.create())
                                     .build();
                             RetrofitManagerAPI retrofitManagerAPI = retrofit.create(RetrofitManagerAPI.class);

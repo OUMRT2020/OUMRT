@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="30dp"
-            android:background="#0080FF"
+            android:background="@drawable/shape_capsule_title"
             android:text="海大機車共乘OUMTR"
             android:textColor="#000000"
             android:textSize="35sp"/>
@@ -38,7 +38,7 @@
             android:singleLine="true"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="70dp"
-            android:text="歡迎使用OUMTR歡迎使用OUMTR歡迎使用OUMTR歡迎使用OUMTR歡迎使用OUMTR"
+            android:text="歡迎使用OUMTR  歡迎使用OUMTR  歡迎使用OUMTR  歡迎使用OUMTR  歡迎使用OUMTR  "
             android:textColor="#000000"/>
     </LinearLayout>
 
@@ -128,7 +128,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="290dp"
                 android:layout_marginTop="20dp"
-                android:background="#ECECFF"
+                android:background="@drawable/shape_capsule"
                 android:text="忘記密碼"
                 android:textColor="#000000"
                 android:textSize="20sp"/>
@@ -149,7 +149,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="70dp"
-                android:background="#ECECFF"
+                android:background="@drawable/shape_capsule"
                 android:text="register"
                 android:textColor="#000000"
                 android:textSize="20sp"/>
@@ -160,7 +160,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="70dp"
-                android:background="#ECECFF"
+                android:background="@drawable/shape_capsule"
                 android:text="login"
                 android:textColor="#000000"
                 android:textSize="20sp"/>

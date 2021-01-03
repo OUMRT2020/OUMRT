@@ -58,6 +58,7 @@ public class set_new_passwordActivity extends AppCompatActivity {
 
                     // 跳轉到輸入驗證信箱(忘記密碼的)畫面
                     Intent intent0 = new Intent(set_new_passwordActivity.this, verification_forgetActivity.class);
+                    intent0.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent0);
                     break;
                 case R.id.verify_new_password:
@@ -78,7 +79,7 @@ public class set_new_passwordActivity extends AppCompatActivity {
                                 .setLenient()
                                 .create();
                         Retrofit retrofit = new Retrofit.Builder()
-                                .baseUrl("https://nmsl666.herokuapp.com/")
+                                .baseUrl("http://140.121.197.130:5602/")
                                 .addConverterFactory(GsonConverterFactory.create(gson))
                                 .build();
                         RetrofitManagerAPI newPassword = retrofit.create(RetrofitManagerAPI.class);
