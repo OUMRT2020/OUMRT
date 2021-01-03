@@ -15,7 +15,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.skypan.myapplication.R;
 import com.skypan.myapplication.Retrofit.RetrofitManagerAPI;
-import com.skypan.myapplication.Retrofit.User;
 
 import java.security.PublicKey;
 
@@ -77,31 +76,28 @@ public class loginActivity extends AppCompatActivity {
                                 .setLenient()
                                 .create();
                         Retrofit retrofit = new Retrofit.Builder()
-                                .baseUrl("http://140.121.197.130:5602/")
+                                .baseUrl("https://nmsl666.herokuapp.com/")
                                 .addConverterFactory(GsonConverterFactory.create(gson))
                                 .build();
                         RetrofitManagerAPI retrofitManagerAPI = retrofit.create(RetrofitManagerAPI.class);
-                        String temp_password = password.getText().toString();
-                        String temp_mail = email.getText().toString();
-                        Call<User> call = retrofitManagerAPI.login(temp_password, temp_mail);
-                        call.enqueue(new Callback<User>() {
+                        Call<String> call = retrofitManagerAPI.login(password.getText().toString(), email.getText().toString());
+                        call.enqueue(new Callback<String>() {
                             @Override
-                            public void onResponse(Call<User> call, Response<User> response) {
+                            public void onResponse(Call<String> call, Response<String> response) {
                                 if (!response.isSuccessful()) {
-                                    Log.d("login failed: ", response.message());
+                                    Log.d("error0", response.message());
+                                }
+                                if (response.body().equals("Fail")) {
+                                    Toast.makeText(loginActivity.this, "login failed", Toast.LENGTH_SHORT).show();
                                 } else {
+                                    // 跳轉到登入後的頁面
+                                    // 把userId存入
+                                    userId = response.body();
                                     SharedPreferences preferences = getSharedPreferences("isOUMRTLogin", MODE_PRIVATE);//創建一個isLogin.xml
                                     preferences.edit()
                                             .putBoolean("isLogin", true)
-                                            .putString("email", temp_mail)
-                                            .putString("password", temp_password)
-                                            .putString("user_id", response.body().getUser_id())
-                                            .putString("name",response.body().getName())
-                                            .putString("phone_num", response.body().getPhone_num())
-                                            .putString("sex", response.body().isSex() ? "男" : "女")
-                                            .putInt("weight",response.body().getWeight())
-                                            .putFloat("rate", (float) response.body().getRate().getScore())
-                                            .apply();
+                                            .putString("user_id", response.body())
+                                            .commit();
                                     Intent intent = new Intent(loginActivity.this, select_identityActivity.class);
 //                                    intent.putExtra("user_id", response.body());
                                     startActivity(intent);
@@ -110,7 +106,7 @@ public class loginActivity extends AppCompatActivity {
                             }
 
                             @Override
-                            public void onFailure(Call<User> call, Throwable t) {
+                            public void onFailure(Call<String> call, Throwable t) {
                                 Toast.makeText(loginActivity.this, "server error", Toast.LENGTH_SHORT).show();
                             }
                         });

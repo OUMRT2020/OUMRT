@@ -15,12 +15,9 @@ import androidx.core.app.NotificationCompat;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.skypan.myapplication.R;
-import com.skypan.myapplication.login_model.select_identityActivity;
 import com.skypan.myapplication.passenger_model.PassengerMainActivity;
 
-
-public class FireBaseMsgService  extends FirebaseMessagingService
-{
+public class FirebaseMsgService extends FirebaseMessagingService {
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
@@ -40,11 +37,11 @@ public class FireBaseMsgService  extends FirebaseMessagingService
                 .setVibrate(new long[]{100, 100, 100, 100})
                 .setPriority(Notification.PRIORITY_MAX)
                 .setSound(defaultSoundUri);
-        Intent resultIntent = new Intent(this, select_identityActivity.class);
+        Intent resultIntent = new Intent(this, PassengerMainActivity.class);
 
 
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
-        stackBuilder.addParentStack(select_identityActivity.class);
+        stackBuilder.addParentStack(PassengerMainActivity.class);
         stackBuilder.addNextIntent(resultIntent);
         PendingIntent resultPendingIntent =
                 stackBuilder.getPendingIntent(
@@ -60,5 +57,4 @@ public class FireBaseMsgService  extends FirebaseMessagingService
 
         mNotificationManager.notify(1, notificationBuilder.build());
     }
-
 }

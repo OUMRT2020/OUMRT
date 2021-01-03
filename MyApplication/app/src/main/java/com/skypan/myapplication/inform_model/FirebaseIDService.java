@@ -1,6 +1,5 @@
 package com.skypan.myapplication.inform_model;
 
-
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -14,23 +13,28 @@ import androidx.core.app.NotificationCompat;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
 import com.skypan.myapplication.R;
-import com.skypan.myapplication.login_model.select_identityActivity;
+import com.skypan.myapplication.passenger_model.PassengerMainActivity;
 
-public class FireIDService extends FirebaseInstanceIdService {
-
+public class FirebaseIDService extends FirebaseInstanceIdService {
 
     @Override
     public void onTokenRefresh() {
+
+
         String tkn = FirebaseInstanceId.getInstance().getToken();
         Log.d("Not","Token ["+tkn+"]");
+
         sendRegistrationToServer(tkn);
+
+
+
     }
 
 
     private void sendRegistrationToServer(String token) {
         // TODO: Implement this method to send token to your app server.
 
-        Intent intent = new Intent(this, select_identityActivity.class);
+        Intent intent = new Intent(this, PassengerMainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 1410 /* Request code */, intent,
                 PendingIntent.FLAG_ONE_SHOT);
