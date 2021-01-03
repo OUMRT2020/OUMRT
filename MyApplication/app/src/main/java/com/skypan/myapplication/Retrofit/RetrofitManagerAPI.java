@@ -63,16 +63,19 @@ public interface RetrofitManagerAPI {
     @FormUrlEncoded
     @POST("login")
     Call<User> login(@Field("password") String password,
-                       @Field("mail") String email);
+                     @Field("mail") String email);
 
-    @GET("posts")
-    Call<List<Post>> getPosts();
-
-//    @POST("alter-user")
-//    Call<Ack> alterUser(@Body Request request);
+    @POST("alter-user")
+    Call<Ack> alterUser(@Body User user);
 
     @GET("query-user")
 //查詢個人資料
     Call<User> queryUser(@Query("user_id") String user_id);
+
+    @FormUrlEncoded
+    @POST("alert")
+//檢查請求或新增是否需警告
+    Call<Ack> alert(@Field("user_id") String user_id,
+                    @Field("time") String time);
 
 }
