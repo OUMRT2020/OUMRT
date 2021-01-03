@@ -40,7 +40,7 @@ public class passengerHomeFragment extends Fragment {
             @Override
             public void onRefresh() {//refresh
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl("http://140.121.197.130:5602/")
+                        .baseUrl("https://database87.herokuapp.com/")
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
                 RetrofitManagerAPI retrofitManagerAPI = retrofit.create(RetrofitManagerAPI.class);
@@ -80,7 +80,7 @@ public class passengerHomeFragment extends Fragment {
         });
         //第一次加載時呼叫
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://140.121.197.130:5602/")
+                .baseUrl("https://database87.herokuapp.com/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         RetrofitManagerAPI retrofitManagerAPI = retrofit.create(RetrofitManagerAPI.class);
@@ -117,7 +117,7 @@ public class passengerHomeFragment extends Fragment {
     public void onResume() {//返回時呼叫
         super.onResume();
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://140.121.197.130:5602/")
+                .baseUrl("https://database87.herokuapp.com/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         RetrofitManagerAPI retrofitManagerAPI = retrofit.create(RetrofitManagerAPI.class);

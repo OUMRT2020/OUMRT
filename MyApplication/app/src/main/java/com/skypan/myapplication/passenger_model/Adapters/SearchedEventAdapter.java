@@ -14,13 +14,11 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.firebase.iid.FirebaseInstanceId;
 import com.skypan.myapplication.R;
 import com.skypan.myapplication.Retrofit.Ack;
 import com.skypan.myapplication.Retrofit.Event;
 import com.skypan.myapplication.Retrofit.Request;
 import com.skypan.myapplication.Retrofit.RetrofitManagerAPI;
-import com.skypan.myapplication.inform_model.Notification;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,7 +50,7 @@ public class SearchedEventAdapter extends RecyclerView.Adapter<SearchedEventAdap
     public void onBindViewHolder(@NonNull SearchedEventAdapter.ViewHolder holder, int position) {
         holder.event_name.setText("" + Events.get(position).getEvent_name());
         holder.driver_rate.setText("" + Events.get(position).getUser().getRate().getScore());
-        holder.event_time.setText("" + Events.get(position).getAcceptable_time_interval().get(0) + " 至 " + Events.get(position).getAcceptable_time_interval().get(1));
+        holder.event_time.setText("" + Events.get(position).getAcceptable_time_interval().get(0) + "至" + Events.get(position).getAcceptable_time_interval().get(1));
         holder.event_cost.setText("" + Events.get(position).getPrice());
 
         if (Events.get(position).getStatus().equals("white")) {
@@ -148,7 +146,7 @@ public class SearchedEventAdapter extends RecyclerView.Adapter<SearchedEventAdap
 
                                 //送出請求
                                 Retrofit retrofit = new Retrofit.Builder()
-                                        .baseUrl("http://140.121.197.130:5602/")
+                                        .baseUrl("https://database87.herokuapp.com/")
                                         .addConverterFactory(GsonConverterFactory.create())
                                         .build();
                                 RetrofitManagerAPI retrofitManagerAPI = retrofit.create(RetrofitManagerAPI.class);
@@ -161,9 +159,7 @@ public class SearchedEventAdapter extends RecyclerView.Adapter<SearchedEventAdap
                                         } else {
                                             Ack ack = response.body();
                                             if (ack.isSuccess()) {
-                                                Toast.makeText(mContext, "已送出請求", Toast.LENGTH_SHORT).show();
-//                                                Toast.makeText(mContext, e.getUser().getToken(), Toast.LENGTH_SHORT).show();
-                                                new Notification.Notify(e.getUser().getToken()).execute();
+                                                Toast.makeText(mContext, request.getExtra_needed(), Toast.LENGTH_SHORT).show();
                                             } else {
                                                 Toast.makeText(mContext, ack.getReason(), Toast.LENGTH_SHORT).show();
                                             }

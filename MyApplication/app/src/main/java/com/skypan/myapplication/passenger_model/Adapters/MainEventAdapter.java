@@ -38,13 +38,7 @@ public class MainEventAdapter extends RecyclerView.Adapter<MainEventAdapter.View
     public void onBindViewHolder(@NonNull MainEventAdapter.ViewHolder holder, int position) {
         holder.event_name.setText("" + Events.get(position).getEvent_name());
         holder.driver_rate.setText("" + Events.get(position).getUser().getRate().getScore());
-        if (Events.get(position).getStatus().equals("white")) {
-            holder.event_time.setText("" + Events.get(position).getAcceptable_time_interval().get(0) + " 至 " + Events.get(position).getAcceptable_time_interval().get(1));
-        } else if (Events.get(position).getStatus().equals("red")) {
-            holder.event_time.setText("看來這是場永遠無法開始的旅途呢QQ");
-        } else if (Events.get(position).getStatus().equals("green")) {
-            holder.event_time.setText("" + Events.get(position).getFinal_request().getActual_time());
-        }
+        holder.event_time.setText("" + Events.get(position).getAcceptable_time_interval().get(0) + " " + Events.get(position).getAcceptable_time_interval().get(1));
         holder.event_cost.setText("" + Events.get(position).getPrice());
 
         if (Events.get(position).getStatus().equals("white")) {
@@ -97,9 +91,10 @@ public class MainEventAdapter extends RecyclerView.Adapter<MainEventAdapter.View
                         foo.setText(e.getMy_request().getActual_time());
 
                         foo = content_layout.findViewById(R.id.tv_extra_need);
-                        if (!e.getMy_request().getExtra_needed().equals("")) {
+                        if(!e.getMy_request().getExtra_needed().equals("")){
                             foo.setText(e.getMy_request().getExtra_needed());
-                        } else {
+                        }
+                        else{
                             foo.setText("(沒有額外需求)");
                         }
 
