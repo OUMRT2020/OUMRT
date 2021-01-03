@@ -57,7 +57,7 @@ public class PassengerMainActivity extends AppCompatActivity {
                 SharedPreferences preferences = getSharedPreferences("isOUMRTLogin", MODE_PRIVATE);
                 preferences.edit()
                         .clear()
-                        .apply();
+                        .commit();
                 finish();
             }
         });
@@ -71,6 +71,19 @@ public class PassengerMainActivity extends AppCompatActivity {
         navController = Navigation.findNavController(PassengerMainActivity.this, R.id.passenger_nav_host_fragment);//hostFragment必須在當前activity內
         NavigationUI.setupActionBarWithNavController(PassengerMainActivity.this, navController, appBarConfiguration);//設定漢寶寶
         NavigationUI.setupWithNavController(navigationView, navController);//不知道是三小
+
+//        可以跳到其他activity但其他item功能被覆蓋了
+//        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+//            @Override
+//            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+//                int id = item.getItemId();
+//                if (id == R.id.passengerSwitchToDriver) {
+//                    Intent newIntent = new Intent(PassengerMainActivity.this, DriverMainActivity.class);
+//                    startActivity(newIntent);
+//                }
+//                return false;
+//            }
+//        });
     }
 
     @Override

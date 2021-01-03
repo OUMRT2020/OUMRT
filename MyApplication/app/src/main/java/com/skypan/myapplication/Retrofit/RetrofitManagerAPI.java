@@ -1,7 +1,6 @@
 package com.skypan.myapplication.Retrofit;
 
 import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
@@ -64,6 +63,7 @@ public interface RetrofitManagerAPI {
     @POST("login")
     Call<User> login(@Field("password") String password,
                      @Field("mail") String email);
+
 
     @POST("alter-user")
     Call<Ack> alterUser(@Body User user);

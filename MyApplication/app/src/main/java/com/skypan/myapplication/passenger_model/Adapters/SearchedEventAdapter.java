@@ -19,7 +19,6 @@ import com.skypan.myapplication.Retrofit.Ack;
 import com.skypan.myapplication.Retrofit.Event;
 import com.skypan.myapplication.Retrofit.Request;
 import com.skypan.myapplication.Retrofit.RetrofitManagerAPI;
-import com.skypan.myapplication.inform_model.Notification;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,7 +50,7 @@ public class SearchedEventAdapter extends RecyclerView.Adapter<SearchedEventAdap
     public void onBindViewHolder(@NonNull SearchedEventAdapter.ViewHolder holder, int position) {
         holder.event_name.setText("" + Events.get(position).getEvent_name());
         holder.driver_rate.setText("" + Events.get(position).getUser().getRate().getScore());
-        holder.event_time.setText("" + Events.get(position).getAcceptable_time_interval().get(0) + " 至 " + Events.get(position).getAcceptable_time_interval().get(1));
+        holder.event_time.setText("" + Events.get(position).getAcceptable_time_interval().get(0) + "至" + Events.get(position).getAcceptable_time_interval().get(1));
         holder.event_cost.setText("" + Events.get(position).getPrice());
 
         if (Events.get(position).getStatus().equals("white")) {
@@ -135,7 +134,7 @@ public class SearchedEventAdapter extends RecyclerView.Adapter<SearchedEventAdap
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 Retrofit retrofit = new Retrofit.Builder()
-                                        .baseUrl("http://140.121.197.130:5602/")
+                                        .baseUrl("https://database87.herokuapp.com/")
                                         .addConverterFactory(GsonConverterFactory.create())
                                         .build();
                                 RetrofitManagerAPI retrofitManagerAPI = retrofit.create(RetrofitManagerAPI.class);
