@@ -147,8 +147,6 @@ public class SearchedDriveEventAdapter extends RecyclerView.Adapter<SearchedDriv
                             alertDialog.setView(content_layout);
                             alertDialog.show();
                         }
->>>>>>> Stashed changes
-
                         if(e.getAll_request().size()==0){
                             AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
 
