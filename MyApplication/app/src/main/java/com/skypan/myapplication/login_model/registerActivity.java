@@ -2,24 +2,17 @@ package com.skypan.myapplication.login_model;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+
 import com.skypan.myapplication.R;
-import com.skypan.myapplication.Retrofit.RetrofitManagerAPI;
 
 import java.util.Random;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class registerActivity extends AppCompatActivity {
     private Button cancel_register;
@@ -68,59 +61,30 @@ public class registerActivity extends AppCompatActivity {
     private class OnClick implements View.OnClickListener {
         @Override
         public void onClick(View v) {
+            Intent intent = null;
             switch (v.getId()) {
                 case R.id.cancel_register:
-                    System.out.println("跳轉回login頁面信號 : 1");
+
                     // 跳轉到login介面
-                    Intent intent0 = new Intent(registerActivity.this, loginActivity.class);
-                    intent0.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intent0);
+                    intent = new Intent(registerActivity.this, loginActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     break;
                 case R.id.verify_register:
-                    System.out.println("成功按下verify_btn信號 : 1");
+
                     if (email_register.getText().toString().matches("") || password_register.getText().toString().matches("") || weight_register.getText().toString().matches("") || phone_register.getText().toString().matches("") || nickname_register.getText().toString().matches("")) {
                         Toast.makeText(registerActivity.this, "欄位不得為空", Toast.LENGTH_SHORT).show();
                     } else {
-                        //確認帳號是否已存在
-                        Gson gson = new GsonBuilder()
-                                .setLenient()
-                                .create();
-                        Retrofit retrofit = new Retrofit.Builder()
-                                .baseUrl("https://nmsl666.herokuapp.com/")
-                                .addConverterFactory(GsonConverterFactory.create(gson))
-                                .build();
-                        RetrofitManagerAPI check_email_in_registerAPI = retrofit.create(RetrofitManagerAPI.class);
-                        Call<String> call = check_email_in_registerAPI.accountExist(email_register.getText().toString());
-                        call.enqueue(new Callback<String>() {
-
-                            @Override
-                            public void onResponse(Call<String> call, Response<String> response) {
-                                System.out.println("response.body : " + response.body());
-                                if (!response.isSuccessful()) {
-                                    Log.d("error0", response.message());
-                                }
-                                if (response.body().equals("true")) {
-                                    System.out.println("帳號存在信號 : 1");
-                                    Toast.makeText(registerActivity.this, "account exist", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    System.out.println("帳號不存在信號 : 0");
-                                    // 跳轉到認證信箱(註冊的)頁面
-                                    // 寄出認證碼
-                                    sendMail();
-                                    check_gender();
-                                    Intent intent1 = new Intent(registerActivity.this, verification_register.class);
-                                    intent1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                    startActivity(intent1);
-                                }
-                            }
-
-                            @Override
-                            public void onFailure(Call<String> call, Throwable t) {
-                                Toast.makeText(registerActivity.this, "server error", Toast.LENGTH_SHORT).show();
-                            }
-                        });
+                        // 跳轉到認證信箱(註冊的)頁面
+                        // 寄出認證碼
+                        sendMail();
+                        check_gender();
+                        intent = new Intent(registerActivity.this, verification_register.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     }
                     break;
+            }
+            if(intent!=null){
+                startActivity(intent);
             }
         }
     }

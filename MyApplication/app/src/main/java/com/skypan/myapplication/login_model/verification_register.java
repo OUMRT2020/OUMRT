@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.skypan.myapplication.R;
@@ -82,13 +83,15 @@ public class verification_register extends AppCompatActivity {
 
                         // 跳轉到login頁面
                         System.out.println("驗證碼相同訊號 : 1");
-                        Custom_register custom_register = new Custom_register(new User("token", nickname, phone, sex, weight), new Auth(password, mail));
+                        String tkn = FirebaseInstanceId.getInstance().getToken();
+                        System.out.println("register mTkn"+tkn);
+                        Custom_register custom_register = new Custom_register(new User(tkn, nickname, phone, sex, weight), new Auth(password, mail));
 
                         Gson gson = new GsonBuilder()
                                 .setLenient()
                                 .create();
                         Retrofit retrofit = new Retrofit.Builder()
-                                .baseUrl("https://nmsl666.herokuapp.com/")
+                                .baseUrl("http://140.121.197.130:5602/")
                                 .addConverterFactory(GsonConverterFactory.create(gson))
                                 .build();
                         RetrofitManagerAPI retrofitManagerAPI = retrofit.create(RetrofitManagerAPI.class);
