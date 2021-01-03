@@ -67,7 +67,11 @@ public class set_new_passwordActivity extends AppCompatActivity {
                     new_password_again = findViewById(R.id.new_password_again);
                     String password1 = new_password.getText().toString();
                     String password2 = new_password_again.getText().toString();
-                    if(password1.equals(password2)){
+
+                    // 不得為空
+                    if (new_password.getText().toString().equals("") || new_password_again.getText().toString().equals("")) {
+                        Toast.makeText(set_new_passwordActivity.this, "密碼不得為空", Toast.LENGTH_SHORT).show();
+                    } else if(password1.equals(password2)){
 
                         //把新密碼傳到後端
                         Gson gson = new GsonBuilder()
@@ -95,8 +99,7 @@ public class set_new_passwordActivity extends AppCompatActivity {
                                 Toast.makeText(set_new_passwordActivity.this, "server error", Toast.LENGTH_SHORT).show();
                             }
                         });
-                    }
-                    else {
+                    } else {
 
                         // 跳出警告視窗
                         // 不跳轉頁面
