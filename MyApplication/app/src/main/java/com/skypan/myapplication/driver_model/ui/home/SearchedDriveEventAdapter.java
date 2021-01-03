@@ -197,7 +197,6 @@ public class SearchedDriveEventAdapter extends RecyclerView.Adapter<SearchedDriv
                                 deleteDialog.show();
                             }
                         });
-                        });
                     } else if (e.getStatus().equals("green")) {
                         AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
 
