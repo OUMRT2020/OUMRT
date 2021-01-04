@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.skypan.myapplication.R;
 
 public class edit_personal_informationActivity extends AppCompatActivity {
@@ -36,24 +38,22 @@ public class edit_personal_informationActivity extends AppCompatActivity {
     private class OnClick implements View.OnClickListener {
         @Override
         public void onClick(View v) {
+            Intent intent = null;
             switch (v.getId()) {
-                case R.id.save_edit_information_button:
-                // 跳轉到個人資料介面介面
-                Intent intent0=new Intent(edit_personal_informationActivity.this, personal_informationActivity.class);
-                startActivity(intent0);
-
-                    break;
+                //case R.id.save_edit_information_button:
+                // 跳轉回到profile介面
+                //intent=new Intent(edit_personal_informationActivity.this, );
+                //break;
                 //case R.id.edit_password_information_button:
                 // 跳轉到認證密碼介面
                 //intent=new Intent(edit_personal_informationActivity.this, );
-                    //break;
+                //break;
                 case R.id.return_button:
                     // 跳轉到個人資料介面介面
-                    Intent intent1 = new Intent(edit_personal_informationActivity.this, personal_informationActivity.class);
-                    startActivity(intent1);
+                    intent = new Intent(edit_personal_informationActivity.this, personal_informationActivity.class);
                     break;
             }
-
+            startActivity(intent);
         }
     }
 }

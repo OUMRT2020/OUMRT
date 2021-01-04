@@ -3,259 +3,228 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#97CBFF"
     android:orientation="vertical"
     tools:context=".personal_information_model.personal_informationActivity">
 
-    <!--    顯示個人資訊界面    -->
+
+    <!--    nickname    -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#97CBFF"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:orientation="horizontal">
 
-        <!--    title    -->
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="#0080FF"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="暱稱"
+            android:textColor="#000000"
+            android:textSize="24sp" />
+
+        <EditText
+            android:id="@+id/nickname"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:background="#ECECFF"
+            android:enabled="false"
+            android:gravity="center"
+            android:hint="黑糖"
+            android:textSize="24sp" />
+    </LinearLayout>
+
+    <!--    phone    -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:enabled="false"
+            android:gravity="center"
+            android:text="phone"
+            android:textColor="#000000"
+            android:textSize="24sp" />
+
+        <EditText
+            android:id="@+id/phone"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:background="#ECECFF"
+            android:enabled="false"
+            android:gravity="center"
+            android:hint="09878787"
+            android:textSize="24sp" />
+    </LinearLayout>
+
+    <!--    weight    -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="體重"
+            android:textColor="#000000"
+            android:textSize="24sp" />
+
+        <EditText
+            android:id="@+id/weight"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:background="#ECECFF"
+            android:enabled="false"
+            android:gravity="center"
+            android:hint="10"
+            android:textSize="24sp" />
+    </LinearLayout>
+
+    <!--    email    -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="mail"
+            android:textColor="#000000"
+            android:textSize="24sp" />
+
+        <EditText
+            android:id="@+id/mail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:background="#ECECFF"
+            android:enabled="false"
+            android:gravity="center"
+            android:hint="12345@gmal.com"
+            android:textSize="24sp" />
+    </LinearLayout>
+
+    <!--    gender    -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="性別"
+            android:textColor="#000000"
+            android:textSize="24sp" />
+
+        <RadioGroup
+            android:id="@+id/gender"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
             android:orientation="horizontal">
 
-            <!--    return_button    -->
-            <Button
-                android:id="@+id/return_button"
+            <RadioButton
+                android:id="@+id/gender_man"
                 android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:background="#ECECFF"
-                android:text="return"></Button>
-
-            <!--    title字樣    -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:gravity="center"
-                android:text="MyProfile"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:checked="true"
+                android:enabled="false"
+                android:text="男"
                 android:textColor="#000000"
-                android:textSize="20sp"></TextView>
-        </LinearLayout>
+                android:textSize="24sp" />
 
-        <!--    information    -->
-        <LinearLayout
+            <RadioButton
+                android:id="@+id/gender_woman"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:enabled="false"
+                android:text="女"
+                android:textColor="#000000"
+                android:textSize="24sp" />
+        </RadioGroup>
+    </LinearLayout>
+    <!--    edit_information_button    -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:orientation="horizontal">
+
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <!--    nickname    -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="暱稱"
-                    android:textColor="#000000"
-                    android:textSize="24sp"></TextView>
-
-                <EditText
-                    android:id="@+id/nickname"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:background="#ECECFF"
-                    android:gravity="center"
-                    android:hint="黑糖"
-                    android:textSize="24sp"></EditText>
-            </LinearLayout>
-
-            <!--    phone    -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="phone"
-                    android:textColor="#000000"
-                    android:textSize="24sp"></TextView>
-
-                <EditText
-                    android:id="@+id/phone"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:background="#ECECFF"
-                    android:gravity="center"
-                    android:hint="0987212121"
-                    android:textSize="24sp"></EditText>
-            </LinearLayout>
-
-            <!--    weight    -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="體重"
-                    android:textColor="#000000"
-                    android:textSize="24sp"></TextView>
-
-                <EditText
-                    android:id="@+id/weight"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:background="#ECECFF"
-                    android:gravity="center"
-                    android:hint="10"
-                    android:textSize="24sp"></EditText>
-            </LinearLayout>
-
-            <!--    email    -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="mail"
-                    android:textColor="#000000"
-                    android:textSize="24sp"></TextView>
-
-                <EditText
-                    android:id="@+id/mail"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:background="#ECECFF"
-                    android:gravity="center"
-                    android:hint="12345@gmal.com"
-                    android:textSize="24sp"></EditText>
-            </LinearLayout>
-
-            <!--    gender    -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="性別"
-                    android:textColor="#000000"
-                    android:textSize="24sp"></TextView>
-
-                <RadioGroup
-                    android:id="@+id/gender"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:orientation="horizontal">
-
-                    <RadioButton
-                        android:id="@+id/gender_man"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="30dp"
-                        android:checked="true"
-                        android:text="男"
-                        android:textColor="#000000"
-                        android:textSize="24sp"></RadioButton>
-
-                    <RadioButton
-                        android:id="@+id/gender_woman"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="50dp"
-                        android:text="女"
-                        android:textColor="#000000"
-                        android:textSize="24sp"></RadioButton>
-                </RadioGroup>
-            </LinearLayout>
-
-            <!--    preferred_gender    -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="偏好性別"
-                    android:textColor="#000000"
-                    android:textSize="24sp"></TextView>
-
-                <RadioGroup
-                    android:id="@+id/preferred_gender"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:orientation="horizontal">
-
-                    <RadioButton
-                        android:id="@+id/preferred_gender_man"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="30dp"
-                        android:checked="true"
-                        android:text="男"
-                        android:textColor="#000000"
-                        android:textSize="24sp"></RadioButton>
-
-                    <RadioButton
-                        android:id="@+id/preferred_gender_woman"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="50dp"
-                        android:text="女"
-                        android:textColor="#000000"
-                        android:textSize="24sp"></RadioButton>
-                </RadioGroup>
-            </LinearLayout>
-
-            <!--    edit_information_button    -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="30dp">
-
-                <Button
-                    android:id="@+id/edit_information_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="310dp"
-                    android:background="#ECECFF"
-                    android:text="edit"
-                    android:textColor="#000000"
-                    android:textSize="24sp"></Button>
-            </LinearLayout>
-        </LinearLayout>
+            android:gravity="center"
+            android:text="車車照片"
+            android:textColor="#000000"
+            android:textSize="24sp" />
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/car_pic"
+        android:layout_width="match_parent"
+        android:layout_height="200dp" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp">
+
+        <Button
+            android:id="@+id/edit_information_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="30dp"
+            android:background="#ECECFF"
+            android:text="Edit"
+            android:textColor="#000000"
+            android:textSize="24sp" />
+
+        <Button
+            android:id="@+id/cancel_information_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="30dp"
+            android:layout_toLeftOf="@+id/edit_information_button"
+            android:background="#ECECFF"
+            android:text="Cancel"
+            android:textColor="#000000"
+            android:textSize="24sp"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/btn_upload_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="30dp"
+            android:layout_toLeftOf="@+id/cancel_information_button"
+            android:background="#ECECFF"
+            android:text="上傳照片"
+            android:textColor="#000000"
+            android:textSize="24sp"
+            android:visibility="gone" />
+    </RelativeLayout>
 </LinearLayout>
