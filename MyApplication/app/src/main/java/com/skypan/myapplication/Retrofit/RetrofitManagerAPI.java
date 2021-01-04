@@ -7,6 +7,7 @@ import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
@@ -77,5 +78,10 @@ public interface RetrofitManagerAPI {
 //檢查請求或新增是否需警告
     Call<Ack> alert(@Field("user_id") String user_id,
                     @Field("time") String time);
+    public String AUTH = "6d9345743ae6821";
 
+    @Headers("Authorization: Client-ID " + AUTH)
+    @FormUrlEncoded
+    @POST("image")
+    Call<ImageResponse> postImg(@Field("image") String base64);
 }

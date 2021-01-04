@@ -1,7 +1,5 @@
 package com.skypan.myapplication.Retrofit;
 
-import java.net.URL;
-
 public class User {
     private String user_id;
     private String token;
@@ -50,5 +48,13 @@ public class User {
 
     public Rate getRate() {
         return rate;
+    }
+
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
+    }
+
+    public void setPicture_url(String picture_url) {
+        this.picture_url = picture_url;
     }
 }

@@ -96,6 +96,7 @@ public class loginActivity extends AppCompatActivity {
                                             .putString("sex", response.body().isSex() ? "男" : "女")
                                             .putInt("weight",response.body().getWeight())
                                             .putFloat("rate", (float) response.body().getRate().getScore())
+                                            .putString("car_pic_url", response.body().getPicture_url())
                                             .apply();
                                     Intent intent = new Intent(loginActivity.this, select_identityActivity.class);
 //                                    intent.putExtra("user_id", response.body());

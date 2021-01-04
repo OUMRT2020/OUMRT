@@ -95,6 +95,7 @@ public class select_identityActivity extends AppCompatActivity {
                                 .putString("sex", response.body().isSex() ? "男" : "女")
                                 .putInt("weight", response.body().getWeight())
                                 .putFloat("rate", (float) response.body().getRate().getScore())
+                                .putString("car_pic_url", response.body().getPicture_url())
                                 .apply();
                         user_id = response.body().getUser_id();
                         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
