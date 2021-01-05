@@ -50,8 +50,8 @@ public class SearchedDriveEventAdapter extends RecyclerView.Adapter<SearchedDriv
     public void onBindViewHolder(@NonNull SearchedDriveEventAdapter.ViewHolder holder, int position) {
 
         holder.event_name.setText("" + Events.get(position).getEvent_name());
-        holder.event_time.setText("" + Events.get(position).getAcceptable_time_interval().get(0).toString());
-        holder.event_time2.setText("" + Events.get(position).getAcceptable_time_interval().get(1).toString());
+        holder.event_time.setText("" + Events.get(position).getAcceptable_time_interval().get(0).toString()
+                + " 至 " + Events.get(position).getAcceptable_time_interval().get(1).toString());
         holder.event_cost.setText("" + Events.get(position).getPrice());
         if (Events.get(position).getStatus().equals("white")) {
             holder.itemView.setBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -76,10 +76,9 @@ public class SearchedDriveEventAdapter extends RecyclerView.Adapter<SearchedDriv
 
             event_name = itemView.findViewById(R.id.event_title);
             event_time = itemView.findViewById(R.id.event_time);
-            event_time2 = itemView.findViewById(R.id.event_time2);
+//            event_time2 = itemView.findViewById(R.id.event_time2);
             event_cost = itemView.findViewById(R.id.event_cost);
             event_delete = itemView.findViewById(R.id.event_delete);
-
 
 
             event_delete.setOnClickListener(new View.OnClickListener() {
@@ -129,8 +128,7 @@ public class SearchedDriveEventAdapter extends RecyclerView.Adapter<SearchedDriv
                         });
 
                         deleteDialog.show();
-                    }
-                    else if (e.getStatus().equals("green")){
+                    } else if (e.getStatus().equals("green")) {
                         AlertDialog.Builder deleteDialog = new AlertDialog.Builder(mContext);
                         deleteDialog.setPositiveButton("Finish", new DialogInterface.OnClickListener() {
                             @Override
@@ -218,7 +216,7 @@ public class SearchedDriveEventAdapter extends RecyclerView.Adapter<SearchedDriv
                     final Event e = Events.get(position);
 
                     if (e.getStatus().equals("white")) {
-                        if(e.getAll_request().size()==0){
+                        if (e.getAll_request().size() == 0) {
                             AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
 
                             final View content_layout = LayoutInflater.from(mContext).inflate(R.layout.change_request, null);
@@ -237,15 +235,33 @@ public class SearchedDriveEventAdapter extends RecyclerView.Adapter<SearchedDriv
                             name.setText(e.getEvent_name());
                             money.setText(String.valueOf(e.getPrice()));
                             weight.setText(String.valueOf(e.getMax_weight()));
-                            start.setText(e.getAcceptable_start_point().toString());
-                            end.setText(e.getAcceptable_end_point().toString());
+//                            Toast.makeText(mContext, e.getAcceptable_start_point().toString(), Toast.LENGTH_SHORT).show();
+                            String start_pt_string = "";
+                            String end_pt_string = "";
+                            for (int i = 0; i < e.getAcceptable_start_point().size(); i++) {
+                                if (i != 0) {
+                                    start_pt_string += ",";
+                                }
+                                start_pt_string += e.getAcceptable_start_point().get(i);
+                            }
+                            for (int i = 0; i < e.getAcceptable_end_point().size(); i++) {
+                                if (i != 0) {
+                                    end_pt_string += ",";
+                                }
+
+                                end_pt_string += e.getAcceptable_end_point().get(i);
+                            }
+                            System.out.println(end_pt_string);
+                            System.out.println(start_pt_string);
+                            start.setText(start_pt_string);
+                            end.setText(end_pt_string);
                             startTime.setText(e.getAcceptable_time_interval().get(0));
                             endTime.setText(e.getAcceptable_time_interval().get(1));
-                            if(e.getAcceptable_sex()==0)gender_1.setChecked(true);
-                            if(e.getAcceptable_sex()==1)gender_2.setChecked(true);
-                            if(e.getAcceptable_sex()==2)gender_3.setChecked(true);
-                            if(e.isIs_self_helmet())helmet_1.setChecked(true);
-                            if(e.isIs_self_helmet())helmet_2.setChecked(true);
+                            if (e.getAcceptable_sex() == 0) gender_1.setChecked(true);
+                            if (e.getAcceptable_sex() == 1) gender_2.setChecked(true);
+                            if (e.getAcceptable_sex() == 2) gender_3.setChecked(true);
+                            if (e.isIs_self_helmet()) helmet_1.setChecked(true);
+                            if (e.isIs_self_helmet()) helmet_2.setChecked(true);
 
                             alertDialog.setPositiveButton("修改", new DialogInterface.OnClickListener() {
                                 @Override
@@ -262,9 +278,7 @@ public class SearchedDriveEventAdapter extends RecyclerView.Adapter<SearchedDriv
 
                             alertDialog.setView(content_layout);
                             alertDialog.show();
-                        }
-
-                        else {
+                        } else {
                             AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
                             alertDialog.setTitle("乘客申請名單");
                             //final View content_layout = LayoutInflater.from(mContext).inflate(R.layout.searched_driver_event_detail, null);

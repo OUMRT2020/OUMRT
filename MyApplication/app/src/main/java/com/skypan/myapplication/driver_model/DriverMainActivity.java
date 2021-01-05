@@ -11,15 +11,12 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -41,15 +38,11 @@ import com.skypan.myapplication.R;
 import com.skypan.myapplication.Retrofit.Ack;
 import com.skypan.myapplication.Retrofit.Event;
 import com.skypan.myapplication.Retrofit.RetrofitManagerAPI;
-import com.skypan.myapplication.Retrofit.User;
 
-import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -71,10 +64,10 @@ public class DriverMainActivity extends AppCompatActivity {
     private boolean[] day = new boolean[7];
     private CheckBox cb1, cb2, cb3, cb4, cb5, cb6, cb7;
     private int money, weight, gender;
-    private boolean ishamlet= true;
-    private ArrayList<String> acc_start_pts = new ArrayList<>();
-    private ArrayList<String> acc_end_pt = new ArrayList<>();
+    private boolean ishamlet = true;
+
     private ArrayList<Boolean> repete = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -173,83 +166,83 @@ public class DriverMainActivity extends AppCompatActivity {
         }
 
         {
-        cb1 = v.findViewById(R.id.cb_1);
-        cb1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                if (isChecked) {
-                    day[0] = true;
-                    System.out.println(day[0]);
-                } else day[0] = false;
-            }
-        });
-        cb2 = v.findViewById(R.id.cb_2);
-        ;
-        cb2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                if (isChecked) {
-                    day[1] = true;
-                    System.out.println(day[1]);
-                } else day[1] = false;
-            }
-        });
-        cb3 = v.findViewById(R.id.cb_3);
-        ;
-        cb3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                if (isChecked) {
-                    day[2] = true;
-                    System.out.println(day[2]);
-                } else day[2] = false;
-            }
-        });
-        cb4 = v.findViewById(R.id.cb_4);
-        ;
-        cb4.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                if (isChecked) {
-                    day[3] = true;
-                    System.out.println(day[3]);
-                } else day[3] = false;
-            }
-        });
-        cb5 = v.findViewById(R.id.cb_5);
-        ;
-        cb5.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                if (isChecked) {
-                    day[4] = true;
-                    System.out.println(day[4]);
-                } else day[4] = false;
-            }
-        });
-        cb6 = v.findViewById(R.id.cb_6);
-        ;
-        cb6.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                if (isChecked) {
-                    day[5] = true;
-                    System.out.println(day[5]);
-                } else day[5] = false;
-            }
-        });
-        cb7 = v.findViewById(R.id.cb_7);
-        ;
-        cb7.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                if (isChecked) {
-                    day[6] = true;
-                    System.out.println(day[6]);
-                } else day[6] = false;
-            }
-        });
-    }
+            cb1 = v.findViewById(R.id.cb_1);
+            cb1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                    if (isChecked) {
+                        day[0] = true;
+                        System.out.println(day[0]);
+                    } else day[0] = false;
+                }
+            });
+            cb2 = v.findViewById(R.id.cb_2);
+            ;
+            cb2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                    if (isChecked) {
+                        day[1] = true;
+                        System.out.println(day[1]);
+                    } else day[1] = false;
+                }
+            });
+            cb3 = v.findViewById(R.id.cb_3);
+            ;
+            cb3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                    if (isChecked) {
+                        day[2] = true;
+                        System.out.println(day[2]);
+                    } else day[2] = false;
+                }
+            });
+            cb4 = v.findViewById(R.id.cb_4);
+            ;
+            cb4.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                    if (isChecked) {
+                        day[3] = true;
+                        System.out.println(day[3]);
+                    } else day[3] = false;
+                }
+            });
+            cb5 = v.findViewById(R.id.cb_5);
+            ;
+            cb5.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                    if (isChecked) {
+                        day[4] = true;
+                        System.out.println(day[4]);
+                    } else day[4] = false;
+                }
+            });
+            cb6 = v.findViewById(R.id.cb_6);
+            ;
+            cb6.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                    if (isChecked) {
+                        day[5] = true;
+                        System.out.println(day[5]);
+                    } else day[5] = false;
+                }
+            });
+            cb7 = v.findViewById(R.id.cb_7);
+            ;
+            cb7.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                    if (isChecked) {
+                        day[6] = true;
+                        System.out.println(day[6]);
+                    } else day[6] = false;
+                }
+            });
+        }
 
         //start
         final CheckBox st1 = v.findViewById(R.id.st_1);
@@ -296,8 +289,6 @@ public class DriverMainActivity extends AppCompatActivity {
         end10.setOnCheckedChangeListener(end);
 
 
-
-
         //time
         et_startTime = v.findViewById(R.id.et_startTime);
         et_endTime = v.findViewById(R.id.et_endTime);
@@ -336,15 +327,40 @@ public class DriverMainActivity extends AppCompatActivity {
                 String mm = editText_Money.getText().toString();
 
                 ArrayList<String> acc_time_interval = new ArrayList<>();
+                ArrayList<String> acc_start_pts = new ArrayList<>();
+                ArrayList<String> acc_end_pt = new ArrayList<>();
                 acc_time_interval.add(et_startTime.getText().toString());
                 acc_time_interval.add(et_endTime.getText().toString());
+                if (st1.isChecked()) acc_start_pts.add(st1.getText().toString());
+                if (st2.isChecked()) acc_start_pts.add(st2.getText().toString());
+                if (st3.isChecked()) acc_start_pts.add(st3.getText().toString());
+                if (st4.isChecked()) acc_start_pts.add(st4.getText().toString());
+                if (st5.isChecked()) acc_start_pts.add(st5.getText().toString());
+                if (st6.isChecked()) acc_start_pts.add(st6.getText().toString());
+                if (st7.isChecked()) acc_start_pts.add(st7.getText().toString());
+                if (st8.isChecked()) acc_start_pts.add(st8.getText().toString());
+                if (st9.isChecked()) acc_start_pts.add(st9.getText().toString());
+                if (st10.isChecked()) acc_start_pts.add(st10.getText().toString());
+
+                if (end1.isChecked()) acc_end_pt.add(end1.getText().toString());
+                if (end2.isChecked()) acc_end_pt.add(end2.getText().toString());
+                if (end3.isChecked()) acc_end_pt.add(end3.getText().toString());
+                if (end4.isChecked()) acc_end_pt.add(end4.getText().toString());
+                if (end5.isChecked()) acc_end_pt.add(end5.getText().toString());
+                if (end6.isChecked()) acc_end_pt.add(end6.getText().toString());
+                if (end7.isChecked()) acc_end_pt.add(end7.getText().toString());
+                if (end8.isChecked()) acc_end_pt.add(end8.getText().toString());
+                if (end9.isChecked()) acc_end_pt.add(end9.getText().toString());
+                if (end10.isChecked()) acc_end_pt.add(end10.getText().toString());
+
 
                 String ww = editText_Weught.getText().toString();
 
                 String gg = String.valueOf(gender);
 
-                if (event_name.equals("") ||mm.equals("") || ww.equals("") || acc_start_pts.size()<1 || acc_end_pt.size()<1
-                ||acc_time_interval.size()<2 || gg.equals("")) {Toast.makeText(DriverMainActivity.this, "欄位不可為空", Toast.LENGTH_SHORT).show();
+                if (event_name.equals("") || mm.equals("") || ww.equals("") || acc_start_pts.size() < 1 || acc_end_pt.size() < 1
+                        || acc_time_interval.size() < 2 || gg.equals("")) {
+                    Toast.makeText(DriverMainActivity.this, "欄位不可為空", Toast.LENGTH_SHORT).show();
                 } else {
                     // TODO:
                     AlertDialog.Builder twoDialog = new AlertDialog.Builder(DriverMainActivity.this);
@@ -352,7 +368,7 @@ public class DriverMainActivity extends AppCompatActivity {
                     twoDialog.setPositiveButton("瞭解", (new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog1, int which) {
-                            System.out.println("aaaabbb"+acc_time_interval.size());
+                            System.out.println("aaaabbb" + acc_time_interval.size());
                             money = Integer.parseInt(mm);
                             weight = Integer.parseInt(ww);
                             System.out.println(money + weight + gender);
@@ -426,21 +442,21 @@ public class DriverMainActivity extends AppCompatActivity {
         }));
     }
 
-    private final CompoundButton.OnCheckedChangeListener st=new CompoundButton.OnCheckedChangeListener() { //实例化一个cb
+    private final CompoundButton.OnCheckedChangeListener st = new CompoundButton.OnCheckedChangeListener() { //实例化一个cb
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-            if(isChecked){
+            if (isChecked) {
                 System.out.println(buttonView.getText());
-                acc_start_pts.add(String.valueOf(buttonView.getText()));
+//                acc_start_pts.add(String.valueOf(buttonView.getText()));
             }
         }
     };
-    private final CompoundButton.OnCheckedChangeListener end=new CompoundButton.OnCheckedChangeListener() { //实例化一个cb
+    private final CompoundButton.OnCheckedChangeListener end = new CompoundButton.OnCheckedChangeListener() { //实例化一个cb
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-            if(isChecked){
+            if (isChecked) {
                 System.out.println(buttonView.getText());
-                acc_end_pt.add(String.valueOf(buttonView.getText()));
+//                acc_end_pt.add(String.valueOf(buttonView.getText()));
             }
         }
     };
