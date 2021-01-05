@@ -88,6 +88,55 @@ public class SearchedDriveEventAdapter extends RecyclerView.Adapter<SearchedDriv
 
 
                     if (e.getStatus().equals("white")) {
+                        event_delete.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+
+                                final int position = getAdapterPosition();
+                                final Event e = Events.get(position);
+                                AlertDialog.Builder deleteDialog = new AlertDialog.Builder(mContext);
+                                deleteDialog.setTitle("確定刪除?");
+                                deleteDialog.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        // DO SOMETHING HERE
+                                        Events.remove(getAdapterPosition());
+                                        notifyItemRemoved(which);
+                                        notifyDataSetChanged();
+                                        Retrofit retrofit = new Retrofit.Builder()
+                                                .baseUrl("http://140.121.197.130:5602/")
+                                                .addConverterFactory(GsonConverterFactory.create())
+                                                .build();
+                                        RetrofitManagerAPI retrofitManagerAPI = retrofit.create(RetrofitManagerAPI.class);
+                                        Call<Ack> call = retrofitManagerAPI.deleteEvent(e.getEvent_id(), "delete");
+                                        call.enqueue(new Callback<Ack>() {
+                                            @Override
+                                            public void onResponse(Call<Ack> call, Response<Ack> response) {
+                                                if (!response.isSuccessful()) {
+                                                    Log.d("delete", "delete driver error");
+                                                }
+                                                if (!response.body().isSuccess()) {
+                                                    Log.d("delete", response.body().getReason());
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onFailure(Call<Ack> call, Throwable t) {
+                                                Log.d("delete", "delete server error");
+                                            }
+                                        });
+                                    }
+                                });
+                                deleteDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+
+                                    }
+                                });
+
+                                deleteDialog.show();
+                            }
+                        });
                         if(e.getAll_request().size()==0){
                             AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
 
@@ -147,55 +196,7 @@ public class SearchedDriveEventAdapter extends RecyclerView.Adapter<SearchedDriv
                             alertDialog.setView(content_layout);
                             alertDialog.show();
                         }
-                        event_delete.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
 
-                                final int position = getAdapterPosition();
-                                final Event e = Events.get(position);
-                                AlertDialog.Builder deleteDialog = new AlertDialog.Builder(mContext);
-                                deleteDialog.setTitle("確定刪除?");
-                                deleteDialog.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        // DO SOMETHING HERE
-                                        Events.remove(getAdapterPosition());
-                                        notifyItemRemoved(which);
-                                        notifyDataSetChanged();
-                                        Retrofit retrofit = new Retrofit.Builder()
-                                                .baseUrl("https://database87.herokuapp.com/")
-                                                .addConverterFactory(GsonConverterFactory.create())
-                                                .build();
-                                        RetrofitManagerAPI retrofitManagerAPI = retrofit.create(RetrofitManagerAPI.class);
-                                        Call<Ack> call = retrofitManagerAPI.deleteEvent(e.getEvent_id(), "delete");
-                                        call.enqueue(new Callback<Ack>() {
-                                            @Override
-                                            public void onResponse(Call<Ack> call, Response<Ack> response) {
-                                                if (!response.isSuccessful()) {
-                                                    Log.d("delete", "delete driver error");
-                                                }
-                                                if (!response.body().isSuccess()) {
-                                                    Log.d("delete", response.body().getReason());
-                                                }
-                                            }
-
-                                            @Override
-                                            public void onFailure(Call<Ack> call, Throwable t) {
-                                                Log.d("delete", "delete server error");
-                                            }
-                                        });
-                                    }
-                                });
-                                deleteDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-
-                                    }
-                                });
-
-                                deleteDialog.show();
-                            }
-                        });
                     } else if (e.getStatus().equals("green")) {
                         AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
 
@@ -214,7 +215,7 @@ public class SearchedDriveEventAdapter extends RecyclerView.Adapter<SearchedDriv
                                         notifyItemRemoved(which);
                                         notifyDataSetChanged();
                                         Retrofit retrofit = new Retrofit.Builder()
-                                                .baseUrl("https://database87.herokuapp.com/")
+                                                .baseUrl("http://140.121.197.130:5602/")
                                                 .addConverterFactory(GsonConverterFactory.create())
                                                 .build();
                                         RetrofitManagerAPI retrofitManagerAPI = retrofit.create(RetrofitManagerAPI.class);
@@ -246,7 +247,7 @@ public class SearchedDriveEventAdapter extends RecyclerView.Adapter<SearchedDriv
                                         notifyItemRemoved(which);
                                         notifyDataSetChanged();
                                         Retrofit retrofit = new Retrofit.Builder()
-                                                .baseUrl("https://database87.herokuapp.com/")
+                                                .baseUrl("http://140.121.197.130:5602/")
                                                 .addConverterFactory(GsonConverterFactory.create())
                                                 .build();
                                         RetrofitManagerAPI retrofitManagerAPI = retrofit.create(RetrofitManagerAPI.class);
