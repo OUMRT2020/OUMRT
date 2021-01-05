@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -136,31 +137,56 @@ public class requests_in_multiRecyclerViewAdapter extends RecyclerView.Adapter<r
                     alertDialog.setNegativeButton("拒絕", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            Retrofit retrofit = new Retrofit.Builder()
-                                    .baseUrl("http://140.121.197.130:5602/")
-                                    .addConverterFactory(GsonConverterFactory.create())
-                                    .build();
-                            RetrofitManagerAPI retrofitManagerAPI = retrofit.create(RetrofitManagerAPI.class);
-                            Call<Ack> call = retrofitManagerAPI.rejectRequest(user.getUser_id(), request.getEvent_id(),"這是預設的拒絕訊息，之後會修改");
-                            call.enqueue(new Callback<Ack>() {
-                                @Override
-                                public void onResponse(Call<Ack> call, Response<Ack> response) {
-                                    if (!response.isSuccessful()) {
-                                        Log.d("reject error", response.message());
-                                    }
-                                    if (!response.body().isSuccess()) {
-                                        Log.d("reject fail", response.body().getReason());
-                                    }
-                                    else{
-                                        Log.d("reject success", "reject success");
-                                    }
-                                }
 
+
+                            AlertDialog.Builder aaa = new AlertDialog.Builder(mContext);
+
+                            final View content_layout = LayoutInflater.from(mContext).inflate(R.layout.reject, null);
+                            EditText editText = content_layout.findViewById(R.id.reject);
+                            String Reject = String.valueOf(editText.getText());
+
+                            aaa.setPositiveButton("確定拒絕", new DialogInterface.OnClickListener() {
                                 @Override
-                                public void onFailure(Call<Ack> call, Throwable t) {
-                                    Log.d("reject server error", t.getMessage());
+                                public void onClick(DialogInterface dialogInterface, int i) {
+
+                                    Retrofit retrofit = new Retrofit.Builder()
+                                            .baseUrl("http://140.121.197.130:5602/")
+                                            .addConverterFactory(GsonConverterFactory.create())
+                                            .build();
+                                    RetrofitManagerAPI retrofitManagerAPI = retrofit.create(RetrofitManagerAPI.class);
+                                    System.out.println(Reject);
+                                    Call<Ack> call = retrofitManagerAPI.rejectRequest(user.getUser_id(), request.getEvent_id(),Reject);
+                                    call.enqueue(new Callback<Ack>() {
+                                        @Override
+                                        public void onResponse(Call<Ack> call, Response<Ack> response) {
+                                            if (!response.isSuccessful()) {
+                                                Log.d("reject error", response.message());
+                                            }
+                                            if (!response.body().isSuccess()) {
+                                                Log.d("reject fail", response.body().getReason());
+                                            }
+                                            else{
+                                                Log.d("reject success", "reject success");
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onFailure(Call<Ack> call, Throwable t) {
+                                            Log.d("reject server error", t.getMessage());
+                                        }
+                                    });
                                 }
                             });
+                            aaa.setNeutralButton("cancel", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+
+                                }
+                            });
+
+                            aaa.setView(content_layout);
+                            aaa.show();
+
                         }
                     });
 

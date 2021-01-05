@@ -70,18 +70,11 @@ public class DriverMainActivity extends AppCompatActivity {
     private String event_name;
     private boolean[] day = new boolean[7];
     private CheckBox cb1, cb2, cb3, cb4, cb5, cb6, cb7;
-    private String[] acceptable_start_point = new String[3];
-    private String[] acceptable_end_point = new String[3];
     private int money, weight, gender;
     private boolean ishamlet= true;
-    private ArrayList<String> acc_time_interval = new ArrayList<>();
     private ArrayList<String> acc_start_pts = new ArrayList<>();
     private ArrayList<String> acc_end_pt = new ArrayList<>();
     private ArrayList<Boolean> repete = new ArrayList<>();
-//    String[] pts = new String[]{"全聯福利中心 基隆中正店", "正宗永和豆漿", "海大(栙豐校門)", "海大(濱海校門)", "國立台灣海洋大學附屬基隆海事高級中等學院", "貴族世家 海洋大學店", "麥當勞-基隆新豐店", "愛買基隆店", "基隆車站", "姚家清魚湯"};
-//    private Spinner driver_sp_pt_start,driver_sp_pt_end;
-    //private Event temp = new Event();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -125,12 +118,6 @@ public class DriverMainActivity extends AppCompatActivity {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(DriverMainActivity.this);
         View v = getLayoutInflater().inflate(R.layout.set_custom_dialog_layout_with_button, null);
 
-//        driver_sp_pt_start = v.findViewById(R.id.driver_sp_pt_start);
-//        driver_sp_pt_end = v.findViewById(R.id.driver_sp_pt_end);
-//        ArrayAdapter<String> adapter_pt = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, pts);
-//        adapter_pt.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        driver_sp_pt_start.setAdapter(adapter_pt);
-//        driver_sp_pt_end.setAdapter(adapter_pt);
 
         alertDialog.setView(v);
         Button btOK = v.findViewById(R.id.button_ok);
@@ -322,7 +309,6 @@ public class DriverMainActivity extends AppCompatActivity {
                     calendar.setTime(startTime);
                     pvTime.setDate(calendar);
                     pvTime.show(v1);
-//                    acceptable_time_interval[0] = String.valueOf(startTime);
 
                 }
             }
@@ -335,7 +321,6 @@ public class DriverMainActivity extends AppCompatActivity {
                     calendar.setTime(endTime);
                     pvTime.setDate(calendar);
                     pvTime.show(v1);
-//                    acceptable_time_interval[1] = String.valueOf(endTime);
                 }
             }
         }));
@@ -349,6 +334,10 @@ public class DriverMainActivity extends AppCompatActivity {
 
                 event_name = String.valueOf(name.getText());
                 String mm = editText_Money.getText().toString();
+
+                ArrayList<String> acc_time_interval = new ArrayList<>();
+                acc_time_interval.add(et_startTime.getText().toString());
+                acc_time_interval.add(et_endTime.getText().toString());
 
                 String ww = editText_Weught.getText().toString();
 
@@ -367,9 +356,6 @@ public class DriverMainActivity extends AppCompatActivity {
                             money = Integer.parseInt(mm);
                             weight = Integer.parseInt(ww);
                             System.out.println(money + weight + gender);
-//
-//                        acc_start_pts.add(driver_sp_pt_start.getSelectedItem().toString());
-//                        acc_end_pt.add(driver_sp_pt_end.getSelectedItem().toString());
 
                             for (boolean b : day) {
                                 repete.add(b);
@@ -478,7 +464,6 @@ public class DriverMainActivity extends AppCompatActivity {
                 }
                 EditText editText = (EditText) v;
                 editText.setText(getTime(date));
-                acc_time_interval.add(getTime(date));
             }
         })
                 .setTimeSelectChangeListener(new OnTimeSelectChangeListener() {
