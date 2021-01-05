@@ -5,9 +5,20 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import com.skypan.myapplication.R;
+import com.skypan.myapplication.Retrofit.Ack;
+import com.skypan.myapplication.Retrofit.RetrofitManagerAPI;
+
 import java.util.Random;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class forget_password extends AppCompatActivity {
     private Button cancel_forget_password;  // 宣告cancel_forget_password
@@ -42,22 +53,50 @@ public class forget_password extends AppCompatActivity {
     private class OnClick implements View.OnClickListener {
         @Override
         public void onClick(View v) {
-            Intent intent = null;
+
             switch (v.getId()) {
                 case R.id.cancel_forget_password:
 
                     // 跳轉到login介面
+                    Intent intent = null;
                     intent = new Intent(forget_password.this, loginActivity.class);
+                    startActivity(intent);
                     break;
                 case R.id.send_forget_password:
 
                     // 跳轉到輸入驗證碼畫面
                     // 寄出認證碼
-                    sendMail();
-                    intent = new Intent(forget_password.this, verification_forgetActivity.class);
+                    Retrofit retrofit = new Retrofit.Builder()
+                            .addConverterFactory(GsonConverterFactory.create())
+                            .baseUrl("http://140.121.197.130:5602/")
+                            .build();
+                    RetrofitManagerAPI retrofitManagerAPI = retrofit.create(RetrofitManagerAPI.class);
+                    Call<Ack> call = retrofitManagerAPI.checkEmail(email_forget.getText().toString());
+                    call.enqueue(new Callback<Ack>() {
+                        @Override
+                        public void onResponse(Call<Ack> call, Response<Ack> response) {
+                            if (!response.isSuccessful()) {
+
+                            } else {
+                                if (response.body().isSuccess()) {
+                                    sendMail();
+                                    Intent intent = null;
+                                    intent = new Intent(forget_password.this, verification_forgetActivity.class);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    startActivity(intent);
+                                } else {
+                                    Toast.makeText(forget_password.this, "帳號不存在", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<Ack> call, Throwable t) {
+
+                        }
+                    });
                     break;
             }
-            startActivity(intent);
         }
     }
 

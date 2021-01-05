@@ -16,7 +16,6 @@ import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.skypan.myapplication.R;
 import com.skypan.myapplication.login_model.select_identityActivity;
-import com.skypan.myapplication.passenger_model.PassengerMainActivity;
 
 
 class FireBaseMsgService  extends FirebaseMessagingService

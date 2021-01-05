@@ -84,4 +84,8 @@ public interface RetrofitManagerAPI {
     @FormUrlEncoded
     @POST("image")
     Call<ImageResponse> postImg(@Field("image") String base64);
+
+    @FormUrlEncoded
+    @POST("accountExist")
+    Call<Ack> checkEmail(@Field("mail") String email);
 }

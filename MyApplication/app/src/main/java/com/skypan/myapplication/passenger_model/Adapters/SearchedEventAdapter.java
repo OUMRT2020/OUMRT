@@ -85,6 +85,7 @@ public class SearchedEventAdapter extends RecyclerView.Adapter<SearchedEventAdap
                     final Event e = Events.get(position);
                     final AlertDialog.Builder detailDialog = new AlertDialog.Builder(mContext);
                     final View content_layout = LayoutInflater.from(mContext).inflate(R.layout.searched_event_detail, null);
+                    Toast.makeText(mContext, "已送出請求:"+e.getUser().getToken(), Toast.LENGTH_SHORT).show();
 
                     if (e.getStatus().equals("red")) {//若是紅色
                         detailDialog.setTitle("拒絕原因");
@@ -174,8 +175,7 @@ public class SearchedEventAdapter extends RecyclerView.Adapter<SearchedEventAdap
                                                         } else {
                                                             Ack ack = response.body();
                                                             if (ack.isSuccess()) {
-                                                                Toast.makeText(mContext, "已送出請求", Toast.LENGTH_SHORT).show();
-//                                                Toast.makeText(mContext, e.getUser().getToken(), Toast.LENGTH_SHORT).show();
+                                                                Toast.makeText(mContext, "已送出請求:", Toast.LENGTH_SHORT).show();
                                                                 new Notification.Notify(e.getUser().getToken()).execute();
                                                             } else {
                                                                 Toast.makeText(mContext, ack.getReason(), Toast.LENGTH_SHORT).show();
