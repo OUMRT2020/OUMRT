@@ -18,7 +18,7 @@ import com.skypan.myapplication.R;
 import com.skypan.myapplication.login_model.select_identityActivity;
 
 
-public class FireBaseMsgService  extends FirebaseMessagingService
+class FireBaseMsgService  extends FirebaseMessagingService
 {
 
     @Override
