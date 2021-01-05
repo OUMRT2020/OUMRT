@@ -143,8 +143,6 @@ public class requests_in_multiRecyclerViewAdapter extends RecyclerView.Adapter<r
 
                             final View content_layout = LayoutInflater.from(mContext).inflate(R.layout.reject, null);
                             EditText editText = content_layout.findViewById(R.id.reject);
-                            String Reject = String.valueOf(editText.getText());
-
                             aaa.setPositiveButton("確定拒絕", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
@@ -154,7 +152,7 @@ public class requests_in_multiRecyclerViewAdapter extends RecyclerView.Adapter<r
                                             .addConverterFactory(GsonConverterFactory.create())
                                             .build();
                                     RetrofitManagerAPI retrofitManagerAPI = retrofit.create(RetrofitManagerAPI.class);
-                                    System.out.println(Reject);
+                                    String Reject = String.valueOf(editText.getText());
                                     Call<Ack> call = retrofitManagerAPI.rejectRequest(user.getUser_id(), request.getEvent_id(),Reject);
                                     call.enqueue(new Callback<Ack>() {
                                         @Override

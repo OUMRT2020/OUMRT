@@ -352,7 +352,7 @@ public class DriverMainActivity extends AppCompatActivity {
                     twoDialog.setPositiveButton("瞭解", (new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog1, int which) {
-                            System.out.println("aaaa"+acc_time_interval.size());
+                            System.out.println("aaaabbb"+acc_time_interval.size());
                             money = Integer.parseInt(mm);
                             weight = Integer.parseInt(ww);
                             System.out.println(money + weight + gender);

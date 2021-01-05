@@ -59,7 +59,7 @@ public interface RetrofitManagerAPI {
     Call<Ack> sendRequest(@Body Request request);
 
     @POST("register")
-    Call<String> register(@Body Custom_register custom_register);
+    Call<Ack> register(@Body Custom_register custom_register);
 
     @FormUrlEncoded
     @POST("login")

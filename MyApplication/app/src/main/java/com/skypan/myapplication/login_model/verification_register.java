@@ -15,6 +15,7 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.skypan.myapplication.R;
+import com.skypan.myapplication.Retrofit.Ack;
 import com.skypan.myapplication.Retrofit.Auth;
 import com.skypan.myapplication.Retrofit.Custom_register;
 import com.skypan.myapplication.Retrofit.RetrofitManagerAPI;
@@ -95,21 +96,23 @@ public class verification_register extends AppCompatActivity {
                                 .addConverterFactory(GsonConverterFactory.create(gson))
                                 .build();
                         RetrofitManagerAPI retrofitManagerAPI = retrofit.create(RetrofitManagerAPI.class);
-                        Call<String> call = retrofitManagerAPI.register(custom_register);
-                        call.enqueue(new Callback<String>() {
+                        Call<Ack> call = retrofitManagerAPI.register(custom_register);
+                        call.enqueue(new Callback<Ack>() {
                             @Override
-                            public void onResponse(Call<String> call, Response<String> response) {
+                            public void onResponse(Call<Ack> call, Response<Ack> response) {
                                 if (!response.isSuccessful()) {
                                     Log.d("gginin1", response.message());
                                 }
-                                String str = response.body();
-                                Log.d("gginin3.5", str);
+                                if(response.body().isSuccess()){
 
-                                Toast.makeText(verification_register.this, response.body(), Toast.LENGTH_SHORT);
+                                }else{
+                                    Toast.makeText(verification_register.this, "註冊失敗: "+response.body().getReason(), Toast.LENGTH_SHORT);
+                                }
+
                             }
 
                             @Override
-                            public void onFailure(Call<String> call, Throwable t) {
+                            public void onFailure(Call<Ack> call, Throwable t) {
                                 Log.d("gginin2", t.getMessage());
                             }
                         });
