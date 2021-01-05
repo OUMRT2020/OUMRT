@@ -16,14 +16,24 @@ import com.google.firebase.iid.FirebaseInstanceIdService;
 import com.skypan.myapplication.R;
 import com.skypan.myapplication.login_model.select_identityActivity;
 
+import java.sql.Connection;
+import java.sql.Statement;
+
+
 public class FireIDService extends FirebaseInstanceIdService {
 
 
     @Override
     public void onTokenRefresh() {
+
+
         String tkn = FirebaseInstanceId.getInstance().getToken();
         Log.d("Not","Token ["+tkn+"]");
+
         sendRegistrationToServer(tkn);
+
+
+
     }
 
 

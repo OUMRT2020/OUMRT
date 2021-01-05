@@ -11,8 +11,16 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.skypan.myapplication.R;
+import com.skypan.myapplication.Retrofit.Ack;
+import com.skypan.myapplication.Retrofit.RetrofitManagerAPI;
 
 import java.util.Random;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class registerActivity extends AppCompatActivity {
     private Button cancel_register;
@@ -61,13 +69,15 @@ public class registerActivity extends AppCompatActivity {
     private class OnClick implements View.OnClickListener {
         @Override
         public void onClick(View v) {
-            Intent intent = null;
+
             switch (v.getId()) {
                 case R.id.cancel_register:
 
                     // 跳轉到login介面
+                    Intent intent = null;
                     intent = new Intent(registerActivity.this, loginActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
                     break;
                 case R.id.verify_register:
 
@@ -76,15 +86,39 @@ public class registerActivity extends AppCompatActivity {
                     } else {
                         // 跳轉到認證信箱(註冊的)頁面
                         // 寄出認證碼
-                        sendMail();
-                        check_gender();
-                        intent = new Intent(registerActivity.this, verification_register.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        Retrofit retrofit = new Retrofit.Builder()
+                                .addConverterFactory(GsonConverterFactory.create())
+                                .baseUrl("http://140.121.197.130:5602/")
+                                .build();
+                        RetrofitManagerAPI retrofitManagerAPI = retrofit.create(RetrofitManagerAPI.class);
+                        Call<Ack> call = retrofitManagerAPI.checkEmail(email_register.getText().toString());
+                        call.enqueue(new Callback<Ack>() {
+                            @Override
+                            public void onResponse(Call<Ack> call, Response<Ack> response) {
+                                if (!response.isSuccessful()) {
+
+                                } else {
+                                    if (!response.body().isSuccess()) {
+                                        sendMail();
+                                        check_gender();
+                                        Intent intent = null;
+                                        intent = new Intent(registerActivity.this, verification_register.class);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        startActivity(intent);
+                                    } else {
+                                        Toast.makeText(registerActivity.this, "帳號已存在", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<Ack> call, Throwable t) {
+
+                            }
+                        });
+
                     }
                     break;
-            }
-            if(intent!=null){
-                startActivity(intent);
             }
         }
     }
