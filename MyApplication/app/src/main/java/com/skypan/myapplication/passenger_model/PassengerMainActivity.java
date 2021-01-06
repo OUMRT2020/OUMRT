@@ -20,6 +20,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.skypan.myapplication.R;
+import com.skypan.myapplication.login_model.loginActivity;
 
 public class PassengerMainActivity extends AppCompatActivity {
 
@@ -58,6 +59,8 @@ public class PassengerMainActivity extends AppCompatActivity {
                 preferences.edit()
                         .clear()
                         .apply();
+                Intent goBackLogin = new Intent(PassengerMainActivity.this, loginActivity.class);
+                startActivity(goBackLogin);
                 finish();
             }
         });

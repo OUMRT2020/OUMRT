@@ -185,7 +185,8 @@
     <ImageView
         android:id="@+id/car_pic"
         android:layout_width="match_parent"
-        android:layout_height="120dp" />
+        android:layout_height="200dp"
+        android:src="@drawable/giphy"/>
 
     <RelativeLayout
         android:layout_width="wrap_content"
