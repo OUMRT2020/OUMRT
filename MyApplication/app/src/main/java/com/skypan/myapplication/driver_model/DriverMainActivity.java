@@ -4,7 +4,9 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.util.Log;
 import android.view.Gravity;
@@ -22,6 +24,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -34,10 +37,12 @@ import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.Snackbar;
 import com.skypan.myapplication.R;
 import com.skypan.myapplication.Retrofit.Ack;
 import com.skypan.myapplication.Retrofit.Event;
 import com.skypan.myapplication.Retrofit.RetrofitManagerAPI;
+import com.skypan.myapplication.login_model.loginActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -65,6 +70,9 @@ public class DriverMainActivity extends AppCompatActivity {
     private CheckBox cb1, cb2, cb3, cb4, cb5, cb6, cb7;
     private int money, weight, gender;
     private boolean ishamlet = true;
+    private Button btn_logout;
+    private DrawerLayout driver_drawer;
+
 
     private ArrayList<Boolean> repete = new ArrayList<>();
 
@@ -75,6 +83,8 @@ public class DriverMainActivity extends AppCompatActivity {
         Intent intent = getIntent();
         user_id = intent.getStringExtra("user_id");
         Toolbar toolbar = findViewById(R.id.toolbar);
+        btn_logout = findViewById(R.id.btn_logout);
+        driver_drawer = findViewById(R.id.drawer_layout);
         setSupportActionBar(toolbar);
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -95,6 +105,40 @@ public class DriverMainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
+        btn_logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences preferences = getSharedPreferences("isOUMRTLogin", MODE_PRIVATE);
+                preferences.edit()
+                        .clear()
+                        .apply();
+                Intent goBackLogin = new Intent(DriverMainActivity.this, loginActivity.class);
+                startActivity(goBackLogin);
+                finish();
+            }
+        });
+    }
+    private boolean doubleBackToExitPressedOnce = false;
+
+    @Override
+    public void onBackPressed() {
+        if (this.driver_drawer.isDrawerOpen(GravityCompat.START)) {//點返回鍵可以讓漢寶寶收回去
+            this.driver_drawer.closeDrawer(GravityCompat.START);
+        } else {
+            if (doubleBackToExitPressedOnce) {
+                super.onBackPressed();
+
+            } else {
+                doubleBackToExitPressedOnce = true;
+                Snackbar.make(findViewById(android.R.id.content), "再點擊一次返回鍵以退出", Snackbar.LENGTH_SHORT).show();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        doubleBackToExitPressedOnce = false;
+                    }
+                }, 2000);
+            }
+        }
     }
 
     @Override

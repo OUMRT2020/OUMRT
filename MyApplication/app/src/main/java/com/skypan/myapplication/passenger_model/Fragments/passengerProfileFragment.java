@@ -50,6 +50,7 @@ public class passengerProfileFragment extends Fragment {
     private Activity mActivity;
     private SharedPreferences sharedPreferences;
     private boolean isPicAlter;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -70,7 +71,7 @@ public class passengerProfileFragment extends Fragment {
         mActivity = getActivity();
         isPicAlter = false;
         sharedPreferences = mActivity.getSharedPreferences("isOUMRTLogin", Context.MODE_PRIVATE);
-        img_url = sharedPreferences.getString("car_pic_url", "沒有");
+        img_url = sharedPreferences.getString("car_pic_url", "");
         et_nickName.setText(sharedPreferences.getString("name", ""));
         et_phone.setText(sharedPreferences.getString("phone_num", ""));
         et_weight.setText("" + sharedPreferences.getInt("weight", 48763));
@@ -81,7 +82,11 @@ public class passengerProfileFragment extends Fragment {
             sex_female.setChecked(true);
         }
         //todo :下載照片
-        Glide.with(this).load(img_url).into(iv);
+        if (img_url.equals("")) {
+            Glide.with(this).load("https://2.bp.blogspot.com/-Ado6ei4W5YU/WY-RnHsRzzI/AAAAAAABoXA/p0AEw7GIMaUgK_-pyrwH4pwBbwGyKRaowCEwYBhgL/s640/70533052.jpg").into(iv);
+        } else {
+            Glide.with(this).load(img_url).into(iv);
+        }
 
         btn_edit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,6 +108,7 @@ public class passengerProfileFragment extends Fragment {
                         Toast.makeText(mActivity, "沒有任何修改", Toast.LENGTH_SHORT).show();
                     } else {//有修改
                         //如果照片有修改
+                        Glide.with(mActivity).load("https://www.professionalservicesllc.com/clients/stoneledge/images/loaders/uploading.gif").into(iv);
                         if (isPicAlter) {
                             // callImgurAPI()會自己callAlterUserAPI()
                             callImgurAPI();
@@ -129,16 +135,16 @@ public class passengerProfileFragment extends Fragment {
                 btn_edit.setText("Edit");
                 btn_cancel.setVisibility(View.GONE);
                 btn_upload_img.setVisibility(View.GONE);
-                Toast.makeText(mActivity, "isLogin: " + (sharedPreferences.getBoolean("isLogin", false) ? "true" : "false")
-                        + "\n" + "email: " + sharedPreferences.getString("email", "沒有")
-                        + "\n" + "password: " + sharedPreferences.getString("password", "沒有")
-                        + "\n" + "user_id: " + sharedPreferences.getString("user_id", "沒有")
-                        + "\n" + "name: " + sharedPreferences.getString("name", "沒有")
-                        + "\n" + "phone_num: " + sharedPreferences.getString("phone_num", "沒有")
-                        + "\n" + "sex: " + sharedPreferences.getString("sex", "沒有")
-                        + "\n" + "weight: " + "" + sharedPreferences.getInt("weight", -87)
-                        + "\n" + "rate: " + "" + sharedPreferences.getFloat("rate", (float) 8.7)
-                        + "\n" + "car_pic_url: " + "" + sharedPreferences.getString("car_pic_url", "沒有"), Toast.LENGTH_LONG).show();
+//                Toast.makeText(mActivity, "isLogin: " + (sharedPreferences.getBoolean("isLogin", false) ? "true" : "false")
+//                        + "\n" + "email: " + sharedPreferences.getString("email", "沒有")
+//                        + "\n" + "password: " + sharedPreferences.getString("password", "沒有")
+//                        + "\n" + "user_id: " + sharedPreferences.getString("user_id", "沒有")
+//                        + "\n" + "name: " + sharedPreferences.getString("name", "沒有")
+//                        + "\n" + "phone_num: " + sharedPreferences.getString("phone_num", "沒有")
+//                        + "\n" + "sex: " + sharedPreferences.getString("sex", "沒有")
+//                        + "\n" + "weight: " + "" + sharedPreferences.getInt("weight", -87)
+//                        + "\n" + "rate: " + "" + sharedPreferences.getFloat("rate", (float) 8.7)
+//                        + "\n" + "car_pic_url: " + "" + sharedPreferences.getString("car_pic_url", "沒有"), Toast.LENGTH_LONG).show();
             }
         });
         btn_upload_img.setOnClickListener(new View.OnClickListener() {
@@ -159,9 +165,10 @@ public class passengerProfileFragment extends Fragment {
             selectedImage = data.getData();
             byteArrayOutputStream = new ByteArrayOutputStream();
             try {
-                bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), selectedImage);
+                bitmap = MediaStore.Images.Media.getBitmap(mActivity.getContentResolver(), selectedImage);
                 iv.setImageBitmap(bitmap);
             } catch (IOException e) {
+                Toast.makeText(mActivity, "oh, 找不到相片, 真糟糕", Toast.LENGTH_SHORT).show();
                 e.printStackTrace();
             }
         }
@@ -192,7 +199,8 @@ public class passengerProfileFragment extends Fragment {
 
                 @Override
                 public void onFailure(Call<ImageResponse> call, Throwable t) {
-                    Toast.makeText(mActivity, "server error", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mActivity, "Imgur server error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                    Glide.with(mActivity).load(img_url).into(iv);
                 }
             });
         } catch (IOException e) {
@@ -218,6 +226,7 @@ public class passengerProfileFragment extends Fragment {
                     Toast.makeText(mActivity, "error2: " + response.message(), Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(mActivity, "成功修改", Toast.LENGTH_SHORT).show();
+                    iv.setImageBitmap(bitmap);
                     sharedPreferences.edit()
                             .putString("name", et_nickName.getText().toString())
                             .putString("phone_num", et_phone.getText().toString())
