@@ -72,10 +72,6 @@ public class DriverMainActivity extends AppCompatActivity {
     private boolean ishamlet = true;
     private Button btn_logout;
     private DrawerLayout driver_drawer;
-
-
-    private ArrayList<Boolean> repete = new ArrayList<>();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -416,9 +412,10 @@ public class DriverMainActivity extends AppCompatActivity {
                             money = Integer.parseInt(mm);
                             weight = Integer.parseInt(ww);
                             System.out.println(money + weight + gender);
+                            ArrayList<Boolean> repeat = new ArrayList<>();
 
                             for (boolean b : day) {
-                                repete.add(b);
+                                repeat.add(b);
                             }
 
                             System.out.println(user_id);
@@ -426,7 +423,7 @@ public class DriverMainActivity extends AppCompatActivity {
                                     , acc_time_interval
                                     , acc_start_pts
                                     , acc_end_pt
-                                    , gender, weight, money, ishamlet, repete);
+                                    , gender, weight, money, ishamlet, repeat);
                             System.out.println("event_name" + event_name);
                             System.out.println("status" + "white");
                             System.out.println("user_id" + user_id);
@@ -437,7 +434,7 @@ public class DriverMainActivity extends AppCompatActivity {
                             System.out.println("weight" + weight);
                             System.out.println("money" + money);
                             System.out.println("ishamlet" + ishamlet);
-                            System.out.println("repete" + repete);
+                            System.out.println("repeat" + repeat);
 
 
                             Retrofit retrofit = new Retrofit.Builder()
