@@ -1,4 +1,4 @@
-package com.skypan.myapplication.inform_model;
+package com.skypan.myapplication.inform;
 
 import android.os.AsyncTask;
 import android.util.Log;
@@ -9,17 +9,23 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class Notification {
-    public static class Notify extends AsyncTask<Void, Void, Void> {
-        private String tkn;
+public class FCMNotify {
+    private String tkn;
 
-        public Notify(String token) {
-            this.tkn = token;
-        }
+
+    public FCMNotify(String tkn) {
+        this.tkn = tkn;
+        new Notify().execute();
+    }
+
+    public class Notify extends AsyncTask<Void, Void, Void> {
 
         @Override
         protected Void doInBackground(Void... voids) {
+
+
             try {
+
                 URL url = new URL("https://fcm.googleapis.com/fcm/send");
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
@@ -50,6 +56,8 @@ public class Notification {
             } catch (Exception e) {
                 Log.d("Error", "" + e);
             }
+
+
             return null;
         }
     }

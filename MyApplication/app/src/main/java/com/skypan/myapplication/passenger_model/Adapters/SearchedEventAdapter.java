@@ -19,7 +19,7 @@ import com.skypan.myapplication.Retrofit.Ack;
 import com.skypan.myapplication.Retrofit.Event;
 import com.skypan.myapplication.Retrofit.Request;
 import com.skypan.myapplication.Retrofit.RetrofitManagerAPI;
-import com.skypan.myapplication.inform_model.Notification;
+import com.skypan.myapplication.inform.FCMNotify;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -224,7 +224,7 @@ public class SearchedEventAdapter extends RecyclerView.Adapter<SearchedEventAdap
                                                                     if (ack.isSuccess()) {
                                                                         Toast.makeText(mContext, "已送出請求", Toast.LENGTH_SHORT).show();
 //                                                Toast.makeText(mContext, e.getUser().getToken(), Toast.LENGTH_SHORT).show();
-                                                                        new Notification.Notify(e.getUser().getToken()).execute();
+                                                                        new FCMNotify(e.getUser().getToken());
                                                                     } else {
                                                                         Toast.makeText(mContext, ack.getReason(), Toast.LENGTH_SHORT).show();
                                                                     }

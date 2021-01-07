@@ -1,4 +1,5 @@
-package com.skypan.myapplication.inform_model;
+package com.skypan.myapplication.inform;
+
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -17,8 +18,7 @@ import com.google.firebase.messaging.RemoteMessage;
 import com.skypan.myapplication.R;
 import com.skypan.myapplication.login_model.select_identityActivity;
 
-
-class FireBaseMsgService  extends FirebaseMessagingService
+public class FireBaseMsgService  extends FirebaseMessagingService
 {
 
     @Override

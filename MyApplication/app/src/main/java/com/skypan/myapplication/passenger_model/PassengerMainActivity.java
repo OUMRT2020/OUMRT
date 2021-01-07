@@ -20,6 +20,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.skypan.myapplication.R;
+import com.skypan.myapplication.inform.FCMNotify;
 import com.skypan.myapplication.login_model.loginActivity;
 
 public class PassengerMainActivity extends AppCompatActivity {
@@ -31,7 +32,7 @@ public class PassengerMainActivity extends AppCompatActivity {
     private NavigationView navigationView;
     private AppBarConfiguration appBarConfiguration;
     private NavController navController;
-
+//    private Button button;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +45,13 @@ public class PassengerMainActivity extends AppCompatActivity {
         btn_logout = findViewById(R.id.btn_logout);
         drawerLayout = findViewById(R.id.passenger_drawer_layout);
         navigationView = findViewById(R.id.navigationView);
+//        button = findViewById(R.id.foo);
+//        button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                new FCMNotify("123");
+//            }
+//        });
         btn_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
