@@ -21,8 +21,8 @@ public interface RetrofitManagerAPI {
     Call<Ack> deleteEvent(@Field("event_id") String event_id,
                           @Field("operation") String operation);//operation = delete finish drop
 
-//    @POST("alter-event")
-//    Call<Ack> alterEvent(@Body Event event);//key:value不固定，應該是用map
+    @POST("alter-event")
+    Call<Ack> alterEvent(@Body Event event);
 
     @FormUrlEncoded
     @POST("accept-request")
@@ -75,9 +75,17 @@ public interface RetrofitManagerAPI {
 
     @FormUrlEncoded
     @POST("alert")
-//檢查請求或新增是否需警告
+//檢查請求是否需警告
     Call<Ack> alert(@Field("user_id") String user_id,
                     @Field("time") String time);
+
+    @FormUrlEncoded
+    @POST("alert_Interval")
+//檢查新增是否需警告
+    Call<Ack> alertInterval(@Field("user_id") String user_id,
+                            @Field("time") String start_time,
+                            @Field("time") String end_time);
+
     public String AUTH = "6d9345743ae6821";
 
     @Headers("Authorization: Client-ID " + AUTH)
@@ -88,4 +96,18 @@ public interface RetrofitManagerAPI {
     @FormUrlEncoded
     @POST("accountExist")
     Call<Ack> checkEmail(@Field("mail") String email);
+
+    @FormUrlEncoded
+    @POST("get-inform")
+    Call<Ack> getInforms(@Field("user_id") String user_id);
+
+    @FormUrlEncoded
+    @POST("search-past")
+    Call<Ack> searchPast(@Field("user_id") String user_id);
+
+    @FormUrlEncoded
+    @POST("score")
+    Call<Ack> Rating(@Field("user_id") String user_id,
+                      @Field("event_id") String event_id,
+                      @Field("score") String score);
 }
