@@ -44,7 +44,7 @@ public class HistoryFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_history, container, false);
         recyclerView = root.findViewById(R.id.rv_histroy_event);
 
-        swipeRefreshLayout = root.findViewById(R.id.driver_main_refreshLayout);
+        swipeRefreshLayout = root.findViewById(R.id.history_refreshLayout);
         String user_id = ((DriverMainActivity) getActivity()).user_id;
 
         Retrofit retrofit = new Retrofit.Builder()
@@ -62,7 +62,7 @@ public class HistoryFragment extends Fragment {
                 }
                 List<Past_Event> events = response.body();
 
-                recyclerView = root.findViewById(R.id.rv_searched_events);
+                recyclerView = root.findViewById(R.id.rv_histroy_event);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                 recyclerView.setAdapter(new SearchedHistoryAdapter(getContext(),events));
             }
@@ -72,6 +72,38 @@ public class HistoryFragment extends Fragment {
                 Log.d("add", "new driver main server error");
             }
         });
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {//refresh
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl("http://140.121.197.130:5602/")
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                RetrofitManagerAPI retrofitManagerAPI = retrofit.create(RetrofitManagerAPI.class);
+                Call<List<Past_Event>> call = retrofitManagerAPI.searchPast(user_id);
+                call.enqueue(new Callback<List<Past_Event>>() {
+                    @Override
+                    public void onResponse(Call<List<Past_Event>> call, Response<List<Past_Event>> response) {
+                        if (!response.isSuccessful()) {
+                            Log.d("add", "new driver main error");
+
+                        }
+                        List<Past_Event> events = response.body();
+
+                        recyclerView = root.findViewById(R.id.rv_histroy_event);
+                        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                        recyclerView.setAdapter(new SearchedHistoryAdapter(getContext(),events));
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<Past_Event>> call, Throwable t) {
+                        Log.d("add", "new driver main server error");
+                    }
+                });
+            }
+        });
+
 
         return root;
     }

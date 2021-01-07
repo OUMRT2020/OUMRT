@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -227,9 +228,12 @@ public class SearchedDriveEventAdapter extends RecyclerView.Adapter<SearchedDriv
                             TextView end = content_layout.findViewById(R.id.change_end);
                             TextView startTime = content_layout.findViewById(R.id.change_startTime);
                             TextView endTime = content_layout.findViewById(R.id.change_endTime);
+                            RadioGroup gender =content_layout.findViewById(R.id.rg_gender);
                             RadioButton gender_1 = content_layout.findViewById(R.id.rb_gender_1);
                             RadioButton gender_2 = content_layout.findViewById(R.id.rb_gender_2);
                             RadioButton gender_3 = content_layout.findViewById(R.id.rb_gender_3);
+
+                            RadioGroup helmet =content_layout.findViewById(R.id.rg_helmet);
                             RadioButton helmet_1 = content_layout.findViewById(R.id.rb_helmet_1);
                             RadioButton helmet_2 = content_layout.findViewById(R.id.rb_helmet_2);
                             name.setText(e.getEvent_name());
@@ -261,11 +265,75 @@ public class SearchedDriveEventAdapter extends RecyclerView.Adapter<SearchedDriv
                             if (e.getAcceptable_sex() == 1) gender_2.setChecked(true);
                             if (e.getAcceptable_sex() == 2) gender_3.setChecked(true);
                             if (e.isIs_self_helmet()) helmet_1.setChecked(true);
-                            if (e.isIs_self_helmet()) helmet_2.setChecked(true);
+                            if (!e.isIs_self_helmet()) helmet_2.setChecked(true);
 
                             alertDialog.setPositiveButton("修改", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
+                                    int GENDER=0;
+                                    boolean HELMET = false;
+                                    System.out.println(gender.getCheckedRadioButtonId());
+                                    switch (gender.getCheckedRadioButtonId()){
+                                        case R.id.rb_gender_1:
+                                            GENDER = 0;
+                                            break;
+                                        case R.id.rb_gender_2:
+                                            GENDER = 1;
+                                            break;
+                                        case R.id.rb_gender_3:
+                                            GENDER = 2;
+                                            break;
+                                    }
+                                    switch (helmet.getCheckedRadioButtonId()){
+                                        case R.id.rb_helmet_1:
+                                            HELMET = true;
+                                            break;
+                                        case R.id.rb_helmet_2:
+                                            HELMET = false;
+                                            break;
+                                    }
+                                    String W= weight.getText().toString();
+                                    int WEIGHT=Integer.parseInt(W);
+                                    String M= money.getText().toString();
+                                    int MONEY=Integer.parseInt(M);
+                                    System.out.println("event_name" + name.getText().toString());
+                                    System.out.println("status" + "white");
+                                    System.out.println("user_id" + e.getDriver_id());
+                                    System.out.println("acc_time_interval" + e.getAcceptable_time_interval());
+                                    System.out.println("acc_start_pts" + e.getAcceptable_start_point());
+                                    System.out.println("acc_end_pt" +  e.getAcceptable_end_point());
+                                    System.out.println("gender" + GENDER);
+                                    System.out.println("weight" + WEIGHT);
+                                    System.out.println("money" + MONEY);
+                                    System.out.println("ishamlet" + HELMET);
+                                    System.out.println("repeat" + e.getRepeat());
+                                    Event alter = new Event(name.getText().toString(),"white",e.getDriver_id()
+                                            ,e.getAcceptable_time_interval(),e.getAcceptable_start_point(),e.getAcceptable_end_point()
+                                    ,GENDER,WEIGHT,MONEY,HELMET,e.getRepeat());
+                                    Retrofit retrofit = new Retrofit.Builder()
+                                            .baseUrl("http://140.121.197.130:5602/")
+                                            .addConverterFactory(GsonConverterFactory.create())
+                                            .build();
+                                    RetrofitManagerAPI retrofitManagerAPI = retrofit.create(RetrofitManagerAPI.class);
+                                    Call<Ack> call = retrofitManagerAPI.alterEvent(alter);
+                                    call.enqueue(new Callback<Ack>() {
+                                        @Override
+                                        public void onResponse(Call<Ack> call, Response<Ack> response) {
+                                            if (!response.isSuccessful()) {
+                                                Log.d("add", "Alter enent error");
+                                            }
+                                            Ack ack = response.body();
+                                            Log.d("ACK", ack.isSuccess() ? "true" : "fasle");
+
+
+                                        }
+
+                                        @Override
+                                        public void onFailure(Call<Ack> call, Throwable t) {
+                                            Log.d("add", "new enent server error");
+                                        }
+                                    });
+
 
                                 }
                             });

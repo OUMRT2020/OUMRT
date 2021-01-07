@@ -120,39 +120,7 @@ public class HomeFragment extends Fragment {
 
 
         });
-//
-//
-//        float_refresh.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Retrofit retrofit = new Retrofit.Builder()
-//                        .baseUrl("https://database87.herokuapp.com/")
-//                        .addConverterFactory(GsonConverterFactory.create())
-//                        .build();
-//                RetrofitManagerAPI retrofitManagerAPI = retrofit.create(RetrofitManagerAPI.class);
-//                Call<List<Event>> call = retrofitManagerAPI.getDriverMain(user_id);
-//                call.enqueue(new Callback<List<Event>>() {
-//                    @Override
-//                    public void onResponse(Call<List<Event>> call, Response<List<Event>> response) {
-//                        if (!response.isSuccessful()) {
-//                            Log.d("add", "new driver main error");
-//
-//                        }
-//                        List<Event> events = response.body();
-//
-//                        recyclerView = root.findViewById(R.id.rv_searched_events);
-//                        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-//
-//                        recyclerView.setAdapter(new SearchedDriveEventAdapter(getContext(), events));
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Call<List<Event>> call, Throwable t) {
-//                        Log.d("add", "new driver main server error");
-//                    }
-//                });
-//            }
-//        });
+
         return root;
     }
 
