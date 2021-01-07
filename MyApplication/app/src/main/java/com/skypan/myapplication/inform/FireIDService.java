@@ -1,5 +1,4 @@
-package com.skypan.myapplication.inform_model;
-
+package com.skypan.myapplication.inform;
 
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -15,10 +14,6 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
 import com.skypan.myapplication.R;
 import com.skypan.myapplication.login_model.select_identityActivity;
-
-import java.sql.Connection;
-import java.sql.Statement;
-
 
 public class FireIDService extends FirebaseInstanceIdService {
 

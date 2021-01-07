@@ -108,9 +108,9 @@ public class passengerProfileFragment extends Fragment {
                         Toast.makeText(mActivity, "沒有任何修改", Toast.LENGTH_SHORT).show();
                     } else {//有修改
                         //如果照片有修改
-                        Glide.with(mActivity).load("https://www.professionalservicesllc.com/clients/stoneledge/images/loaders/uploading.gif").into(iv);
                         if (isPicAlter) {
                             // callImgurAPI()會自己callAlterUserAPI()
+                            Glide.with(mActivity).load("https://www.professionalservicesllc.com/clients/stoneledge/images/loaders/uploading.gif").into(iv);
                             callImgurAPI();
                         } else {
                             callAlterUserAPI();
@@ -193,6 +193,7 @@ public class passengerProfileFragment extends Fragment {
                         Toast.makeText(mActivity, "error1: " + response.message(), Toast.LENGTH_SHORT).show();
                     } else {
                         img_url = response.body().data.link;
+                        iv.setImageBitmap(bitmap);
                         callAlterUserAPI();
                     }
                 }
@@ -226,7 +227,6 @@ public class passengerProfileFragment extends Fragment {
                     Toast.makeText(mActivity, "error2: " + response.message(), Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(mActivity, "成功修改", Toast.LENGTH_SHORT).show();
-                    iv.setImageBitmap(bitmap);
                     sharedPreferences.edit()
                             .putString("name", et_nickName.getText().toString())
                             .putString("phone_num", et_phone.getText().toString())
