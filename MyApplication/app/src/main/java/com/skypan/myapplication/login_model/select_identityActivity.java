@@ -107,7 +107,7 @@ public class select_identityActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<User> call, Throwable t) {
-                    Toast.makeText(select_identityActivity.this, "哭啊，Heroku在賴床", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(select_identityActivity.this, "server error", Toast.LENGTH_SHORT).show();
                     select_identityActivity.this.recreate();
                 }
             });

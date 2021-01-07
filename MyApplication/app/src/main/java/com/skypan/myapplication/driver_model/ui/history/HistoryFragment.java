@@ -61,6 +61,7 @@ public class HistoryFragment extends Fragment {
 
                 }
                 List<Past_Event> events = response.body();
+                Log.d("size", ""+user_id);
 
                 recyclerView = root.findViewById(R.id.rv_histroy_event);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -87,18 +88,20 @@ public class HistoryFragment extends Fragment {
                     public void onResponse(Call<List<Past_Event>> call, Response<List<Past_Event>> response) {
                         if (!response.isSuccessful()) {
                             Log.d("add", "new driver main error");
-
+                            swipeRefreshLayout.setRefreshing(false);
                         }
                         List<Past_Event> events = response.body();
-
-                        recyclerView = root.findViewById(R.id.rv_histroy_event);
-                        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                        recyclerView.setAdapter(new SearchedHistoryAdapter(getContext(),events));
+                        Log.d("size", ""+response.body().size());
+                        swipeRefreshLayout.setRefreshing(false);
+//                        recyclerView = root.findViewById(R.id.rv_histroy_event);
+//                        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+//                        recyclerView.setAdapter(new SearchedHistoryAdapter(getContext(),events));
                     }
 
                     @Override
                     public void onFailure(Call<List<Past_Event>> call, Throwable t) {
                         Log.d("add", "new driver main server error");
+                        swipeRefreshLayout.setRefreshing(false);
                     }
                 });
             }

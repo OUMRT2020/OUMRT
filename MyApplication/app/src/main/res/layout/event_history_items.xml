@@ -44,16 +44,7 @@
             android:layout_alignParentEnd="true"
             android:padding="10dp"
             android:drawableLeft="@drawable/ic_baseline_star_rate_24"/>
-        <TextView
-            android:id="@+id/event_cost"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/event_delete"
-            android:layout_alignParentEnd="true"
-            android:drawableLeft="@drawable/ic_baseline_attach_money_24"
-            android:padding="10dp"
-            android:text="50"
-            android:textSize="20sp" />
+
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>

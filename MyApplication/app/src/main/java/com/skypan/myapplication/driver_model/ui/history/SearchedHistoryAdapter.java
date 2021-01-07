@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -52,8 +53,7 @@ public class SearchedHistoryAdapter extends RecyclerView.Adapter<SearchedHistory
     public void onBindViewHolder(@NonNull SearchedHistoryAdapter.ViewHolder holder, int position) {
 
         holder.event_name.setText(Events.get(position).getEvent_name());
-        holder.event_time.setText(Events.get(position).getMy_request().getActual_time().toString());
-        holder.event_cost.setText(Events.get(position).getPrice());
+        holder.event_time.setText(Events.get(position).getFinal_request().getActual_time());
         if (Events.get(position).getStatus().equals("red")) {
             holder.itemView.setBackgroundColor(Color.parseColor("#FF0000"));
         } else if (Events.get(position).getStatus().equals("gray")) {
@@ -87,11 +87,12 @@ public class SearchedHistoryAdapter extends RecyclerView.Adapter<SearchedHistory
                     final int position = getAdapterPosition();
                     final Past_Event e = Events.get(position);
                     AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
-
+                    alertDialog.setTitle("歷史資訊");
 
                     final View content_layout = LayoutInflater.from(mContext).inflate(R.layout.driver_main_event_detail, null);
 
                     TextView foo;
+                    Button btn_rate;
                     foo = content_layout.findViewById(R.id.tv_1);
                     foo.setText("姓名");
                     foo = content_layout.findViewById(R.id.driver_name);//直接用乘客主畫面的layout了 id不想改
@@ -102,10 +103,6 @@ public class SearchedHistoryAdapter extends RecyclerView.Adapter<SearchedHistory
                     foo = content_layout.findViewById(R.id.driver_sex);
                     foo.setText(e.getUser().isSex() ? "男" : "女");
 
-                    foo = content_layout.findViewById(R.id.tv_3);//顯示乘客的電話
-                    foo.setVisibility(View.VISIBLE);
-                    foo = content_layout.findViewById(R.id.driver_phone);
-                    foo.setVisibility(View.VISIBLE);
 
                     foo = content_layout.findViewById(R.id.actual_start_point);
                     foo.setText(e.getFinal_request().getActual_start_point());
@@ -119,6 +116,13 @@ public class SearchedHistoryAdapter extends RecyclerView.Adapter<SearchedHistory
 
                     foo = content_layout.findViewById(R.id.tv_extra_need);
                     foo.setText(e.getFinal_request().getExtra_needed());
+
+                    btn_rate = content_layout.findViewById(R.id.event_rate);
+                    btn_rate.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                        }
+                    });
 
                     alertDialog.setPositiveButton("cancel", new DialogInterface.OnClickListener() {
                         @Override
