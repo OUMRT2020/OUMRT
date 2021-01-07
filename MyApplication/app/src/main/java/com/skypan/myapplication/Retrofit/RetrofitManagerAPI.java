@@ -99,11 +99,11 @@ public interface RetrofitManagerAPI {
 
     @FormUrlEncoded
     @POST("get-inform")
-    Call<Ack> getInforms(@Field("user_id") String user_id);
+    Call<Inform> getInforms(@Field("user_id") String user_id);
 
     @FormUrlEncoded
     @POST("search-past")
-    Call<Ack> searchPast(@Field("user_id") String user_id);
+    Call<List<Past_Event>> searchPast(@Field("user_id") String user_id);
 
     @FormUrlEncoded
     @POST("score")
