@@ -224,7 +224,7 @@ public class SearchedEventAdapter extends RecyclerView.Adapter<SearchedEventAdap
                                                                     if (ack.isSuccess()) {
                                                                         Toast.makeText(mContext, "已送出請求", Toast.LENGTH_SHORT).show();
 //                                                Toast.makeText(mContext, e.getUser().getToken(), Toast.LENGTH_SHORT).show();
-                                                                        new FCMNotify(e.getUser().getToken());
+                                                                        new FCMNotify(e.getUser().getToken(), e.getEvent_name(), "有新的請求訊息");
                                                                     } else {
                                                                         Toast.makeText(mContext, ack.getReason(), Toast.LENGTH_SHORT).show();
                                                                     }

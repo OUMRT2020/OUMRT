@@ -10,11 +10,13 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class FCMNotify {
-    private String tkn;
+    private String tkn,title,message;
 
 
-    public FCMNotify(String tkn) {
+    public FCMNotify(String tkn,String title,String message) {
         this.tkn = tkn;
+        this.title = title;
+        this.message = message;
         new Notify().execute();
     }
 
@@ -43,9 +45,8 @@ public class FCMNotify {
 
 
                 JSONObject info = new JSONObject();
-                info.put("title", "TechnoWeb");   // Notification title
-                info.put("body", "Hello Test notification"); // Notification body
-
+                info.put("title", title);   // Notification title
+                info.put("body", message); // Notification body
                 json.put("notification", info);
 
                 OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());

@@ -16,6 +16,7 @@ public class passengerPassEventsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_passenger_pass_events, container, false);
+
         return view;
     }
 }
