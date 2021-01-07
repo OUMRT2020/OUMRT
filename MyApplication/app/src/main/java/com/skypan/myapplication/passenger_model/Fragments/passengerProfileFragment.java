@@ -39,7 +39,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class passengerProfileFragment extends Fragment {
-    private EditText et_nickName, et_phone, et_weight, et_mail;
+    private EditText et_nickName, et_phone, et_weight, et_mail, et_rate;
     private RadioButton sex_male, sex_female;
     private Button btn_edit, btn_cancel, btn_upload_img;
     private ImageView iv;
@@ -60,6 +60,7 @@ public class passengerProfileFragment extends Fragment {
         et_phone = view.findViewById(R.id.phone);
         et_weight = view.findViewById(R.id.weight);
         et_mail = view.findViewById(R.id.mail);
+        et_rate = view.findViewById(R.id.et_rate);
         sex_male = view.findViewById(R.id.gender_man);
         sex_female = view.findViewById(R.id.gender_woman);
         btn_edit = view.findViewById(R.id.edit_information_button);
@@ -76,6 +77,7 @@ public class passengerProfileFragment extends Fragment {
         et_phone.setText(sharedPreferences.getString("phone_num", ""));
         et_weight.setText("" + sharedPreferences.getInt("weight", 48763));
         et_mail.setText(sharedPreferences.getString("email", ""));
+        et_rate.setText("" + sharedPreferences.getFloat("rate", (float) -1.0));
         if (sharedPreferences.getString("sex", "").equals("男")) {
             sex_male.setChecked(true);
         } else {
