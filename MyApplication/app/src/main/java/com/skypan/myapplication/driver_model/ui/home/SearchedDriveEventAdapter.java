@@ -310,6 +310,7 @@ public class SearchedDriveEventAdapter extends RecyclerView.Adapter<SearchedDriv
                                     Event alter = new Event(name.getText().toString(),"white",e.getDriver_id()
                                             ,e.getAcceptable_time_interval(),e.getAcceptable_start_point(),e.getAcceptable_end_point()
                                     ,GENDER,WEIGHT,MONEY,HELMET,e.getRepeat());
+                                    alter.setEvent_id(e.getEvent_id());
                                     Retrofit retrofit = new Retrofit.Builder()
                                             .baseUrl("http://140.121.197.130:5602/")
                                             .addConverterFactory(GsonConverterFactory.create())

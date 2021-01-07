@@ -115,4 +115,8 @@ public class Event {
     public User getUser() {
         return user;
     }
+
+    public void setEvent_id(String event_id) {
+        this.event_id = event_id;
+    }
 }
