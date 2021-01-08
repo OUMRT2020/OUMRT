@@ -42,6 +42,7 @@ import com.skypan.myapplication.R;
 import com.skypan.myapplication.Retrofit.Ack;
 import com.skypan.myapplication.Retrofit.Event;
 import com.skypan.myapplication.Retrofit.RetrofitManagerAPI;
+import com.skypan.myapplication.inform.FCMNotify;
 import com.skypan.myapplication.login_model.loginActivity;
 
 import java.text.SimpleDateFormat;
@@ -68,10 +69,11 @@ public class DriverMainActivity extends AppCompatActivity {
     private String event_name;
     private boolean[] day = new boolean[7];
     private CheckBox cb1, cb2, cb3, cb4, cb5, cb6, cb7;
-    private int money, weight, gender;
+    private int money, weight, gender = 2;
     private boolean ishamlet = true;
     private Button btn_logout;
     private DrawerLayout driver_drawer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -114,6 +116,7 @@ public class DriverMainActivity extends AppCompatActivity {
             }
         });
     }
+
     private boolean doubleBackToExitPressedOnce = false;
 
     @Override
@@ -217,7 +220,6 @@ public class DriverMainActivity extends AppCompatActivity {
                 }
             });
             cb2 = v.findViewById(R.id.cb_2);
-            ;
             cb2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
@@ -228,7 +230,6 @@ public class DriverMainActivity extends AppCompatActivity {
                 }
             });
             cb3 = v.findViewById(R.id.cb_3);
-            ;
             cb3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
@@ -239,7 +240,6 @@ public class DriverMainActivity extends AppCompatActivity {
                 }
             });
             cb4 = v.findViewById(R.id.cb_4);
-            ;
             cb4.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
@@ -250,7 +250,6 @@ public class DriverMainActivity extends AppCompatActivity {
                 }
             });
             cb5 = v.findViewById(R.id.cb_5);
-            ;
             cb5.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
@@ -261,7 +260,6 @@ public class DriverMainActivity extends AppCompatActivity {
                 }
             });
             cb6 = v.findViewById(R.id.cb_6);
-            ;
             cb6.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
@@ -272,7 +270,6 @@ public class DriverMainActivity extends AppCompatActivity {
                 }
             });
             cb7 = v.findViewById(R.id.cb_7);
-            ;
             cb7.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
@@ -402,76 +399,33 @@ public class DriverMainActivity extends AppCompatActivity {
                         || acc_time_interval.size() < 2 || gg.equals("")) {
                     Toast.makeText(DriverMainActivity.this, "欄位不可為空", Toast.LENGTH_SHORT).show();
                 } else {
-                    // TODO:
-                    AlertDialog.Builder twoDialog = new AlertDialog.Builder(DriverMainActivity.this);
-                    twoDialog.setTitle("新增成功");
-                    twoDialog.setPositiveButton("瞭解", (new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog1, int which) {
-                            System.out.println("aaaabbb" + acc_time_interval.size());
-                            money = Integer.parseInt(mm);
-                            weight = Integer.parseInt(ww);
-                            System.out.println(money + weight + gender);
-                            ArrayList<Boolean> repeat = new ArrayList<>();
+                    money = Integer.parseInt(mm);
+                    weight = Integer.parseInt(ww);
+                    System.out.println(money + weight + gender);
+                    ArrayList<Boolean> repeat = new ArrayList<>();
 
-                            for (boolean b : day) {
-                                repeat.add(b);
-                            }
+                    for (boolean b : day) {
+                        repeat.add(b);
+                    }
 
-                            System.out.println(user_id);
-                            Event e = new Event(event_name, "white", user_id
-                                    , acc_time_interval
-                                    , acc_start_pts
-                                    , acc_end_pt
-                                    , gender, weight, money, ishamlet, repeat);
-                            System.out.println("event_name" + event_name);
-                            System.out.println("status" + "white");
-                            System.out.println("user_id" + user_id);
-                            System.out.println("acc_time_interval" + acc_time_interval);
-                            System.out.println("acc_start_pts" + acc_start_pts);
-                            System.out.println("acc_end_pt" + acc_end_pt);
-                            System.out.println("gender" + gender);
-                            System.out.println("weight" + weight);
-                            System.out.println("money" + money);
-                            System.out.println("ishamlet" + ishamlet);
-                            System.out.println("repeat" + repeat);
-
-
-                            Retrofit retrofit = new Retrofit.Builder()
-                                    .baseUrl("http://140.121.197.130:5602/")
-                                    .addConverterFactory(GsonConverterFactory.create())
-                                    .build();
-                            RetrofitManagerAPI retrofitManagerAPI = retrofit.create(RetrofitManagerAPI.class);
-                            Call<Ack> call = retrofitManagerAPI.newEvent(e);
-                            call.enqueue(new Callback<Ack>() {
-                                @Override
-                                public void onResponse(Call<Ack> call, Response<Ack> response) {
-                                    if (!response.isSuccessful()) {
-                                        Log.d("add", "new enent error");
-                                    }
-                                    Ack ack = response.body();
-                                    Log.d("ACK", ack.isSuccess() ? "true" : "fasle");
-                                    Log.d("ACK", ack.getReason());
-
-
-                                }
-
-                                @Override
-                                public void onFailure(Call<Ack> call, Throwable t) {
-                                    Log.d("add", "new enent server error");
-                                }
-                            });
-                            dialog.dismiss();
-//                        refresh();
-                        }
-                    }));
-                    twoDialog.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.cancel();
-                        }
-                    });
-                    twoDialog.show();
+                    System.out.println(user_id);
+                    Event e = new Event(event_name, "white", user_id
+                            , acc_time_interval
+                            , acc_start_pts
+                            , acc_end_pt
+                            , gender, weight, money, ishamlet, repeat);
+                    System.out.println("event_name" + event_name);
+                    System.out.println("status" + "white");
+                    System.out.println("user_id" + user_id);
+                    System.out.println("acc_time_interval" + acc_time_interval);
+                    System.out.println("acc_start_pts" + acc_start_pts);
+                    System.out.println("acc_end_pt" + acc_end_pt);
+                    System.out.println("gender" + gender);
+                    System.out.println("weight" + weight);
+                    System.out.println("money" + money);
+                    System.out.println("ishamlet" + ishamlet);
+                    System.out.println("repeat" + repeat);
+                    call_alert(e);
                 }
             }
         }));
@@ -482,6 +436,80 @@ public class DriverMainActivity extends AppCompatActivity {
             }
         }));
     }
+
+    private void call_insert_event(Event e) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://140.121.197.130:5602/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        RetrofitManagerAPI retrofitManagerAPI = retrofit.create(RetrofitManagerAPI.class);
+        Call<Ack> call = retrofitManagerAPI.newEvent(e);
+        call.enqueue(new Callback<Ack>() {
+            @Override
+            public void onResponse(Call<Ack> call, Response<Ack> response) {
+                if (!response.isSuccessful()) {
+                    Log.d("add", "new event error");
+                }
+                Ack ack = response.body();
+                if (ack.isSuccess()) {
+                    Toast.makeText(DriverMainActivity.this, "新增成功", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(DriverMainActivity.this, "新增失敗", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Ack> call, Throwable t) {
+                Log.d("add", "new enent server error");
+            }
+        });
+    }
+
+    private void call_alert(Event e) {
+        Retrofit check_alert = new Retrofit.Builder()
+                .baseUrl("http://140.121.197.130:5602/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        RetrofitManagerAPI retrofitManagerAPI = check_alert.create(RetrofitManagerAPI.class);
+        Call<Ack> call = retrofitManagerAPI.alertInterval(user_id, e.getAcceptable_time_interval().get(0), e.getAcceptable_time_interval().get(1));
+        call.enqueue(new Callback<Ack>() {
+            @Override
+            public void onResponse(Call<Ack> call, Response<Ack> response) {
+                if (!response.isSuccessful()) {
+
+                }
+                if (response.body().isSuccess()) {
+                    call_insert_event(e);
+                } else {
+                    //todo: 警告的alert dialog
+                    android.app.AlertDialog.Builder alertCheck = new android.app.AlertDialog.Builder(DriverMainActivity.this);
+                    alertCheck.setTitle("該事件與您其他事件的時間重疊或過於接近!");
+                    String overlap_event_names = response.body().getReason();
+                    overlap_event_names = overlap_event_names.replace(" ", "\n");
+                    alertCheck.setMessage("是否要繼續進行?\n\n~~~~事件名稱~~~~~\n" + overlap_event_names);
+                    alertCheck.setPositiveButton("繼續", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            call_insert_event(e);
+                        }
+                    });
+                    alertCheck.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    });
+                    alertCheck.show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Ack> call, Throwable t) {
+
+            }
+        });
+    }
+
 
     private final CompoundButton.OnCheckedChangeListener st = new CompoundButton.OnCheckedChangeListener() { //实例化一个cb
         @Override

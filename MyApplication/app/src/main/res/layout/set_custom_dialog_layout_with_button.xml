@@ -352,6 +352,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/rb_gender_1"
             android:text="不限"
+            android:checked="true"
             android:textColor="#FF6600"
             android:textSize="18sp" />
     </RadioGroup>
@@ -481,7 +482,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="#FFFFFF"
-            android:text="再開啟一個ALERTDIALOG" />
+            android:text="新增事件" />
     </LinearLayout>
 
 

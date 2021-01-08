@@ -14,8 +14,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="10dp"
         android:text="選擇你的身分吧!"
-
-        android:textSize="50sp" />
+        android:textSize="20sp" />
 
     <LinearLayout
         android:layout_width="wrap_content"

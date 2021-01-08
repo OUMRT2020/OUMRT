@@ -22,24 +22,10 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="30dp"
             android:background="#0080FF"
-            android:text="海大機車共乘OUMRT"
+            android:text="OUMRT"
             android:textColor="#000000"
             android:textSize="35sp" />
 
-        <!--    這是歡迎的title    -->
-        <TextView
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="70dp"
-            android:ellipsize="marquee"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:marqueeRepeatLimit="marquee_forever"
-            android:singleLine="true"
-            android:text="歡迎使用OUMTR"
-            android:textColor="#000000"
-            android:textSize="30sp" />
     </LinearLayout>
 
     <!--    這是login_down介面    -->
@@ -57,7 +43,7 @@
             android:layout_height="wrap_content"
             android:text="LOGIN"
             android:textColor="#000000"
-            android:textSize="28sp" />
+            android:textSize="20sp" />
 
         <!--    email    -->
         <LinearLayout

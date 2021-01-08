@@ -9,11 +9,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.skypan.myapplication.R;
 import com.skypan.myapplication.Retrofit.Event;
 
@@ -78,6 +80,7 @@ public class MainEventAdapter extends RecyclerView.Adapter<MainEventAdapter.View
                     final AlertDialog.Builder detailDialog = new AlertDialog.Builder(mContext);
                     final View content_layout = LayoutInflater.from(mContext).inflate(R.layout.passenger_main_event_detail, null);
                     TextView foo;
+                    ImageView car_pic = content_layout.findViewById(R.id.picture);
                     if (e.getStatus().equals("red")) {//////////////////////////////////////若是紅色
                         detailDialog.setTitle("拒絕原因");
                         detailDialog.setMessage(e.getUser().getName() + " : " + e.getReason());
@@ -102,8 +105,7 @@ public class MainEventAdapter extends RecyclerView.Adapter<MainEventAdapter.View
                         } else {
                             foo.setText("(沒有額外需求)");
                         }
-
-
+                        Glide.with(mContext).load(e.getUser().getPicture_url()).into(car_pic);
                         detailDialog.setView(content_layout);
                         detailDialog.setTitle(e.getEvent_name());
                     } else if (e.getStatus().equals("green")) {////////////////////////////若是綠色
@@ -140,6 +142,7 @@ public class MainEventAdapter extends RecyclerView.Adapter<MainEventAdapter.View
                             }
                         });
                         btn_img.setVisibility(View.VISIBLE);
+                        Glide.with(mContext).load(e.getUser().getPicture_url()).into(car_pic);
                         detailDialog.setView(content_layout);
                         detailDialog.setTitle(e.getEvent_name());
                     }

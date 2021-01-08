@@ -15,12 +15,13 @@ public class verification_forgetActivity extends AppCompatActivity {
     private Button verify_verification_forget;
     private EditText verification_forget;              // user輸入的認證碼
     private String message = forget_password.message;  // 從forget_password製造出來的認證碼
-
+    private String mail;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_verification_forget);
-
+        Intent intent = getIntent();
+        mail = intent.getStringExtra("mail");
         // find id
         cancel_verification_forget = findViewById(R.id.cancel_verification_forget);
         verify_verification_forget = findViewById(R.id.verify_verification_forget);
@@ -59,6 +60,7 @@ public class verification_forgetActivity extends AppCompatActivity {
                         // 跳轉到輸入新密碼的頁面
                         System.out.println("驗證碼相同訊號 : 1");
                         intent = new Intent(verification_forgetActivity.this, set_new_passwordActivity.class);
+                        intent.putExtra("mail", mail);
                         startActivity(intent);
                     }
                     else {

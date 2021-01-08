@@ -82,6 +82,7 @@ public class forget_password extends AppCompatActivity {
                                     sendMail();
                                     Intent intent = null;
                                     intent = new Intent(forget_password.this, verification_forgetActivity.class);
+                                    intent.putExtra("mail", email_forget.getText().toString());
                                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                     startActivity(intent);
                                 } else {

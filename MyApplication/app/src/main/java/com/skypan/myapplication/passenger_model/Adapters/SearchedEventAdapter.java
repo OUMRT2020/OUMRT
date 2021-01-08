@@ -8,12 +8,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.skypan.myapplication.R;
 import com.skypan.myapplication.Retrofit.Ack;
 import com.skypan.myapplication.Retrofit.Event;
@@ -128,7 +130,8 @@ public class SearchedEventAdapter extends RecyclerView.Adapter<SearchedEventAdap
                             temp += acceptable_list.get(i);
                         }
                         foo.setText(temp);
-
+                        ImageView car_piv = content_layout.findViewById(R.id.picture);
+                        Glide.with(mContext).load(e.getUser().getPicture_url()).into(car_piv);
                         detailDialog.setView(content_layout);
                         detailDialog.setTitle(e.getEvent_name());
                         detailDialog.setPositiveButton("送出請求", new DialogInterface.OnClickListener() {

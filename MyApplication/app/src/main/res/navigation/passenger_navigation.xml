@@ -7,21 +7,21 @@
     <fragment
         android:id="@+id/passengerHomeFragment"
         android:name="com.skypan.myapplication.passenger_model.Fragments.passengerHomeFragment"
-        android:label="fragment_passenger_home"
+        android:label="home"
         tools:layout="@layout/fragment_passenger_home" />
     <fragment
         android:id="@+id/passengerProfileFragment"
         android:name="com.skypan.myapplication.passenger_model.Fragments.passengerProfileFragment"
-        android:label="fragment_passenger_profile"
+        android:label="profile"
         tools:layout="@layout/fragment_passenger_profile" />
     <fragment
         android:id="@+id/passengerPassEventsFragment"
         android:name="com.skypan.myapplication.passenger_model.Fragments.passengerPassEventsFragment"
-        android:label="fragment_passenger_pass_events"
+        android:label="history"
         tools:layout="@layout/fragment_passenger_pass_events" />
     <fragment
         android:id="@+id/switchToDriverFragment"
         android:name="com.skypan.myapplication.passenger_model.Fragments.SwitchToDriverFragment"
-        android:label="fragment_switch_to_driver"
+        android:label="switch"
         tools:layout="@layout/fragment_switch_to_driver" />
 </navigation>

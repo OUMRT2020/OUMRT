@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -131,6 +132,9 @@ public class SearchedDriveEventAdapter extends RecyclerView.Adapter<SearchedDriv
                         deleteDialog.show();
                     } else if (e.getStatus().equals("green")) {
                         AlertDialog.Builder deleteDialog = new AlertDialog.Builder(mContext);
+                        deleteDialog.setTitle("事件結束");
+                        deleteDialog.setMessage("Drop: 事件會被刪除");
+
                         deleteDialog.setPositiveButton("Finish", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -149,15 +153,18 @@ public class SearchedDriveEventAdapter extends RecyclerView.Adapter<SearchedDriv
                                     public void onResponse(Call<Ack> call, Response<Ack> response) {
                                         if (!response.isSuccessful()) {
                                             Log.d("Finish", "Finish driver error");
+                                            Toast.makeText(mContext, "結束失敗1", Toast.LENGTH_SHORT).show();
                                         }
                                         if (!response.body().isSuccess()) {
                                             Log.d("Finish", response.body().getReason());
+                                            Toast.makeText(mContext, "結束失敗2", Toast.LENGTH_SHORT).show();
                                         }
                                     }
 
                                     @Override
                                     public void onFailure(Call<Ack> call, Throwable t) {
                                         Log.d("Finish", "Finish server error");
+                                        Toast.makeText(mContext, "結束失敗3", Toast.LENGTH_SHORT).show();
                                     }
                                 });
                             }

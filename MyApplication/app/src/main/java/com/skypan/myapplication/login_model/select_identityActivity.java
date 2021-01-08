@@ -11,7 +11,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.skypan.myapplication.R;
@@ -73,35 +72,39 @@ public class select_identityActivity extends AppCompatActivity {
             call.enqueue(new Callback<User>() {
                 @Override
                 public void onResponse(Call<User> call, Response<User> response) {
-                    if (!response.isSuccessful()) {//login failed=>密碼已經改過了
-                        Toast.makeText(select_identityActivity.this, "password has changed", Toast.LENGTH_SHORT).show();
-                        SharedPreferences preferences = getSharedPreferences("isOUMRTLogin", MODE_PRIVATE);//創建一個isLogin.xml
-                        preferences.edit()
-                                .clear()
-                                .apply();
-                        Intent intent = new Intent(select_identityActivity.this, loginActivity.class);
-                        startActivity(intent);
-                        finish();
-                    } else {
-                        SharedPreferences preferences = getSharedPreferences("isOUMRTLogin", MODE_PRIVATE);//創建一個isLogin.xml
-                        preferences.edit()
-                                .clear()
-                                .putBoolean("isLogin", true)
-                                .putString("email", email)
-                                .putString("password", password)
-                                .putString("user_id", response.body().getUser_id())
-                                .putString("name", response.body().getName())
-                                .putString("phone_num", response.body().getPhone_num())
-                                .putString("sex", response.body().isSex() ? "男" : "女")
-                                .putInt("weight", response.body().getWeight())
-                                .putFloat("rate", (float) response.body().getRate().getScore())
-                                .putString("car_pic_url", response.body().getPicture_url())
-                                .apply();
-                        user_id = response.body().getUser_id();
-                        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                        progressCircle.setVisibility(View.GONE);
-                        driver_button.setEnabled(true);
-                        passenger_button.setEnabled(true);
+                    if (!response.isSuccessful()) {
+                        Toast.makeText(select_identityActivity.this, "error", Toast.LENGTH_SHORT).show();
+                    } else {//login failed=>密碼已經改過了
+                        if (response.body().getUser_id().equals("Fail")) {
+                            Toast.makeText(select_identityActivity.this, "password has changed", Toast.LENGTH_SHORT).show();
+                            SharedPreferences preferences = getSharedPreferences("isOUMRTLogin", MODE_PRIVATE);//創建一個isLogin.xml
+                            preferences.edit()
+                                    .clear()
+                                    .apply();
+                            Intent intent = new Intent(select_identityActivity.this, loginActivity.class);
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            SharedPreferences preferences = getSharedPreferences("isOUMRTLogin", MODE_PRIVATE);//創建一個isLogin.xml
+                            preferences.edit()
+                                    .clear()
+                                    .putBoolean("isLogin", true)
+                                    .putString("email", email)
+                                    .putString("password", password)
+                                    .putString("user_id", response.body().getUser_id())
+                                    .putString("name", response.body().getName())
+                                    .putString("phone_num", response.body().getPhone_num())
+                                    .putString("sex", response.body().isSex() ? "男" : "女")
+                                    .putInt("weight", response.body().getWeight())
+                                    .putFloat("rate", (float) response.body().getRate().getScore())
+                                    .putString("car_pic_url", response.body().getPicture_url())
+                                    .apply();
+                            user_id = response.body().getUser_id();
+                            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                            progressCircle.setVisibility(View.GONE);
+                            driver_button.setEnabled(true);
+                            passenger_button.setEnabled(true);
+                        }
                     }
                 }
 

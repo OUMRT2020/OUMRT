@@ -83,8 +83,8 @@ public interface RetrofitManagerAPI {
     @POST("alert_Interval")
 //檢查新增是否需警告
     Call<Ack> alertInterval(@Field("user_id") String user_id,
-                            @Field("time") String start_time,
-                            @Field("time") String end_time);
+                            @Field("query_TimeStart") String start_time,
+                            @Field("query_TimeEnd") String end_time);
 
     public String AUTH = "6d9345743ae6821";
 
@@ -110,4 +110,8 @@ public interface RetrofitManagerAPI {
     Call<Ack> Rating(@Field("user_id") String user_id,
                       @Field("event_id") String event_id,
                       @Field("score") String score);
+    @FormUrlEncoded
+    @POST("newPassword")
+    Call<Ack> alter_password(@Field("mail") String mail,
+                     @Field("password") String password);
 }

@@ -84,6 +84,16 @@ public class loginActivity extends AppCompatActivity {
                             public void onResponse(Call<User> call, Response<User> response) {
                                 if (!response.isSuccessful()) {
                                     Log.d("login failed: ", response.message());
+                                }
+                                if (response.body().getUser_id().equals("Fail")) {
+                                    Toast.makeText(loginActivity.this, "password has changed", Toast.LENGTH_SHORT).show();
+                                    SharedPreferences preferences = getSharedPreferences("isOUMRTLogin", MODE_PRIVATE);//創建一個isLogin.xml
+                                    preferences.edit()
+                                            .clear()
+                                            .apply();
+                                    Intent intent = new Intent(loginActivity.this, loginActivity.class);
+                                    startActivity(intent);
+                                    finish();
                                 } else {
                                     SharedPreferences preferences = getSharedPreferences("isOUMRTLogin", MODE_PRIVATE);//創建一個isLogin.xml
                                     preferences.edit()
@@ -91,10 +101,10 @@ public class loginActivity extends AppCompatActivity {
                                             .putString("email", temp_mail)
                                             .putString("password", temp_password)
                                             .putString("user_id", response.body().getUser_id())
-                                            .putString("name",response.body().getName())
+                                            .putString("name", response.body().getName())
                                             .putString("phone_num", response.body().getPhone_num())
                                             .putString("sex", response.body().isSex() ? "男" : "女")
-                                            .putInt("weight",response.body().getWeight())
+                                            .putInt("weight", response.body().getWeight())
                                             .putFloat("rate", (float) response.body().getRate().getScore())
                                             .putString("car_pic_url", response.body().getPicture_url())
                                             .apply();
