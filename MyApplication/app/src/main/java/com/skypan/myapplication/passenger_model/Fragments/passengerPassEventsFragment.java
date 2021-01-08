@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -16,7 +17,6 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.skypan.myapplication.R;
 import com.skypan.myapplication.Retrofit.Past_Event;
 import com.skypan.myapplication.Retrofit.RetrofitManagerAPI;
-import com.skypan.myapplication.driver_model.DriverMainActivity;
 import com.skypan.myapplication.driver_model.ui.history.HistoryViewModel;
 import com.skypan.myapplication.driver_model.ui.history.SearchedHistoryAdapter;
 import com.skypan.myapplication.passenger_model.PassengerMainActivity;
@@ -61,7 +61,7 @@ public class passengerPassEventsFragment extends Fragment {
                 List<Past_Event> events = response.body();
                 recyclerView = root.findViewById(R.id.rv_histroy_event);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                recyclerView.setAdapter(new SearchedHistoryAdapter(getContext(), events, user_id));
+                recyclerView.setAdapter(new SearchedHistoryAdapter(swipeRefreshLayout, getContext(), events, user_id));
             }
 
             @Override
@@ -90,7 +90,7 @@ public class passengerPassEventsFragment extends Fragment {
                         swipeRefreshLayout.setRefreshing(false);
                         recyclerView = root.findViewById(R.id.rv_histroy_event);
                         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                        recyclerView.setAdapter(new SearchedHistoryAdapter(getContext(),events,user_id));
+                        recyclerView.setAdapter(new SearchedHistoryAdapter(swipeRefreshLayout, getContext(), events, user_id));
                     }
 
                     @Override
@@ -101,8 +101,6 @@ public class passengerPassEventsFragment extends Fragment {
                 });
             }
         });
-
-
         return root;
     }
 }

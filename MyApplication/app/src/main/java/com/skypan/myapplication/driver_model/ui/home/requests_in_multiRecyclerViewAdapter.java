@@ -1,5 +1,6 @@
 package com.skypan.myapplication.driver_model.ui.home;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -33,11 +35,13 @@ public class requests_in_multiRecyclerViewAdapter extends RecyclerView.Adapter<r
     private Context mContext;
     private ArrayList<Request> all_request;
     private ArrayList<User> all_request_user;
+    private Activity mActivity;
 
-    public requests_in_multiRecyclerViewAdapter(Context mContext, ArrayList<Request> all_request, ArrayList<User> all_request_user) {
+    public requests_in_multiRecyclerViewAdapter(Activity mActivity, Context mContext, ArrayList<Request> all_request, ArrayList<User> all_request_user) {
         this.mContext = mContext;
         this.all_request = all_request;
         this.all_request_user = all_request_user;
+        this.mActivity = mActivity;
     }
 
     @NonNull
@@ -102,7 +106,7 @@ public class requests_in_multiRecyclerViewAdapter extends RecyclerView.Adapter<r
                     foo = content_layout.findViewById(R.id.tv_extra_need);
                     foo.setText(request.getExtra_needed());
 
-                    alertDialog.setTitle("確定接受");
+                    alertDialog.setTitle("請求詳細資訊");
                     alertDialog.setPositiveButton("接受", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -118,12 +122,14 @@ public class requests_in_multiRecyclerViewAdapter extends RecyclerView.Adapter<r
                                 public void onResponse(Call<Ack> call, Response<Ack> response) {
                                     if (!response.isSuccessful()) {
                                         Log.d("accept error", response.message());
+                                        Toast.makeText(mContext, "accept error", Toast.LENGTH_SHORT).show();
                                     }
                                     if (!response.body().isSuccess()) {
                                         Log.d("accept fail", response.body().getReason());
-                                    }
-                                    else{
+                                        Toast.makeText(mContext, "accept fail", Toast.LENGTH_SHORT).show();
+                                    } else {
                                         Log.d("accept success", "accept success");
+                                        Toast.makeText(mContext, "accept success", Toast.LENGTH_SHORT).show();
                                     }
                                 }
 
@@ -132,6 +138,7 @@ public class requests_in_multiRecyclerViewAdapter extends RecyclerView.Adapter<r
                                     Log.d("accept server error", t.getMessage());
                                 }
                             });
+                            mActivity.recreate();
                         }
                     });
                     alertDialog.setNegativeButton("拒絕", new DialogInterface.OnClickListener() {
@@ -143,6 +150,7 @@ public class requests_in_multiRecyclerViewAdapter extends RecyclerView.Adapter<r
 
                             final View content_layout = LayoutInflater.from(mContext).inflate(R.layout.reject, null);
                             EditText editText = content_layout.findViewById(R.id.reject);
+                            aaa.setTitle("可輸入拒絕原因");
                             aaa.setPositiveButton("確定拒絕", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
@@ -153,26 +161,34 @@ public class requests_in_multiRecyclerViewAdapter extends RecyclerView.Adapter<r
                                             .build();
                                     RetrofitManagerAPI retrofitManagerAPI = retrofit.create(RetrofitManagerAPI.class);
                                     String Reject = String.valueOf(editText.getText());
-                                    Call<Ack> call = retrofitManagerAPI.rejectRequest(user.getUser_id(), request.getEvent_id(),Reject);
+                                    Call<Ack> call = retrofitManagerAPI.rejectRequest(user.getUser_id(), request.getEvent_id(), Reject);
                                     call.enqueue(new Callback<Ack>() {
                                         @Override
                                         public void onResponse(Call<Ack> call, Response<Ack> response) {
                                             if (!response.isSuccessful()) {
                                                 Log.d("reject error", response.message());
+                                                Toast.makeText(mContext, "reject error", Toast.LENGTH_SHORT).show();
+
                                             }
                                             if (!response.body().isSuccess()) {
                                                 Log.d("reject fail", response.body().getReason());
-                                            }
-                                            else{
+                                                Toast.makeText(mContext, "reject fail", Toast.LENGTH_SHORT).show();
+
+                                            } else {
                                                 Log.d("reject success", "reject success");
+                                                Toast.makeText(mContext, "reject success", Toast.LENGTH_SHORT).show();
+
                                             }
                                         }
 
                                         @Override
                                         public void onFailure(Call<Ack> call, Throwable t) {
                                             Log.d("reject server error", t.getMessage());
+                                            Toast.makeText(mContext, "reject server error", Toast.LENGTH_SHORT).show();
+
                                         }
                                     });
+                                    mActivity.recreate();
                                 }
                             });
                             aaa.setNeutralButton("cancel", new DialogInterface.OnClickListener() {

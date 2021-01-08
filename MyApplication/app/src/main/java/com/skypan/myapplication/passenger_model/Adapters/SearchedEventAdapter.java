@@ -80,12 +80,13 @@ public class SearchedEventAdapter extends RecyclerView.Adapter<SearchedEventAdap
             driver_rate = itemView.findViewById(R.id.event_driver_rate);
             event_time = itemView.findViewById(R.id.event_date);
             event_cost = itemView.findViewById(R.id.event_cost);
+            AlertDialog.Builder alertCheck = new AlertDialog.Builder(mContext);
+            AlertDialog.Builder detailDialog = new AlertDialog.Builder(mContext);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     final int position = getAdapterPosition();
                     final Event e = Events.get(position);
-                    final AlertDialog.Builder detailDialog = new AlertDialog.Builder(mContext);
                     final View content_layout = LayoutInflater.from(mContext).inflate(R.layout.searched_event_detail, null);
 
                     if (e.getStatus().equals("red")) {//若是紅色
@@ -191,7 +192,7 @@ public class SearchedEventAdapter extends RecyclerView.Adapter<SearchedEventAdap
                                                     }
                                                 });
                                             } else {
-                                                AlertDialog.Builder alertCheck = new AlertDialog.Builder(mContext);
+
                                                 alertCheck.setTitle("該事件與您其他事件的時間重疊或過於接近!");
                                                 String overlap_event_names = response.body().getReason();
                                                 overlap_event_names = overlap_event_names.replace(" ", "\n");
@@ -226,7 +227,6 @@ public class SearchedEventAdapter extends RecyclerView.Adapter<SearchedEventAdap
                                                                     Ack ack = response.body();
                                                                     if (ack.isSuccess()) {
                                                                         Toast.makeText(mContext, "已送出請求", Toast.LENGTH_SHORT).show();
-//                                                Toast.makeText(mContext, e.getUser().getToken(), Toast.LENGTH_SHORT).show();
                                                                         new FCMNotify(e.getUser().getToken(), e.getEvent_name(), "有新的請求訊息");
                                                                     } else {
                                                                         Toast.makeText(mContext, ack.getReason(), Toast.LENGTH_SHORT).show();

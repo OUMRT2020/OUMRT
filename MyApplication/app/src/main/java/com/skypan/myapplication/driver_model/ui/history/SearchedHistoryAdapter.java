@@ -1,6 +1,7 @@
 package com.skypan.myapplication.driver_model.ui.history;
 
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.skypan.myapplication.R;
 import com.skypan.myapplication.Retrofit.Ack;
@@ -35,11 +37,12 @@ public class SearchedHistoryAdapter extends RecyclerView.Adapter<SearchedHistory
     private Context mContext;
     private List<Past_Event> Events;
     private String mUserid;
-
-    public SearchedHistoryAdapter(Context mContext, List<Past_Event> events, String mUserid) {
+    private SwipeRefreshLayout swipeRefreshLayout;
+    public SearchedHistoryAdapter(SwipeRefreshLayout swipeRefreshLayout, Context mContext, List<Past_Event> events, String mUserid) {
         this.mContext = mContext;
         this.Events = events;
         this.mUserid = mUserid;
+        this.swipeRefreshLayout = swipeRefreshLayout;
     }
 
     @NonNull

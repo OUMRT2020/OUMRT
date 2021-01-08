@@ -426,6 +426,7 @@ public class DriverMainActivity extends AppCompatActivity {
                     System.out.println("ishamlet" + ishamlet);
                     System.out.println("repeat" + repeat);
                     call_alert(e);
+                    dialog.dismiss();
                 }
             }
         }));
@@ -453,6 +454,7 @@ public class DriverMainActivity extends AppCompatActivity {
                 Ack ack = response.body();
                 if (ack.isSuccess()) {
                     Toast.makeText(DriverMainActivity.this, "新增成功", Toast.LENGTH_SHORT).show();
+                    DriverMainActivity.this.recreate();
                 } else {
                     Toast.makeText(DriverMainActivity.this, "新增失敗", Toast.LENGTH_SHORT).show();
                 }
@@ -460,7 +462,7 @@ public class DriverMainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Ack> call, Throwable t) {
-                Log.d("add", "new enent server error");
+                Log.d("add", "new event server error");
             }
         });
     }
@@ -472,6 +474,13 @@ public class DriverMainActivity extends AppCompatActivity {
                 .build();
         RetrofitManagerAPI retrofitManagerAPI = check_alert.create(RetrofitManagerAPI.class);
         Call<Ack> call = retrofitManagerAPI.alertInterval(user_id, e.getAcceptable_time_interval().get(0), e.getAcceptable_time_interval().get(1));
+
+        System.out.println("calling alert : next3 line");
+        System.out.println("user_id " + user_id);
+        System.out.println("time1" + e.getAcceptable_time_interval().get(0));
+        System.out.println("time2" + e.getAcceptable_time_interval().get(1));
+
+
         call.enqueue(new Callback<Ack>() {
             @Override
             public void onResponse(Call<Ack> call, Response<Ack> response) {

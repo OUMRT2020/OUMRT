@@ -63,7 +63,7 @@ public class HistoryFragment extends Fragment {
                 List<Past_Event> events = response.body();
                 recyclerView = root.findViewById(R.id.rv_histroy_event);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                recyclerView.setAdapter(new SearchedHistoryAdapter(getContext(), events, user_id));
+                recyclerView.setAdapter(new SearchedHistoryAdapter(swipeRefreshLayout,getContext(), events, user_id));
             }
 
             @Override
@@ -92,7 +92,7 @@ public class HistoryFragment extends Fragment {
                         swipeRefreshLayout.setRefreshing(false);
                         recyclerView = root.findViewById(R.id.rv_histroy_event);
                         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                        recyclerView.setAdapter(new SearchedHistoryAdapter(getContext(),events,user_id));
+                        recyclerView.setAdapter(new SearchedHistoryAdapter(swipeRefreshLayout,getContext(),events,user_id));
                     }
 
                     @Override

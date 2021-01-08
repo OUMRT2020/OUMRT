@@ -1,6 +1,7 @@
 package com.skypan.myapplication.driver_model.ui.home;
 
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -36,10 +37,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class SearchedDriveEventAdapter extends RecyclerView.Adapter<SearchedDriveEventAdapter.ViewHolder> {
     private Context mContext;
     private List<Event> Events;
-
-    public SearchedDriveEventAdapter(Context mContext, List<Event> events) {
+    private Activity mActivity;
+    public SearchedDriveEventAdapter(Activity mActivity ,Context mContext, List<Event> events) {
         this.mContext = mContext;
         this.Events = events;
+        this.mActivity = mActivity;
     }
 
     @NonNull
@@ -71,7 +73,6 @@ public class SearchedDriveEventAdapter extends RecyclerView.Adapter<SearchedDriv
 
         private TextView event_name, event_time, event_time2, event_cost;
         private Button event_delete;
-        ;
 
         public ViewHolder(@NonNull final View itemView) {
             super(itemView);
@@ -354,15 +355,15 @@ public class SearchedDriveEventAdapter extends RecyclerView.Adapter<SearchedDriv
 
                             alertDialog.setView(content_layout);
                             alertDialog.show();
-                        } else {
+                        } else {//白色，且有請求
                             AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
-                            alertDialog.setTitle("乘客申請名單");
+                            alertDialog.setTitle("乘客申請名單\n(有多筆請求，接受將自動拒絕其餘)");
                             //final View content_layout = LayoutInflater.from(mContext).inflate(R.layout.searched_driver_event_detail, null);
                             final View content_layout = LayoutInflater.from(mContext).inflate(R.layout.event_passenger_request, null);
                             RecyclerView recyclerView;
                             recyclerView = content_layout.findViewById(R.id.recyclerView_in_recyclerView);
                             recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
-                            recyclerView.setAdapter(new requests_in_multiRecyclerViewAdapter(mContext, e.getAll_request(), e.getAll_request_user()));
+                            recyclerView.setAdapter(new requests_in_multiRecyclerViewAdapter(mActivity, mContext, e.getAll_request(), e.getAll_request_user()));
 
                             alertDialog.setView(content_layout);
                             alertDialog.show();

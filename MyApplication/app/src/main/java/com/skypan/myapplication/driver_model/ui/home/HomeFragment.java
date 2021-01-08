@@ -65,13 +65,13 @@ public class HomeFragment extends Fragment {
             public void onResponse(Call<List<Event>> call, Response<List<Event>> response) {
                 if (!response.isSuccessful()) {
                     Log.d("add", "new driver main error");
-
                 }
-                List<Event> events = response.body();
-
-                recyclerView = root.findViewById(R.id.rv_searched_events);
-                recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                recyclerView.setAdapter(new SearchedDriveEventAdapter(getContext(), events));
+                else{
+                    List<Event> events = response.body();
+                    recyclerView = root.findViewById(R.id.rv_searched_events);
+                    recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                    recyclerView.setAdapter(new SearchedDriveEventAdapter(getActivity(),getContext(), events));
+                }
             }
 
             @Override
@@ -98,14 +98,16 @@ public class HomeFragment extends Fragment {
                             Log.d("add", "new driver main error");
                             swipeRefreshLayout.setRefreshing(false);
 
+                        }else{
+                            List<Event> events = response.body();
+
+                            recyclerView = root.findViewById(R.id.rv_searched_events);
+                            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+                            recyclerView.setAdapter(new SearchedDriveEventAdapter(getActivity(),getContext(), events));
+                            swipeRefreshLayout.setRefreshing(false);
+
                         }
-                        List<Event> events = response.body();
-
-                        recyclerView = root.findViewById(R.id.rv_searched_events);
-                        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
-                        recyclerView.setAdapter(new SearchedDriveEventAdapter(getContext(), events));
-                        swipeRefreshLayout.setRefreshing(false);
 
                     }
 
@@ -117,8 +119,6 @@ public class HomeFragment extends Fragment {
                     }
                 });
             }
-
-
         });
 
         return root;
