@@ -21,6 +21,7 @@ import com.skypan.myapplication.Retrofit.Ack;
 import com.skypan.myapplication.Retrofit.Request;
 import com.skypan.myapplication.Retrofit.RetrofitManagerAPI;
 import com.skypan.myapplication.Retrofit.User;
+import com.skypan.myapplication.inform.FCMNotify;
 
 import java.util.ArrayList;
 
@@ -130,6 +131,7 @@ public class requests_in_multiRecyclerViewAdapter extends RecyclerView.Adapter<r
                                     } else {
                                         Log.d("accept success", "accept success");
                                         Toast.makeText(mContext, "accept success", Toast.LENGTH_SHORT).show();
+
                                     }
                                 }
 
