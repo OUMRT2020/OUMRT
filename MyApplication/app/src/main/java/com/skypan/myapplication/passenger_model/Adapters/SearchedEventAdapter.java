@@ -177,7 +177,7 @@ public class SearchedEventAdapter extends RecyclerView.Adapter<SearchedEventAdap
                                                         } else {
                                                             Ack ack = response.body();
                                                             if (ack.isSuccess()) {
-                                                                Toast.makeText(mContext, "已送出請求:", Toast.LENGTH_SHORT).show();
+                                                                Toast.makeText(mContext, "已送出請求", Toast.LENGTH_SHORT).show();
                                                                 //todo: FCM API
                                                             } else {
                                                                 Toast.makeText(mContext, ack.getReason(), Toast.LENGTH_SHORT).show();
