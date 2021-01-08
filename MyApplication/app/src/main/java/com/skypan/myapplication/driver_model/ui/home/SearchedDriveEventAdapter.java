@@ -134,7 +134,7 @@ public class SearchedDriveEventAdapter extends RecyclerView.Adapter<SearchedDriv
                     } else if (e.getStatus().equals("green")) {
                         AlertDialog.Builder deleteDialog = new AlertDialog.Builder(mContext);
                         deleteDialog.setTitle("事件結束");
-                        deleteDialog.setMessage("Drop: 事件會被刪除");
+                        deleteDialog.setMessage("Drop: 事件不正常結束並刪除\nFinish: 事件正常結束");
 
                         deleteDialog.setPositiveButton("Finish", new DialogInterface.OnClickListener() {
                             @Override

@@ -131,7 +131,14 @@ public class requests_in_multiRecyclerViewAdapter extends RecyclerView.Adapter<r
                                     } else {
                                         Log.d("accept success", "accept success");
                                         Toast.makeText(mContext, "accept success", Toast.LENGTH_SHORT).show();
-
+                                        new FCMNotify(user.getToken(), "OUMRT", "您一則事件被接受了");
+                                        for (User u : all_request_user) {
+                                            if (u.getUser_id().equals(user.getUser_id())) {
+                                                //continue
+                                            } else {
+                                                new FCMNotify(u.getToken(), "OUMRT", "您一則事件被接受了");
+                                            }
+                                        }
                                     }
                                 }
 
@@ -179,7 +186,7 @@ public class requests_in_multiRecyclerViewAdapter extends RecyclerView.Adapter<r
                                             } else {
                                                 Log.d("reject success", "reject success");
                                                 Toast.makeText(mContext, "reject success", Toast.LENGTH_SHORT).show();
-
+                                                new FCMNotify(user.getToken(), "OUMRT", "您一則事件被拒絕了");
                                             }
                                         }
 
