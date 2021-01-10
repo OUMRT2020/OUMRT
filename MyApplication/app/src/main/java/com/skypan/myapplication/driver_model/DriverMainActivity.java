@@ -1,9 +1,12 @@
 package com.skypan.myapplication.driver_model;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.util.Log;
 import android.view.Gravity;
@@ -18,31 +21,43 @@ import android.widget.FrameLayout;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
+
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
 import com.bigkoo.pickerview.listener.OnTimeSelectChangeListener;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
-import com.skypan.myapplication.passenger_model.PassengerMainActivity;
+import com.google.android.material.snackbar.Snackbar;
 import com.skypan.myapplication.R;
-import com.skypan.myapplication.driver_model.ui.Setting;
-
-import androidx.appcompat.app.AlertDialog;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+import com.skypan.myapplication.Retrofit.Ack;
+import com.skypan.myapplication.Retrofit.Event;
+import com.skypan.myapplication.Retrofit.RetrofitManagerAPI;
+import com.skypan.myapplication.inform.FCMNotify;
+import com.skypan.myapplication.login_model.loginActivity;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
-public class DriverMainActivity extends AppCompatActivity  {
+
+public class DriverMainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private EditText et_startTime;
@@ -50,13 +65,24 @@ public class DriverMainActivity extends AppCompatActivity  {
     private Date startTime = new Date();
     private Date endTime = new Date();
     private TimePickerView pvTime;
-    private String[] day = new String[10];
-    private Setting temp =new Setting();
+    public String user_id;
+    private String event_name;
+    private boolean[] day = new boolean[7];
+    private CheckBox cb1, cb2, cb3, cb4, cb5, cb6, cb7;
+    private int money, weight, gender = 2;
+    private boolean ishamlet = true;
+    private Button btn_logout;
+    private DrawerLayout driver_drawer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_driver_main);
+        Intent intent = getIntent();
+        user_id = intent.getStringExtra("user_id");
         Toolbar toolbar = findViewById(R.id.toolbar);
+        btn_logout = findViewById(R.id.btn_logout);
+        driver_drawer = findViewById(R.id.drawer_layout);
         setSupportActionBar(toolbar);
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -70,16 +96,49 @@ public class DriverMainActivity extends AppCompatActivity  {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_House,R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow,R.id.nav_test)
+                R.id.nav_House, R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow, R.id.nav_test)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
+        btn_logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences preferences = getSharedPreferences("isOUMRTLogin", MODE_PRIVATE);
+                preferences.edit()
+                        .clear()
+                        .apply();
+                Intent goBackLogin = new Intent(DriverMainActivity.this, loginActivity.class);
+                startActivity(goBackLogin);
+                finish();
+            }
+        });
     }
 
+    private boolean doubleBackToExitPressedOnce = false;
 
+    @Override
+    public void onBackPressed() {
+        if (this.driver_drawer.isDrawerOpen(GravityCompat.START)) {//點返回鍵可以讓漢寶寶收回去
+            this.driver_drawer.closeDrawer(GravityCompat.START);
+        } else {
+            if (doubleBackToExitPressedOnce) {
+                super.onBackPressed();
+
+            } else {
+                doubleBackToExitPressedOnce = true;
+                Snackbar.make(findViewById(android.R.id.content), "再點擊一次返回鍵以退出", Snackbar.LENGTH_SHORT).show();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        doubleBackToExitPressedOnce = false;
+                    }
+                }, 2000);
+            }
+        }
+    }
 
     @Override
     public boolean onSupportNavigateUp() {
@@ -88,16 +147,20 @@ public class DriverMainActivity extends AppCompatActivity  {
                 || super.onSupportNavigateUp();
     }
 
-    private void setButtonCustomDialog(){
+    @SuppressLint("WrongViewCast")
+    private void setButtonCustomDialog() {
 
+        String[] acceptable_time_interval = new String[2];
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(DriverMainActivity.this);
-        View v = getLayoutInflater().inflate(R.layout.set_custom_dialog_layout_with_button,null);
+        View v = getLayoutInflater().inflate(R.layout.set_custom_dialog_layout_with_button, null);
+
+
         alertDialog.setView(v);
         Button btOK = v.findViewById(R.id.button_ok);
-        Button btC  = v.findViewById(R.id.buttonCancel);
-        final EditText editText_name = v.findViewById(R.id.name);
-        final EditText editText_start = v.findViewById(R.id.start);
-        final EditText editText_end = v.findViewById(R.id.end);
+        Button btC = v.findViewById(R.id.buttonCancel);
+
+
+        final EditText name = v.findViewById(R.id.name);
         final EditText editText_startTime = v.findViewById(R.id.et_startTime);
         final EditText editText_endTime = v.findViewById(R.id.et_endTime);
         final AlertDialog dialog = alertDialog.create();
@@ -105,108 +168,163 @@ public class DriverMainActivity extends AppCompatActivity  {
 
         final RadioButton mRg1 = v.findViewById(R.id.rb_gender_1);
         final RadioButton mRg2 = v.findViewById(R.id.rb_gender_2);
-        final String[] gender = new String[1];
+        final RadioButton mRgnull = v.findViewById(R.id.rb_gender_3);
         final RadioButton mRg3 = v.findViewById(R.id.rb_helmet_1);
         final RadioButton mRg4 = v.findViewById(R.id.rb_helmet_2);
-        final String[] helmet = new String[1];
-        final RadioButton mRg5 = v.findViewById(R.id.rb_fee_1);
-        final RadioButton mRg6 = v.findViewById(R.id.rb_fee_2);
-        final String[] fee = new String[1];
-         int Gender,Halmet,Fee;
+        final EditText editText_Money = v.findViewById(R.id.et_money);
+
+        final EditText editText_Weught = v.findViewById(R.id.et_weight);
         //radiobutton
-        {mRg1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                gender[0] = String.valueOf(mRg1.getText());
-            }
-        });
-        mRg2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                gender[0] = String.valueOf(mRg2.getText());
-            }
-        });
-        mRg3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                helmet[0] = String.valueOf(mRg3.getText());
-            }
-        });
-        mRg4.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                helmet[0] = String.valueOf(mRg4.getText());
-            }
-        });
+        {
+            mRg1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                    gender = 0;
+                }
+            });
+            mRg2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                    gender = 1;
+                }
+            });
+            mRgnull.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                    gender = 2;
+                }
+            });
+            mRg3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                    ishamlet = true;
+                }
+            });
+            mRg4.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                    ishamlet = false;
+                }
+            });
+        }
 
-        mRg5.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                fee[0] = String.valueOf(mRg5.getText());
-            }
-        });
-        mRg6.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                fee[0] = String.valueOf(mRg6.getText());
-            }
-        });}
-        //checkbox
-        {final CheckBox mCb1 = v.findViewById(R.id.cb_1);
-        final CheckBox mCb2 = v.findViewById(R.id.cb_2);
-        final CheckBox mCb3 = v.findViewById(R.id.cb_3);
-        final CheckBox mCb4 = v.findViewById(R.id.cb_4);
-        final CheckBox mCb5 = v.findViewById(R.id.cb_5);
-        final CheckBox mCb6 = v.findViewById(R.id.cb_6);
-        final CheckBox mCb7 = v.findViewById(R.id.cb_7);
+        {
+            cb1 = v.findViewById(R.id.cb_1);
+            cb1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                    if (isChecked) {
+                        day[0] = true;
+                        System.out.println(day[0]);
+                    } else day[0] = false;
+                }
+            });
+            cb2 = v.findViewById(R.id.cb_2);
+            cb2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                    if (isChecked) {
+                        day[1] = true;
+                        System.out.println(day[1]);
+                    } else day[1] = false;
+                }
+            });
+            cb3 = v.findViewById(R.id.cb_3);
+            cb3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                    if (isChecked) {
+                        day[2] = true;
+                        System.out.println(day[2]);
+                    } else day[2] = false;
+                }
+            });
+            cb4 = v.findViewById(R.id.cb_4);
+            cb4.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                    if (isChecked) {
+                        day[3] = true;
+                        System.out.println(day[3]);
+                    } else day[3] = false;
+                }
+            });
+            cb5 = v.findViewById(R.id.cb_5);
+            cb5.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                    if (isChecked) {
+                        day[4] = true;
+                        System.out.println(day[4]);
+                    } else day[4] = false;
+                }
+            });
+            cb6 = v.findViewById(R.id.cb_6);
+            cb6.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                    if (isChecked) {
+                        day[5] = true;
+                        System.out.println(day[5]);
+                    } else day[5] = false;
+                }
+            });
+            cb7 = v.findViewById(R.id.cb_7);
+            cb7.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                    if (isChecked) {
+                        day[6] = true;
+                        System.out.println(day[6]);
+                    } else day[6] = false;
+                }
+            });
+        }
 
-        mCb1.setOnCheckedChangeListener(checkBoxOnCheckedChange);
-        mCb2.setOnCheckedChangeListener(checkBoxOnCheckedChange);
-        mCb3.setOnCheckedChangeListener(checkBoxOnCheckedChange);
-        mCb4.setOnCheckedChangeListener(checkBoxOnCheckedChange);
-        mCb5.setOnCheckedChangeListener(checkBoxOnCheckedChange);
-        mCb6.setOnCheckedChangeListener(checkBoxOnCheckedChange);
-        mCb7.setOnCheckedChangeListener(checkBoxOnCheckedChange);}
+        //start
+        final CheckBox st1 = v.findViewById(R.id.st_1);
+        final CheckBox st2 = v.findViewById(R.id.st_2);
+        final CheckBox st3 = v.findViewById(R.id.st_3);
+        final CheckBox st4 = v.findViewById(R.id.st_4);
+        final CheckBox st5 = v.findViewById(R.id.st_5);
+        final CheckBox st6 = v.findViewById(R.id.st_6);
+        final CheckBox st7 = v.findViewById(R.id.st_7);
+        final CheckBox st8 = v.findViewById(R.id.st_8);
+        final CheckBox st9 = v.findViewById(R.id.st_9);
+        final CheckBox st10 = v.findViewById(R.id.st_10);
+        st1.setOnCheckedChangeListener(st);
+        st2.setOnCheckedChangeListener(st);
+        st3.setOnCheckedChangeListener(st);
+        st4.setOnCheckedChangeListener(st);
+        st5.setOnCheckedChangeListener(st);
+        st6.setOnCheckedChangeListener(st);
+        st7.setOnCheckedChangeListener(st);
+        st8.setOnCheckedChangeListener(st);
+        st9.setOnCheckedChangeListener(st);
+        st10.setOnCheckedChangeListener(st);
 
-        btOK.setOnClickListener((new View.OnClickListener() {
-            @Override
-            public void onClick(View v1) {
-                final Editable Temp;
-                temp.setName(editText_name.getText());
-                temp.setStart(editText_start.getText());
-                temp.setEnd(editText_end.getText());
-                temp.setStartTime(editText_startTime.getText());
-                temp.setEndTime(editText_endTime.getText());
-                temp.setGender(gender[0]);
-                temp.setHalmet(helmet[0]);
-                temp.setFee(fee[0]);
+        //end
+        final CheckBox end1 = v.findViewById(R.id.end_1);
+        final CheckBox end2 = v.findViewById(R.id.end_2);
+        final CheckBox end3 = v.findViewById(R.id.end_3);
+        final CheckBox end4 = v.findViewById(R.id.end_4);
+        final CheckBox end5 = v.findViewById(R.id.end_5);
+        final CheckBox end6 = v.findViewById(R.id.end_6);
+        final CheckBox end7 = v.findViewById(R.id.end_7);
+        final CheckBox end8 = v.findViewById(R.id.end_8);
+        final CheckBox end9 = v.findViewById(R.id.end_9);
+        final CheckBox end10 = v.findViewById(R.id.end_10);
+        end1.setOnCheckedChangeListener(end);
+        end2.setOnCheckedChangeListener(end);
+        end3.setOnCheckedChangeListener(end);
+        end4.setOnCheckedChangeListener(end);
+        end5.setOnCheckedChangeListener(end);
+        end6.setOnCheckedChangeListener(end);
+        end7.setOnCheckedChangeListener(end);
+        end8.setOnCheckedChangeListener(end);
+        end9.setOnCheckedChangeListener(end);
+        end10.setOnCheckedChangeListener(end);
 
-
-
-                AlertDialog.Builder twoDialog = new AlertDialog.Builder(DriverMainActivity.this);
-                twoDialog.setTitle("這是疊上去的AlertDialog");
-                twoDialog.setMessage(temp.getName() + "\n" + temp.getStart() + "\n" + temp.getEnd() + "\n"
-                        + temp.getStarttime() + "\n"+ temp.getEndtime() + "\n" + temp.getGneder() + "\n" + temp.getHelmet() + "\n"  + temp.getFee()
-                        + "\n" +day[0]+day[1]+day[2]+day[3]+day[4]+day[5]+day[6] );
-                twoDialog.setPositiveButton("瞭解", (new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog1, int which) {
-                        dialog.dismiss();
-                    }
-                }));
-
-                twoDialog.show();
-                addSetting.addSetting(temp);
-
-            }
-
-        }));
-        btC.setOnClickListener((new View.OnClickListener() {
-            @Override
-            public void onClick(View v1) {
-                dialog.dismiss();
-            }
-        }));
 
         //time
         et_startTime = v.findViewById(R.id.et_startTime);
@@ -219,6 +337,7 @@ public class DriverMainActivity extends AppCompatActivity  {
                     calendar.setTime(startTime);
                     pvTime.setDate(calendar);
                     pvTime.show(v1);
+
                 }
             }
         }));
@@ -235,9 +354,196 @@ public class DriverMainActivity extends AppCompatActivity  {
         }));
 
         initTimePicker();
+
+        btOK.setOnClickListener((new View.OnClickListener() {
+            @Override
+            public void onClick(View v1) {
+                final Editable Temp;
+
+                event_name = String.valueOf(name.getText());
+                String mm = editText_Money.getText().toString();
+
+                ArrayList<String> acc_time_interval = new ArrayList<>();
+                ArrayList<String> acc_start_pts = new ArrayList<>();
+                ArrayList<String> acc_end_pt = new ArrayList<>();
+                acc_time_interval.add(et_startTime.getText().toString());
+                acc_time_interval.add(et_endTime.getText().toString());
+                if (st1.isChecked()) acc_start_pts.add(st1.getText().toString());
+                if (st2.isChecked()) acc_start_pts.add(st2.getText().toString());
+                if (st3.isChecked()) acc_start_pts.add(st3.getText().toString());
+                if (st4.isChecked()) acc_start_pts.add(st4.getText().toString());
+                if (st5.isChecked()) acc_start_pts.add(st5.getText().toString());
+                if (st6.isChecked()) acc_start_pts.add(st6.getText().toString());
+                if (st7.isChecked()) acc_start_pts.add(st7.getText().toString());
+                if (st8.isChecked()) acc_start_pts.add(st8.getText().toString());
+                if (st9.isChecked()) acc_start_pts.add(st9.getText().toString());
+                if (st10.isChecked()) acc_start_pts.add(st10.getText().toString());
+
+                if (end1.isChecked()) acc_end_pt.add(end1.getText().toString());
+                if (end2.isChecked()) acc_end_pt.add(end2.getText().toString());
+                if (end3.isChecked()) acc_end_pt.add(end3.getText().toString());
+                if (end4.isChecked()) acc_end_pt.add(end4.getText().toString());
+                if (end5.isChecked()) acc_end_pt.add(end5.getText().toString());
+                if (end6.isChecked()) acc_end_pt.add(end6.getText().toString());
+                if (end7.isChecked()) acc_end_pt.add(end7.getText().toString());
+                if (end8.isChecked()) acc_end_pt.add(end8.getText().toString());
+                if (end9.isChecked()) acc_end_pt.add(end9.getText().toString());
+                if (end10.isChecked()) acc_end_pt.add(end10.getText().toString());
+
+
+                String ww = editText_Weught.getText().toString();
+
+                String gg = String.valueOf(gender);
+
+                if (event_name.equals("") || mm.equals("") || ww.equals("") || acc_start_pts.size() < 1 || acc_end_pt.size() < 1
+                        || acc_time_interval.size() < 2 || gg.equals("")) {
+                    Toast.makeText(DriverMainActivity.this, "欄位不可為空", Toast.LENGTH_SHORT).show();
+                } else {
+                    money = Integer.parseInt(mm);
+                    weight = Integer.parseInt(ww);
+                    System.out.println(money + weight + gender);
+                    ArrayList<Boolean> repeat = new ArrayList<>();
+
+                    for (boolean b : day) {
+                        repeat.add(b);
+                    }
+
+                    System.out.println(user_id);
+                    Event e = new Event(event_name, "white", user_id
+                            , acc_time_interval
+                            , acc_start_pts
+                            , acc_end_pt
+                            , gender, weight, money, ishamlet, repeat);
+                    System.out.println("event_name" + event_name);
+                    System.out.println("status" + "white");
+                    System.out.println("user_id" + user_id);
+                    System.out.println("acc_time_interval" + acc_time_interval);
+                    System.out.println("acc_start_pts" + acc_start_pts);
+                    System.out.println("acc_end_pt" + acc_end_pt);
+                    System.out.println("gender" + gender);
+                    System.out.println("weight" + weight);
+                    System.out.println("money" + money);
+                    System.out.println("ishamlet" + ishamlet);
+                    System.out.println("repeat" + repeat);
+                    call_alert(e);
+                    dialog.dismiss();
+                }
+            }
+        }));
+        btC.setOnClickListener((new View.OnClickListener() {
+            @Override
+            public void onClick(View v1) {
+                dialog.dismiss();
+            }
+        }));
+    }
+
+    private void call_insert_event(Event e) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://140.121.197.130:5602/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        RetrofitManagerAPI retrofitManagerAPI = retrofit.create(RetrofitManagerAPI.class);
+        Call<Ack> call = retrofitManagerAPI.newEvent(e);
+        call.enqueue(new Callback<Ack>() {
+            @Override
+            public void onResponse(Call<Ack> call, Response<Ack> response) {
+                if (!response.isSuccessful()) {
+                    Log.d("add", "new event error");
+                }
+                Ack ack = response.body();
+                if (ack.isSuccess()) {
+                    Toast.makeText(DriverMainActivity.this, "新增成功", Toast.LENGTH_SHORT).show();
+                    DriverMainActivity.this.recreate();
+                } else {
+                    Toast.makeText(DriverMainActivity.this, "新增失敗", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Ack> call, Throwable t) {
+                Log.d("add", "new event server error");
+            }
+        });
+    }
+
+    private void call_alert(Event e) {
+        Retrofit check_alert = new Retrofit.Builder()
+                .baseUrl("http://140.121.197.130:5602/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        RetrofitManagerAPI retrofitManagerAPI = check_alert.create(RetrofitManagerAPI.class);
+        Call<Ack> call = retrofitManagerAPI.alertInterval(user_id, e.getAcceptable_time_interval().get(0), e.getAcceptable_time_interval().get(1));
+
+        System.out.println("calling alert : next3 line");
+        System.out.println("user_id " + user_id);
+        System.out.println("time1" + e.getAcceptable_time_interval().get(0));
+        System.out.println("time2" + e.getAcceptable_time_interval().get(1));
+
+
+        call.enqueue(new Callback<Ack>() {
+            @Override
+            public void onResponse(Call<Ack> call, Response<Ack> response) {
+                if (!response.isSuccessful()) {
+
+                }
+                if (response.body().isSuccess()) {
+                    call_insert_event(e);
+                } else {
+                    //todo: 警告的alert dialog
+                    android.app.AlertDialog.Builder alertCheck = new android.app.AlertDialog.Builder(DriverMainActivity.this);
+                    alertCheck.setTitle("該事件與您其他事件的時間重疊或過於接近!");
+                    String overlap_event_names = response.body().getReason();
+                    overlap_event_names = overlap_event_names.replace(" ", "\n");
+                    alertCheck.setMessage("是否要繼續進行?\n\n~~~~事件名稱~~~~~\n" + overlap_event_names);
+                    alertCheck.setPositiveButton("繼續", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            call_insert_event(e);
+                        }
+                    });
+                    alertCheck.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    });
+                    alertCheck.show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Ack> call, Throwable t) {
+
+            }
+        });
     }
 
 
+    private final CompoundButton.OnCheckedChangeListener st = new CompoundButton.OnCheckedChangeListener() { //实例化一个cb
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            if (isChecked) {
+                System.out.println(buttonView.getText());
+//                acc_start_pts.add(String.valueOf(buttonView.getText()));
+            }
+        }
+    };
+    private final CompoundButton.OnCheckedChangeListener end = new CompoundButton.OnCheckedChangeListener() { //实例化一个cb
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            if (isChecked) {
+                System.out.println(buttonView.getText());
+//                acc_end_pt.add(String.valueOf(buttonView.getText()));
+            }
+        }
+    };
+
+    private void refresh() {
+        Intent intent = new Intent(DriverMainActivity.this, DriverMainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+    }
 
     private void initTimePicker() {
 
@@ -245,12 +551,12 @@ public class DriverMainActivity extends AppCompatActivity  {
             @Override
             public void onTimeSelect(Date date, View v) {
                 //如果是開始時間的EditText
-                if(v.getId() == R.id.et_startTime){
+                if (v.getId() == R.id.et_startTime) {
                     startTime = date;
-                }else {
+                } else {
                     endTime = date;
                 }
-                EditText editText = (EditText)v;
+                EditText editText = (EditText) v;
                 editText.setText(getTime(date));
             }
         })
@@ -287,27 +593,9 @@ public class DriverMainActivity extends AppCompatActivity  {
 
     private String getTime(Date date) {//可根據需要自行擷取資料顯示
         Log.d("getTime()", "choice date millis: " + date.getTime());
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH");
+        SimpleDateFormat format = new SimpleDateFormat("YYYY-MM-dd HH:mm");
         return format.format(date);
     }
 
-    private final CompoundButton.OnCheckedChangeListener checkBoxOnCheckedChange =
-            new CompoundButton.OnCheckedChangeListener() {
-                int i = 0;
 
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) { //buttonView 為目前觸發此事件的 CheckBox, isChecked 為此 CheckBox 目前的選取狀態
-                    if (isChecked)//等於 buttonView.isChecked()
-                    {
-                        Toast.makeText(getApplicationContext(), buttonView.getText() + " 被選取", Toast.LENGTH_LONG).show();
-                        //if((String) buttonView.getId()=="cb_1")i=1;
-                        i =(buttonView.getId())- 2131230817;
-                        day[i] = String.valueOf(buttonView.getText());
-                    } else {
-                        Toast.makeText(getApplicationContext(), buttonView.getText() + " 被取消", Toast.LENGTH_LONG).show();
-                        i =(buttonView.getId())- 2131230817;
-                        day[i] = null;
-                    }
-                }
-            };
 }

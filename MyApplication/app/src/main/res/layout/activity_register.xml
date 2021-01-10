@@ -1,176 +1,178 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".register">
+    tools:context=".login_model.registerActivity">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="#F1E189">
+        android:background="#97CBFF"
+        android:orientation="vertical">
 
         <!--    email_register    -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_marginLeft="30dp"
             android:layout_marginTop="30dp"
-            android:layout_marginRight="30dp">
+            android:layout_marginRight="30dp"
+            android:orientation="horizontal">
+
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="email"
                 android:textColor="#000000"
-                android:textSize="24sp">
-            </TextView>
+                android:textSize="24sp" />
+
             <EditText
                 android:id="@+id/email_register"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
-                android:hint="123456@gmail.com"
-                android:background="#FFFFFF"
-                android:textSize="24sp">
-            </EditText>
+                android:background="#ECECFF"
+                android:digits="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ@.@."
+                android:inputType="textEmailAddress"
+                android:textSize="24sp" />
         </LinearLayout>
 
         <!--    password_register    -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_marginLeft="30dp"
             android:layout_marginTop="30dp"
-            android:layout_marginRight="30dp">
+            android:layout_marginRight="30dp"
+            android:orientation="horizontal">
+
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="密碼"
-                android:textSize="24sp"
-                android:textColor="#000000">
-            </TextView>
+                android:textColor="#000000"
+                android:textSize="24sp" />
+
             <EditText
                 android:id="@+id/password_register"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
-                android:background="#FFFFFF"
-                android:textSize="24sp">
-            </EditText>
+                android:background="#ECECFF"
+                android:inputType="textPassword"
+                android:textSize="24sp" />
         </LinearLayout>
 
         <!--    weight_register    -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_marginLeft="30dp"
             android:layout_marginTop="30dp"
-            android:layout_marginRight="30dp">
+            android:layout_marginRight="30dp"
+            android:orientation="horizontal">
+
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="體重"
-                android:textSize="24sp"
-                android:textColor="#000000">
-            </TextView>
+                android:textColor="#000000"
+                android:textSize="24sp" />
+
             <EditText
                 android:id="@+id/weight_register"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
-                android:background="#FFFFFF"
-                android:hint="45"
-                android:gravity="center"
-                android:textSize="24sp">
-            </EditText>
+                android:background="#ECECFF"
+                android:inputType="number"
+                android:textSize="24sp" />
         </LinearLayout>
 
         <!--    phone_register    -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_marginLeft="30dp"
             android:layout_marginTop="30dp"
-            android:layout_marginRight="30dp">
+            android:layout_marginRight="30dp"
+            android:orientation="horizontal">
+
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="手機"
-                android:textSize="24sp"
-                android:textColor="#000000">
-            </TextView>
+                android:textColor="#000000"
+                android:textSize="24sp" />
+
             <EditText
                 android:id="@+id/phone_register"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
-                android:background="#FFFFFF"
-                android:hint="0921212121"
-                android:gravity="center"
-                android:textSize="24sp">
-            </EditText>
+                android:background="#ECECFF"
+                android:inputType="number"
+                android:textSize="24sp" />
         </LinearLayout>
 
         <!--    nickname_register    -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_marginLeft="30dp"
             android:layout_marginTop="30dp"
-            android:layout_marginRight="30dp">
+            android:layout_marginRight="30dp"
+            android:orientation="horizontal">
+
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="暱稱"
-                android:textSize="24sp"
-                android:textColor="#000000">
-            </TextView>
+                android:textColor="#000000"
+                android:textSize="24sp" />
+
             <EditText
                 android:id="@+id/nickname_register"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
-                android:background="#FFFFFF"
-                android:hint="峻峻"
-                android:gravity="center"
-                android:textSize="24sp">
-            </EditText>
+                android:background="#ECECFF"
+                android:inputType="text"
+                android:textSize="24sp" />
         </LinearLayout>
+
 
         <!--    gender    -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_marginLeft="30dp"
             android:layout_marginTop="30dp"
-            android:layout_marginRight="30dp">
+            android:layout_marginRight="30dp"
+            android:orientation="horizontal">
+
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="性別"
-                android:textSize="24sp"
-                android:textColor="#000000">
-            </TextView>
+                android:textColor="#000000"
+                android:textSize="24sp" />
+
             <RadioGroup
                 android:id="@+id/gender"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
                 android:orientation="horizontal">
+
                 <RadioButton
                     android:id="@+id/gender_man"
                     android:layout_width="wrap_content"
@@ -178,18 +180,17 @@
                     android:layout_marginLeft="30dp"
                     android:checked="true"
                     android:text="男"
-                    android:textSize="24sp"
-                    android:textColor="#000000">
-                </RadioButton>
+                    android:textColor="#000000"
+                    android:textSize="24sp" />
+
                 <RadioButton
                     android:id="@+id/gender_woman"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="50dp"
                     android:text="女"
-                    android:textSize="24sp"
-                    android:textColor="#000000">
-                </RadioButton>
+                    android:textColor="#000000"
+                    android:textSize="24sp" />
             </RadioGroup>
         </LinearLayout>
 
@@ -197,32 +198,31 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="40dp">
+            android:layout_marginTop="40dp"
+            android:orientation="horizontal">
 
             <!--    cancel    -->
-            <TextView
+            <Button
                 android:id="@+id/cancel_register"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="80dp"
-                android:background="#FFFFFF"
+                android:background="#ECECFF"
                 android:text="cancel"
-                android:textSize="30sp"
-                android:textColor="#000000">
-            </TextView>
+                android:textColor="#000000"
+                android:textSize="20sp" />
 
             <!--    verify    -->
-            <TextView
+            <Button
                 android:id="@+id/verify_register"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="100dp"
-                android:background="#FFFFFF"
+                android:background="#ECECFF"
                 android:text="verify"
-                android:textSize="30sp"
-                android:textColor="#000000">
-            </TextView>
+                android:textColor="#000000"
+                android:textSize="20sp" />
+
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

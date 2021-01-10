@@ -2,44 +2,65 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/searchBackground"
     android:orientation="vertical">
 
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="32dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/searchBackground"
+            android:layout_marginRight="15dp"
+            android:text="起點" />
+
+        <Spinner
+            android:id="@+id/sp_pt_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/searchBackground" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="32dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/searchBackground"
+            android:layout_marginRight="15dp"
+            android:text="終點" />
+
+        <Spinner
+            android:id="@+id/sp_pt_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/searchBackground" />
+    </LinearLayout>
 
     <EditText
-        android:id="@+id/pt_start"
+        android:id="@+id/et_driver_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="32dp"
         android:layout_marginTop="16dp"
         android:layout_marginRight="32dp"
-        android:layout_marginBottom="16dp"
         android:background="@drawable/edit_text_radius"
         android:drawableStart="@drawable/ic_baseline_search_24"
         android:drawableLeft="@drawable/ic_baseline_search_24"
         android:fontFamily="sans-serif-light"
-        android:hint="輸入起點"
-        android:paddingStart="8dp"
-        android:paddingLeft="8dp"
-        android:singleLine="true"
-        android:textColor="@color/searchText"
-        android:textColorHint="@color/searchHint"
-        android:textSize="18sp" />
-
-    <EditText
-        android:id="@+id/pt_end"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginRight="32dp"
-        android:layout_marginBottom="16dp"
-        android:background="@drawable/edit_text_radius"
-        android:drawableStart="@drawable/ic_baseline_search_24"
-        android:drawableLeft="@drawable/ic_baseline_search_24"
-        android:fontFamily="sans-serif-light"
-        android:hint="輸入終點"
+        android:hint="輸入司機姓名"
         android:paddingStart="8dp"
         android:paddingLeft="8dp"
         android:singleLine="true"

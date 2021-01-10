@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <RadioGroup
+        android:id="@+id/rg_place"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="選擇一個地點" />
+            <RadioButton
+                android:id="@+id/rb_place_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="全聯福利中心 基隆中正店"
+                android:textColor="#FF6600"
+                android:textSize="18sp" />
+
+            <RadioButton
+                android:id="@+id/rb_place_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/rb_place_1"
+                android:text="正宗永和豆漿"
+                android:textColor="#FF6600"
+                android:textSize="18sp" />
+
+            <RadioButton
+                android:id="@+id/rb_place_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/rb_place_2"
+                android:text="海大(样豐校門)"
+                android:textColor="#FF6600"
+                android:textSize="18sp" />
+
+            <RadioButton
+                android:id="@+id/rb_place_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/rb_place_3"
+                android:text="海大(濱海校門)"
+                android:textColor="#FF6600"
+                android:textSize="18sp" />
+
+            <RadioButton
+                android:id="@+id/rb_place_5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/rb_place_4"
+                android:text="國立臺灣海洋大學附屬基隆海事高級中等學校"
+                android:textColor="#FF6600"
+                android:textSize="18sp" />
+
+            <RadioButton
+                android:id="@+id/rb_place_6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/rb_place_5"
+                android:text="貴族世家 海洋大學店"
+                android:textColor="#FF6600"
+                android:textSize="18sp" />
+
+            <RadioButton
+                android:id="@+id/rb_place_7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/rb_place_6"
+                android:text="麥當勞-基隆新豐店"
+                android:textColor="#FF6600"
+                android:textSize="18sp" />
+
+            <RadioButton
+                android:id="@+id/rb_place_8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/rb_place_7"
+                android:text="愛買基隆店"
+                android:textColor="#FF6600"
+                android:textSize="18sp" />
+
+            <RadioButton
+                android:id="@+id/rb_place_9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/rb_place_8"
+                android:text="基隆車站"
+                android:textColor="#FF6600"
+                android:textSize="18sp" />
+
+            <RadioButton
+                android:id="@+id/rb_place_10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/rb_place_9"
+                android:text="姚家清魚湯"
+                android:textColor="#FF6600"
+                android:textSize="18sp" />
+    </RadioGroup>
+
+</LinearLayout>
