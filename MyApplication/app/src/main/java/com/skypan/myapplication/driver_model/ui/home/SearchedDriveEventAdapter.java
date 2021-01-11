@@ -227,7 +227,7 @@ public class SearchedDriveEventAdapter extends RecyclerView.Adapter<SearchedDriv
                     if (e.getStatus().equals("white")) {
                         if (e.getAll_request().size() == 0) {
                             AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
-
+                            alertDialog.setTitle("事件資訊");
                             final View content_layout = LayoutInflater.from(mContext).inflate(R.layout.change_request, null);
                             EditText name = content_layout.findViewById(R.id.change_name);
                             EditText money = content_layout.findViewById(R.id.change_money);
@@ -374,6 +374,7 @@ public class SearchedDriveEventAdapter extends RecyclerView.Adapter<SearchedDriv
 
 
                         final View content_layout = LayoutInflater.from(mContext).inflate(R.layout.driver_main_event_detail, null);
+                        alertDialog.setTitle("乘客資訊");
 
                         TextView foo;
                         foo = content_layout.findViewById(R.id.tv_1);
