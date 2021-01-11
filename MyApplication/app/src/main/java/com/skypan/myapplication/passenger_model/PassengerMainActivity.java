@@ -7,8 +7,10 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
@@ -20,7 +22,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.skypan.myapplication.R;
-import com.skypan.myapplication.inform.FCMNotify;
+import com.skypan.myapplication.driver_model.DriverMainActivity;
+import com.skypan.myapplication.inform.My_inform;
 import com.skypan.myapplication.login_model.loginActivity;
 
 public class PassengerMainActivity extends AppCompatActivity {
@@ -32,14 +35,20 @@ public class PassengerMainActivity extends AppCompatActivity {
     private NavigationView navigationView;
     private AppBarConfiguration appBarConfiguration;
     private NavController navController;
-//    private Button button;
+    private ImageView img_notify;
+
+    //    private Button button;
     @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_passenger_main);
         Intent intent = getIntent();
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         user_id = intent.getStringExtra("user_id");
         Log.d("user_id", user_id);
+        img_notify = findViewById(R.id.img_notify);
         //find views
         btn_search = findViewById(R.id.search);
         btn_logout = findViewById(R.id.btn_logout);
@@ -72,7 +81,13 @@ public class PassengerMainActivity extends AppCompatActivity {
                 finish();
             }
         });
-
+        img_notify.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent go_to_inform = new Intent(PassengerMainActivity.this, My_inform.class);
+                startActivity(go_to_inform);
+            }
+        });
         appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.passengerHomeFragment)//頂級目的地(漢寶寶)，非頂級就會變箭頭
                 .setDrawerLayout(drawerLayout)

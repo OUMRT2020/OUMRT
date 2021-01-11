@@ -65,7 +65,7 @@ public class SearchEventsActivity extends AppCompatActivity {
     private EditText et_driver_name;
     private Spinner sp_pt_start, sp_pt_end;
     String[] pts = new String[]{"全聯福利中心 基隆中正店", "正宗永和豆漿", "海大(栙豐校門)", "海大(濱海校門)", "國立台灣海洋大學附屬基隆海事高級中等學院", "貴族世家 海洋大學店", "麥當勞-基隆新豐店", "愛買基隆店", "基隆車站", "姚家清魚湯"};
-
+    private androidx.appcompat.app.ActionBar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,7 +79,8 @@ public class SearchEventsActivity extends AppCompatActivity {
         et_driver_name = findViewById(R.id.et_driver_name);
         sp_pt_start = findViewById(R.id.sp_pt_start);
         sp_pt_end = findViewById(R.id.sp_pt_end);
-
+        toolbar = getSupportActionBar();
+        toolbar.setDisplayHomeAsUpEnabled(true);
         ArrayAdapter<String> adapter_pt = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, pts);
         adapter_pt.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sp_pt_start.setAdapter(adapter_pt);
@@ -253,5 +254,11 @@ public class SearchEventsActivity extends AppCompatActivity {
     private String getTime(Date date) {//可根據需要自行擷取資料顯示
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         return format.format(date);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 }
