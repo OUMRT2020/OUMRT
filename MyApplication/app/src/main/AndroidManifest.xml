@@ -32,7 +32,10 @@
         <activity android:name=".login_model.loginActivity" />
         <activity android:name=".login_model.forget_password" />
         <activity android:name=".passenger_model.SearchEventsActivity" />
-        <activity android:name=".passenger_model.PassengerMainActivity" />
+        <activity
+            android:name=".passenger_model.PassengerMainActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".driver_model.DriverMainActivity"
             android:label="@string/app_name"
