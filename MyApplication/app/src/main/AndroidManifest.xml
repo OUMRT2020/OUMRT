@@ -15,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".inform.My_inform"></activity>
+        <activity android:name=".inform.My_inform" />
         <activity android:name=".personal_information_model.edit_personal_informationActivity" />
         <activity android:name=".personal_information_model.personal_informationActivity" />
         <activity android:name=".personal_information_model.check_logoutActivity" />
