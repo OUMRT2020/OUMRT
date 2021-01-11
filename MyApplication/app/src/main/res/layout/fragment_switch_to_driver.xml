@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
+    android:background="#97CBFF"
     android:orientation="vertical">
 
 
@@ -16,7 +17,7 @@
         android:id="@+id/btn_switch_to_driver"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:background="@color/colorAccent"
+        android:background="#FFFFFF"
         android:text="切換為司機身分" />
 
 </LinearLayout>

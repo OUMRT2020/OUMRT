@@ -18,6 +18,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
@@ -42,7 +43,7 @@ import com.skypan.myapplication.R;
 import com.skypan.myapplication.Retrofit.Ack;
 import com.skypan.myapplication.Retrofit.Event;
 import com.skypan.myapplication.Retrofit.RetrofitManagerAPI;
-import com.skypan.myapplication.inform.FCMNotify;
+import com.skypan.myapplication.inform.My_inform;
 import com.skypan.myapplication.login_model.loginActivity;
 
 import java.text.SimpleDateFormat;
@@ -73,8 +74,10 @@ public class DriverMainActivity extends AppCompatActivity {
     private boolean ishamlet = true;
     private Button btn_logout;
     private DrawerLayout driver_drawer;
+    private ImageView img_notify;
 
     @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_driver_main);
@@ -83,6 +86,7 @@ public class DriverMainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         btn_logout = findViewById(R.id.btn_logout);
         driver_drawer = findViewById(R.id.drawer_layout);
+        img_notify = findViewById(R.id.img_notify);
         setSupportActionBar(toolbar);
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -113,6 +117,13 @@ public class DriverMainActivity extends AppCompatActivity {
                 Intent goBackLogin = new Intent(DriverMainActivity.this, loginActivity.class);
                 startActivity(goBackLogin);
                 finish();
+            }
+        });
+        img_notify.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent go_to_inform = new Intent(DriverMainActivity.this, My_inform.class);
+                startActivity(go_to_inform);
             }
         });
     }
