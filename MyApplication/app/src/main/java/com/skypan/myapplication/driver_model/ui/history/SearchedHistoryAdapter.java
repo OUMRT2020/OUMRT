@@ -57,9 +57,9 @@ public class SearchedHistoryAdapter extends RecyclerView.Adapter<SearchedHistory
         holder.event_name.setText(e.getEvent_name());
         holder.event_time.setText(e.getFinal_request().getActual_time());
         if (e.getStatus().equals("red")) {
-            holder.itemView.setBackgroundColor(Color.parseColor("#FF0000"));
+            holder.itemView.setBackgroundColor(Color.parseColor("#ffb3b3"));
         } else if (e.getStatus().equals("gray")) {
-            holder.itemView.setBackgroundColor(Color.parseColor("#808080"));
+            holder.itemView.setBackgroundColor(Color.parseColor("#D3D3D3"));
         }
         if ((e.getIs_rated() == 3) || (e.getIs_rated() == 1 && e.getDriver_id().equals(mUserid)) || (e.getIs_rated() == 2 && e.getPassenger_id().equals(mUserid))) {
             holder.event_rate.setEnabled(false);

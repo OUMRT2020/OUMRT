@@ -1,5 +1,7 @@
 package com.skypan.myapplication.Retrofit;
 
+import java.text.DecimalFormat;
+
 public class Rate {
     private double score;
     private int times;
@@ -10,7 +12,8 @@ public class Rate {
     }
 
     public double getScore() {
-        return score;
+        DecimalFormat df = new DecimalFormat("0.00");
+        return Double.parseDouble(df.format(score));
     }
 
     public int getTimes() {
