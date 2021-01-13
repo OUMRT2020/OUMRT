@@ -86,6 +86,8 @@ public class registerActivity extends AppCompatActivity {
                     } else {
                         // 跳轉到認證信箱(註冊的)頁面
                         // 寄出認證碼
+                        Toast.makeText(registerActivity.this, "send", Toast.LENGTH_SHORT).show();
+
                         Retrofit retrofit = new Retrofit.Builder()
                                 .addConverterFactory(GsonConverterFactory.create())
                                 .baseUrl("http://140.121.197.130:5602/")
@@ -96,6 +98,7 @@ public class registerActivity extends AppCompatActivity {
                             @Override
                             public void onResponse(Call<Ack> call, Response<Ack> response) {
                                 if (!response.isSuccessful()) {
+                                    Toast.makeText(registerActivity.this, "response", Toast.LENGTH_SHORT).show();
 
                                 } else {
                                     if (!response.body().isSuccess()) {

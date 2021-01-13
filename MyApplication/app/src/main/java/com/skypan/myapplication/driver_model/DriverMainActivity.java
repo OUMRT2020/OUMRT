@@ -20,6 +20,7 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -75,6 +76,7 @@ public class DriverMainActivity extends AppCompatActivity {
     private Button btn_logout;
     private DrawerLayout driver_drawer;
     private ImageView img_notify;
+    private RadioGroup rg_helmet, rg_gender;
 
     @Override
 
@@ -169,7 +171,8 @@ public class DriverMainActivity extends AppCompatActivity {
         alertDialog.setView(v);
         Button btOK = v.findViewById(R.id.button_ok);
         Button btC = v.findViewById(R.id.buttonCancel);
-
+        rg_gender = v.findViewById(R.id.rg_gender);
+        rg_helmet = v.findViewById(R.id.rg_helmet);
 
         final EditText name = v.findViewById(R.id.name);
         final EditText editText_startTime = v.findViewById(R.id.et_startTime);
@@ -185,36 +188,68 @@ public class DriverMainActivity extends AppCompatActivity {
         final EditText editText_Money = v.findViewById(R.id.et_money);
 
         final EditText editText_Weught = v.findViewById(R.id.et_weight);
+        rg_gender.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                if (mRg1.getId() == i) {
+                    gender = 0;
+                    System.out.println(0);
+
+                } else if (mRg2.getId() == i) {
+                    gender = 1;
+                    System.out.println(1);
+
+                } else {
+                    gender = 2;
+                    System.out.println(2);
+
+                }
+            }
+        });
+        rg_helmet.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                if (mRg3.getId() == i) {
+                    ishamlet = true;
+                    System.out.println(3);
+
+                } else {
+                    ishamlet = false;
+                    System.out.println(4);
+
+                }
+            }
+        });
         //radiobutton
         {
             mRg1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                    gender = 0;
+//                    gender = 0;
                 }
             });
             mRg2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                    gender = 1;
+//                    gender = 1;
                 }
             });
             mRgnull.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                    gender = 2;
+//                    gender = 2;
                 }
             });
             mRg3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                    ishamlet = true;
+//                    ishamlet = true;
                 }
             });
             mRg4.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                    ishamlet = false;
+//                    ishamlet = false;
                 }
             });
         }
@@ -419,7 +454,7 @@ public class DriverMainActivity extends AppCompatActivity {
                         repeat.add(b);
                     }
 
-                    System.out.println(user_id);
+//                    System.out.println(user_id);
                     Event e = new Event(event_name, "white", user_id
                             , acc_time_interval
                             , acc_start_pts
